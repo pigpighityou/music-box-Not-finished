@@ -1,29 +1,31 @@
 # 16music-box
 
-This template should help get you started developing with Vue 3 in Vite.
+## 用vscode等ide打开
 
-## Recommended IDE Setup
+## 终端安装node =>npm install   (yarn也行)
 
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur) + [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin).
+## 终端安装数据服务器
 
-## Customize configuration
 
-See [Vite Configuration Reference](https://vitejs.dev/config/).
+```markdown
+    $ git clone git@github.com:Binaryify/NeteaseCloudMusicApi.git
+    $ cd NeteaseCloudMusicApi
+    $ npm install
 
-## Project Setup
 
-```sh
-yarn
 ```
 
-### Compile and Hot-Reload for Development
+## 运行服务器
 
-```sh
-yarn dev
+```markdown
+    $ node app.js
+
 ```
 
-### Compile and Minify for Production
+## 运行项目
 
-```sh
-yarn build
-```
+
+
+
+
+
