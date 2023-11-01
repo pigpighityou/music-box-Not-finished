@@ -17,7 +17,7 @@ let hotSingerList=reactive({
         try{
             hotSingerAPI=await getHotSinger()
             hotSingerList.artists=hotSingerAPI.data.artists
-           /*   console.log('ok',hotSingerList.artists)  */
+            /*   console.log('ok',hotSingerList.artists)   */
         }
         catch(err){
             console.log(err)
@@ -67,7 +67,7 @@ const onClickLeft = () => {
                   
                 </div>
 
-                <router-link to="/listSinger">
+                <router-link :to="{name:'listSinger',params:{id:item.id}}">
                     <div class="img">
                     <img :src="item.picUrl" alt="pic" class="pic">
                 </div>

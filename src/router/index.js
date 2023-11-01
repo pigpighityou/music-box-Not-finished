@@ -63,6 +63,16 @@ const routes = [
 
 },
 {
+    path:'/listSinger/:id',
+    name:'listSinger',
+    components:{
+        default:() => import('../components/public/listSinger.vue'),
+        footBar:() => import('../components/public/footBar.vue'),   
+    },
+
+},
+
+{
     path:'/hotListSinger',
     name:'hotListSong',
     components:{

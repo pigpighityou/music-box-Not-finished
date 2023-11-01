@@ -180,9 +180,10 @@ const onClickLeft = () => history.back();
 
                 
                       <div class="songAuthor" v-for="(item1, index1) in item.ar" :key="index1">
-                      <div class="judge" >
+                        
+                      
                         {{ item1.name  }}
-                      </div>
+                      
               
   
               
@@ -303,11 +304,15 @@ const onClickLeft = () => history.back();
   flex-direction: row;
   
   font-size: 3vw;
-  max-width: 40vw;
+
+  text-overflow: ellipsis;
   overflow: hidden;
+ 
  
 
 }
+
+
 
 
 .pic{
@@ -465,14 +470,15 @@ const onClickLeft = () => history.back();
     padding-right: 2vw;
     margin-right: 2vw;
     max-height: 4vw;
-    max-width: 30vw;
- 
+     max-width: 30vw; 
+    text-overflow: ellipsis;
     overflow: hidden;
+    text-align: center;
 }
 
 .album{
   display: inline-block;
-  
+    text-overflow: ellipsis;
     padding-right: 1vw;
     margin-left: 4vw;
     width: 40vw;
@@ -491,7 +497,7 @@ const onClickLeft = () => history.back();
   
   margin-top: 1.4vw;
   font-size: 3vw;
-  max-width: 70vw;
+  /* max-width: 70vw; */
   overflow: hidden;
   text-align: center;
  

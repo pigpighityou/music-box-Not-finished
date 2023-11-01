@@ -17,7 +17,7 @@ let hotSingerList=reactive({
         try{
             hotSingerAPI=await getHotSinger()
             hotSingerList.artists=hotSingerAPI.data.artists
-            /* console.log('ok',hotSingerList.artists) */
+            /*  console.log('ok',hotSingerList.artists)  */
         }
         catch(err){
             console.log(err)
@@ -46,7 +46,7 @@ const singerList = computed(
 
 <template>
 
-    <router-link to="/hotListSinger">
+    <router-link to="/hotListSinger" >
         <div class="hotSingerWrapper">
     
     <div class="title">
