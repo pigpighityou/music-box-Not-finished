@@ -112,7 +112,10 @@ const userSongList=reactive({
                     <div class="judge" v-if="item.specialType!=5&&item.ordered===false">
 
                         <div class="picture">
+                            <router-link :to="{name:'listSong',params:{id:item.id}}">
+                          
                                 <img :src="item.coverImgUrl||userDetail.failImages[0]" alt="pic" class="pic">
+                            </router-link>
                             </div>
 
                             <div class="songlistInfo">
@@ -150,8 +153,12 @@ const userSongList=reactive({
                     <div class="judge" v-if="item.ordered===true">
 
                     <div class="picture">
+
+                        <router-link :to="{name:'listSong',params:{id:item.id}}" v-loading.fullscreen.lock="fullscreenLoading" @click="clickHandler()">
+              
                             <img :src="item.coverImgUrl||userDetail.failImages[0]" alt="pic" class="pic">
-                        </div>
+                        </router-link>
+                    </div>
 
                         <div class="songlistInfo">
 

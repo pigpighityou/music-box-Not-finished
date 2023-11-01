@@ -2,6 +2,12 @@
 import { getHotSinger } from '../../../axios/routes/hotSingerAPI';
 import {ref,reactive,onMounted,computed} from 'vue'
 
+import {useRouter,useRoute} from 'vue-router'
+
+const router=useRouter()
+const route=useRoute()
+
+
 let hotSingerAPI
 let hotSingerList=reactive({
     artists:[
@@ -37,7 +43,7 @@ const singerList = computed(
 )
 
 const onClickLeft = () => {
-   history.back()
+   router.push('/world')
   };
         
 
@@ -87,6 +93,7 @@ const onClickLeft = () => {
         </div>
         
 
+       
 
 
     </div>

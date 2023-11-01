@@ -359,7 +359,7 @@ const onClickLeft = () => history.back();
 
 .brief{
     width: 93vw;
-    height: 5vw;
+    height: 4.5vw;
     overflow: hidden;
 }
 

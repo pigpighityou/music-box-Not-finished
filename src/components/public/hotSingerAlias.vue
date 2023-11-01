@@ -44,7 +44,14 @@ let hotSingerList=reactive({
     <div class="hotSingerWrapper">
 
         <div class="hotSingerList" v-for="(item, index) in hotSingerList.artists" :key="index">
+            <router-link :to="{name:'listSinger',params:{id:item.id}}">
+                 
+
+                
+ 
+               
             <img :src="item.picUrl" alt="singer" class="singerImg">
+        </router-link>
             <div class="singerName">{{item.name}}</div>
             <div class="play">
                     <div class="icon"> 

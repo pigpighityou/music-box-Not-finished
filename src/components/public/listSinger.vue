@@ -9,8 +9,12 @@ import { getSingerHotSong } from '../../axios/routes/singerInfo';
 import { getSingerFans } from '../../axios/routes/singerInfo';
 import {getSingerSimi} from '../../axios/routes/singerInfo'
 
+
+
 import listAlbum from '../public/listAlbum.vue'
 import listMv from './listMv.vue';
+
+
 
 import { useRoute,useRouter } from 'vue-router';
 import router from '../../router';
@@ -20,6 +24,7 @@ import router from '../../router';
 
 
 const route=useRoute()
+
 
 
 const id=ref(route.params.id)
@@ -93,9 +98,21 @@ const singerSimi=reactive({
 /*   console.log('okSIMI',singerSimi.data); */
 })();
 
+/* console.log(history.state.back); */
+
+const onClickLeft = () => {
+  const reg=/^\/listSinger\/\d+$/
+  //  当上一个路由是/listsinger/：num ，
+      // 换言之是通过查找相似歌手页面跳转的，返回大世界
+  if(reg.test(history.state.back)){
+    router.push('/world')
 
 
-const onClickLeft = () => router.push('/hotListSinger');
+
+}else{
+  router.go(-1)
+}
+}
 
 
 const isSimi=ref(false)
@@ -268,6 +285,7 @@ const direction = ref('btt')
 
       </van-tab>
           <van-tab title="歌曲">
+            
             <div class="listSongsWrapper">
 
 
@@ -352,8 +370,11 @@ const direction = ref('btt')
 
 
           </van-tab>
+
+
+
  
-            </van-tabs>
+          </van-tabs>
 
 
 

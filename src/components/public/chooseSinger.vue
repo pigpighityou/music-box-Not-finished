@@ -237,8 +237,14 @@ const button2Context=reactive([
 
     <div class="singerWrapper" v-for="(item, index) in singerRandomList.singerRandom.artists" :key="index" >
 
-<img :src="item.picUrl" alt="singer" class="singerImg" v-if="index<10">
-<div class="singerName" v-if="index<10">
+        <router-link :to="{name:'listSinger',params:{id:item.id}}">
+                 
+
+                <img :src="item.picUrl" alt="singer" class="singerImg" v-if="index<15">
+
+                </router-link>
+
+<div class="singerName" v-if="index<15">
 
     <div class="name">
         {{item.name}}
@@ -253,7 +259,7 @@ const button2Context=reactive([
 
 </div>
 
-<div v-if="index<10">
+<div v-if="index<15">
     <button class="button">
         关注
     </button>

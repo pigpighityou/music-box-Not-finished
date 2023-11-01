@@ -32,6 +32,7 @@ let hotChineseSingerList=reactive({
 
 
 
+
 </script>
 
 <template>
@@ -47,7 +48,12 @@ let hotChineseSingerList=reactive({
             <div class="hotSinger" v-if="index<5">
     
                  <div class="imgWrapper">
+                    <router-link :to="{name:'listSinger',params:{id:item.id}}">
+                 
+
+                
                     <img :src="item.img1v1Url" alt="hotSingerPic" class="img">
+                    </router-link>
                 </div>
 
                 <div class="artist">
