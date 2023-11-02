@@ -101,6 +101,7 @@ const routes = [
 
 
 
+
    
 
     {
@@ -190,6 +191,40 @@ const routes = [
             /* default: () => import('../components/homePage/public/publicComponent.vue'),
             radio: () => import('../components/homePage/radio.vue'), */
         },
+    },
+
+    {
+        path:'/recentSongs',
+        name:'recentSongs',
+        components:{
+            default:() => import('../components/mypage/user/components/recentSongs.vue'),
+            
+        },
+    },
+    {
+            path:'/storeItem',
+            name:'storeItem',
+            components:{
+                default:() => import('../components/public/storeItem.vue'),
+                
+            },
+
+    },
+    {
+        path:'/localStore',
+        name:'localStore',
+        components:{
+            default:() => import('../components/mypage/user/components/localStore.vue'),
+
+        },
+    },
+    {
+        path:'/storeRadio',
+        name:'storeRadio',
+        components:{
+            default:() => import('../components/mypage/user/components/storeRadio.vue'),
+        },
+
     },
 
 

@@ -1,6 +1,9 @@
 <script setup>
 
 
+
+
+
 </script>
 
 
@@ -10,35 +13,44 @@
     <div class="userListWrapper">
 
             <div class="components">
-                
+                   
                 <div class="component">
-
+                        <router-link to="/recentSongs">
                     <svg class="pic" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg" data-v-ea893728="" ><path fill="currentColor" d="M512 64a448 448 0 1 1 0 896 448 448 0 0 1 0-896zm0 832a384 384 0 0 0 0-768 384 384 0 0 0 0 768zm-48-247.616L668.608 512 464 375.616v272.768zm10.624-342.656 249.472 166.336a48 48 0 0 1 0 79.872L474.624 718.272A48 48 0 0 1 400 678.336V345.6a48 48 0 0 1 74.624-39.936z"></path></svg>
 
                     <div class="intro">最近播放</div>
+                        </router-link>
 
                 </div>
+                  
 
                 <div class="component">
+                        <router-link to="/storeItem">
 
+                       
                     <svg class="pic" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg" data-v-ea893728=""><path fill="currentColor" d="M283.84 867.84 512 747.776l228.16 119.936a6.4 6.4 0 0 0 9.28-6.72l-43.52-254.08 184.512-179.904a6.4 6.4 0 0 0-3.52-10.88l-255.104-37.12L517.76 147.904a6.4 6.4 0 0 0-11.52 0L392.192 379.072l-255.104 37.12a6.4 6.4 0 0 0-3.52 10.88L318.08 606.976l-43.584 254.08a6.4 6.4 0 0 0 9.28 6.72z"></path></svg>
 
                     <div class="intro">我的收藏</div>
+                        </router-link>
 
                 </div>
 
                 <div class="component">
 
+                <router-link to="/localStore">
+                        
                     <svg class='pic' viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg" data-v-ea893728=""><path fill="currentColor" d="M512 128 128 447.936V896h255.936V640H640v256h255.936V447.936z"></path></svg>
                     <div class="intro">本地歌曲</div>
+                </router-link>
 
                 </div>
 
                 <div class="component">
-
+                 <router-link to="/storeRadio">
+                    
                     <svg class="pic" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg" data-v-ea893728=""><path fill="currentColor" d="M480 704h160a64 64 0 0 0 64-64v-32h-96a32 32 0 0 1 0-64h96v-96h-96a32 32 0 0 1 0-64h96v-96h-96a32 32 0 0 1 0-64h96v-32a64 64 0 0 0-64-64H384a64 64 0 0 0-64 64v32h96a32 32 0 0 1 0 64h-96v96h96a32 32 0 0 1 0 64h-96v96h96a32 32 0 0 1 0 64h-96v32a64 64 0 0 0 64 64h96zm64 64v128h192a32 32 0 1 1 0 64H288a32 32 0 1 1 0-64h192V768h-96a128 128 0 0 1-128-128V192A128 128 0 0 1 384 64h256a128 128 0 0 1 128 128v448a128 128 0 0 1-128 128h-96z"></path></svg>
                     <div class="intro">我的播客</div>
-
+                </router-link>
                 </div>
 
                 
@@ -89,6 +101,7 @@
     margin-left: 5.5vw;
     margin-top: 3vw;
     margin-bottom: 2vw;
+    color: black;
 }
 
 
@@ -100,6 +113,7 @@
     line-height: 5vw;
     font-size: 3.8vw;
     margin-left:-0.5vw ;
+    color: black;  
 
 }
 

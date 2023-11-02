@@ -102,7 +102,7 @@ let dailyRecommandSongList=reactive({
     height: 50vw;
     display: flex;
     overflow: auto;
- 
+    
     font-size: 4vw;
     font-weight: bold;
     color: #000000;
@@ -115,41 +115,53 @@ let dailyRecommandSongList=reactive({
     display: flex;
     flex-direction: column;
     align-items: center;
-    min-height: 55vw;
+   
+    text-overflow: ellipsis;
     margin-left: 2vw;
     margin-right: 2vw;
     font-size: 4vw;
     font-weight: bold;
     color: #000000;
+  
+    max-width: 34vw;
+    min-height: 55vw;
+    max-height: 90vw;
+    
+    
+   
 }
 
 
 .dailyRecommandSongItemImg{
     width: 34vw;
     height: 34vw;
+    
     border-radius: 30%;
     border: 0.2vw solid #645151;
 }
 
 .dailyRecommandSongItemName{
-    width: 30vw;
-    height: 7vw;
+    
     margin-top: 1vw;
     margin-bottom: 1vw;
     overflow: auto;
      text-overflow:ellipsis;
-    white-space: nowrap; 
+     text-align: center;
+    flex-wrap: wrap;
+    max-width: 40vw;
+    min-height: 4vw;
 }
 
 .dailyRecommandSongItemArtist{
-    width: 30vw;
-    height: 7vw;
-    
+   
     margin-bottom: 0.5vw;
     font-weight: 300;
     overflow: auto;
     text-overflow:ellipsis;
-    white-space: nowrap;
+    flex-wrap: wrap;
+    max-width: 34vw;
+    min-height: 4vw;
+    max-height: 12vw;
 }
 
 /* .dailyRecommandSongItemArtist span{

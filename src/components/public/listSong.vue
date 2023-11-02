@@ -302,7 +302,7 @@ const onClickLeft = () => history.back();
 .authors{
   display: flex;
   flex-direction: row;
-  
+  flex-wrap: wrap;
   font-size: 3vw;
 
   text-overflow: ellipsis;
@@ -467,7 +467,7 @@ const onClickLeft = () => history.back();
 
 .songAuthor{
     display: inline-block;
-    padding-right: 2vw;
+    padding-right: 1vw;
     margin-right: 2vw;
     max-height: 4vw;
      max-width: 30vw; 
@@ -478,13 +478,14 @@ const onClickLeft = () => history.back();
 
 .album{
   display: inline-block;
-    text-overflow: ellipsis;
+ 
     padding-right: 1vw;
-    margin-left: 4vw;
-    width: 40vw;
+    margin-top: 0.4vw;
+    max-width: 40vw;
     height: 4vw;
     
     overflow: hidden;
+    text-overflow: ellipsis;
     color: grey;
     
 
@@ -493,13 +494,16 @@ const onClickLeft = () => history.back();
 .twoItems{
   display: flex;
   flex-direction: row;
+  flex-wrap: wrap;
   align-items: center;
   
   margin-top: 1.4vw;
   font-size: 3vw;
-  /* max-width: 70vw; */
+  /*  max-width: 70vw;  */
+  max-height: 4vw;
   overflow: hidden;
   text-align: center;
+  text-overflow: ellipsis;
  
 
 }

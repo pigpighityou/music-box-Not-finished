@@ -271,6 +271,7 @@ const onClickLeft = () => history.back();
   height: 35vw;
   border-radius: 4vw;
   margin: 0 auto;
+  border: 0.2vw black solid;
 }
 
 .pic1{
@@ -278,6 +279,7 @@ const onClickLeft = () => history.back();
   height: 40vw;
   border-radius: 4vw;
   margin: 0 27%;
+  border: 0.2vw black solid;
   
 
 
@@ -423,6 +425,8 @@ const onClickLeft = () => history.back();
     max-height: 4vw;
     max-width: 30vw;
     overflow: hidden;
+    flex-wrap: wrap;
+    min-height: 4vw;
 }
 
 .album{
@@ -434,6 +438,7 @@ const onClickLeft = () => history.back();
     
     overflow: hidden;
     color: grey;
+   
     
 
 }
@@ -443,6 +448,9 @@ const onClickLeft = () => history.back();
   flex-direction: row;
   margin-top: 1vw;
   font-size: 3vw;
+  flex-wrap: wrap;
+ overflow: hidden;
+ max-height: 3.5vw;
 
 }
 
