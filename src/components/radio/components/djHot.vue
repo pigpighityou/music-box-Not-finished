@@ -38,7 +38,7 @@ let songs=reactive({
     try{
          idAPI = await getId() 
             idList.id = idAPI.data.data
-        /*  console.log('ok1',idList.id); */
+           console.log('ok1',idList.id);  
         
     }
     catch(err){

@@ -21,6 +21,7 @@ let dailyRecommandSongList=reactive({
             dailyRecommandSongAPI=await getDailyRecommandSong()
         dailyRecommandSongList.data=dailyRecommandSongAPI.data
         /* console.log('ok',dailyRecommandSongList.data.data) */
+        
 
         
        

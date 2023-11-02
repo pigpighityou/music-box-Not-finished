@@ -40,8 +40,8 @@ const userSongList=reactive({
     if(userSongListAPI.data.code===200)
     {
         userSongList.data=userSongListAPI.data.playlist
-    /* console.log(userSongList.data); */
-        
+    /*  console.log(userSongList.data);  */
+    
     }else{
         return 
     }
