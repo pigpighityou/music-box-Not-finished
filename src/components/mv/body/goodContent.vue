@@ -1,5 +1,6 @@
 <script setup>
-import { ref, reactive } from 'vue';
+import { ref, reactive,watchEffect } from 'vue';
+import { useRoute,useRouter } from 'vue-router';
 import {getGoodMv} from '../../../axios/routes/goodMv'
 let goodMvAPI
 let goodMvList=reactive({
@@ -26,7 +27,36 @@ const onClickLeft = () => history.back();
                 }
             })();
 
-   const num=ref() 
+   const num=ref(null) 
+
+   const route=useRoute()
+const router=useRouter()
+
+const fullscreenLoading = ref(false)
+
+const openFullScreen1 = () => {
+  fullscreenLoading.value = true
+  setTimeout(() => {
+    fullscreenLoading.value = false
+  }, 500)
+}
+
+
+// 当弃掉了遮罩层，加载，路由到新的视频播放界面
+watchEffect(() => {
+  if(num.value||num.value===0){
+    setTimeout(()=>{
+        openFullScreen1();
+    },300);
+   
+    setTimeout(() => {
+        
+        router.push({name:'mvPlayer',params:{id:goodMvList.mv[num.value].id}})
+    }, 800)
+   
+    
+  }
+})
 
 
 
@@ -57,7 +87,9 @@ const onClickLeft = () => history.back();
             <div class="goodMv">
                 <div class="goodMvPic" v-for="(item, index) in goodMvList.mv" :key="index">
 
-                    <div class="inner" @click="num=index">
+                    <div class="inner" @click="num=index"
+                    v-loading.fullscreen.lock="fullscreenLoading"
+                element-loading-text="拼命加载中...">
                         <img :src="item.cover" alt="" class="img-good">
                     <div class="goodWord" >
                         <div class="name">

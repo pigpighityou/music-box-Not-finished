@@ -1,5 +1,6 @@
 <script setup>
-    import {ref,reactive,computed,watch} from 'vue'
+    import {ref,reactive,computed,watchEffect} from 'vue'
+    import {useRoute,useRouter} from 'vue-router'
     import {getMv} from '../../../axios/routes/mv'
 
     const country=reactive(
@@ -45,7 +46,7 @@
 
 const onClickLeft = () => history.back();
 
-const num=ref()
+const num=ref(null)
 
 const active=ref(0);
 
@@ -55,14 +56,14 @@ const select=ref('全部');
 (async()=>{
     mvAPI=await getMv(select.value)
     mv.lists=mvAPI.data.data
-    /* console.log(mv.lists) */
+    /*  console.log(mv.lists)  */
 })();
 
 const change=
     async()=>{
         mvAPI=await getMv(select.value)
         mv.lists=mvAPI.data.data
-        console.log(mv.lists)
+       /*  console.log(mv.lists) */
     }
 
 
@@ -101,7 +102,34 @@ const changeCountry=()=>{
 }
 
 
+const route=useRoute()
+const router=useRouter()
 
+const fullscreenLoading = ref(false)
+
+const openFullScreen1 = () => {
+  fullscreenLoading.value = true
+  setTimeout(() => {
+    fullscreenLoading.value = false
+  }, 500)
+}
+
+
+// 当弃掉了遮罩层，加载，路由到新的视频播放界面
+watchEffect(() => {
+  if(num.value||num.value==0){
+    setTimeout(()=>{
+        openFullScreen1();
+    },300);
+   
+    setTimeout(() => {
+        
+        router.push({name:'mvPlayer',params:{id:mv.lists[num.value].id}})
+    }, 800)
+   
+    
+  }
+})
 
 
 
@@ -151,7 +179,11 @@ const changeCountry=()=>{
 
 
                     <div class="categoryInner">
-                        <div class="categoryPic" @click="num=index">
+                        <div class="categoryPic" 
+                        @click="num=index"
+                        v-loading.fullscreen.lock="fullscreenLoading"
+                    element-loading-text="拼命加载中..."
+                >
                             <img :src="item.cover" alt="" class="img"> 
                         </div>
 

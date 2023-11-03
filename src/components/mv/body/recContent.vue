@@ -56,7 +56,9 @@ const onClickLeft = () => history.back();
         <div class="content">
             <div class="recMv">
                 <div class="recMvPic" v-for="(item, index) in recMvList.mv" :key="index">
-                    <img :src="item.picUrl" alt="" class="img-rec">
+                <router-link :to="{name:'mvPlayer',params:{id:item.id}}">
+                         <img :src="item.picUrl" alt="" class="img-rec">
+                </router-link>
                     <div class="recWord" >
                         <div class="name">
                             {{item.name}}
@@ -72,6 +74,8 @@ const onClickLeft = () => history.back();
                 </div>
             </div>
         </div>
+
+        
         
 
 

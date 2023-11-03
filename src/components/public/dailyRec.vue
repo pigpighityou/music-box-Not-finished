@@ -201,31 +201,10 @@ const onClickLeft = () => history.back();
     border-radius: 10px;
 }
 
-.otherIntro{
-    display: flex;
-    flex-direction: row;
-    transform: scale(0.95);
-    
-   
-  
-   
-}
 
 
-.judge{
-    border: 1px solid rgb(252, 249, 249);
-    padding-left: 0.5vw;
-    padding-right: 0.5vw;
-    border-radius: 1.5px;
-    background-color: rgb(243, 169, 169);
-    max-width: 30vw;
-    margin-left: -3vw;
-    height: 4.3vw;
-    
-    color: rgb(133, 4, 4);
-    overflow: auto;
-    transform: scale(0.75);
-}
+
+
 
 
 
@@ -247,24 +226,56 @@ const onClickLeft = () => history.back();
 
 }
 
+.otherIntro{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    flex-wrap: wrap;
+    max-height: 3vw;
+    overflow: hidden;
+    margin-left: 1vw;
+    
+   
+  
+   
+}
+
+.judge{
+    border: 1px solid rgb(252, 249, 249);
+    
+    
+    margin-right: 0.5vw;
+    border-radius: 1.5px;
+    background-color: rgb(243, 169, 169);
+    max-width: 30vw;
+   
+    max-height: 4vw;
+    font-size: 2vw;
+    color: rgb(133, 4, 4);
+   
+  
+}
+
 .singerName{
  
   
-    height: 4.5vw;
-    overflow: auto;
-    font-size: 3vw;
-    transform: scale(0.8);
+    max-height: 3vw;
+    overflow: hidden;
+    font-size: 2.4vw;
+    margin-right: 1vw;
     color: grey;
+    flex-wrap: wrap;
+    text-overflow: ellipsis;
    
 }
 
 .album{
+    max-height: 3vw;
     margin-right: 1vw;
-    height: 4.5vw;
-    overflow: auto;
-    font-size: 3vw;
-    transform: scale(0.8);
+    overflow: hidden;
+    font-size: 2.4vw;
     color: grey;
+   
     text-align: center;
     margin-left: -1.5vw;
 

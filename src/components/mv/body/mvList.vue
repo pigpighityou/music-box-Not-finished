@@ -1,5 +1,6 @@
 <script setup>
-import { ref, reactive } from 'vue';
+import { ref, reactive ,watchEffect} from 'vue';
+import { useRoute,useRouter } from 'vue-router';
 import {getMvRank} from '../../../axios/routes/mvRank'
 import mvCategory from '../body/mvCategory.vue'
 import goodMv from '../body/goodMv.vue'
@@ -21,7 +22,7 @@ let mvRankListAPI
             try{
                mvRankListAPI=await getMvRank()
                 mvRankList.mv=mvRankListAPI.data.data
-                  /*  console.log('ok',mvRankList.mv)   */ 
+                   /*   console.log('ok',mvRankList.mv)  */  
             }
             catch(err){
                 console.log(err)
@@ -29,7 +30,36 @@ let mvRankListAPI
         })()
 
 const overlay=ref(true)
-const num=ref()
+const num=ref(null);
+
+const route=useRoute()
+const router=useRouter()
+
+const fullscreenLoading = ref(false)
+
+const openFullScreen1 = () => {
+  fullscreenLoading.value = true
+  setTimeout(() => {
+    fullscreenLoading.value = false
+  }, 500)
+}
+
+
+// 当弃掉了遮罩层，加载，路由到新的视频播放界面
+watchEffect(() => {
+  if(num.value||num.value===0){
+    setTimeout(()=>{
+        openFullScreen1();
+    },300);
+   
+    setTimeout(() => {
+        
+        router.push({name:'mvPlayer',params:{id:mvRankList.mv[num.value].id}})
+    }, 800)
+   
+    
+  }
+})
 
 
 
@@ -53,7 +83,11 @@ const num=ref()
             
             <div class="mvInner">
 
-                <div class="firstMvPic" @click="num=index">
+                <div class="firstMvPic" 
+                v-loading.fullscreen.lock="fullscreenLoading"
+                element-loading-text="拼命加载中..."
+                @click="num=index"
+                >
                     <img :src="item.cover" alt=""  class="img-first"> 
 
                     <div class="firstWord">
@@ -159,8 +193,14 @@ const num=ref()
 
             <div class="mvInner">
 
-                <div class="mvPic" @click="num=index">
-                    <img :src="item.cover" alt=""  class="img"> 
+                <div class="mvPic" v-loading.fullscreen.lock="fullscreenLoading"
+                element-loading-text="拼命加载中..."
+                 @click="num=index"
+                
+                 >
+                    <!-- <router-link :to="{name:'mvPlayer',params:{id:item.id}}"> -->
+                    <img :src="item.cover" alt="mv"  class="img"> 
+<!--                 </router-link> -->
 
                     <div class="words">
 

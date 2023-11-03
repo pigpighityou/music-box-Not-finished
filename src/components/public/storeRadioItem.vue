@@ -20,7 +20,7 @@ let djDetailList=reactive({
         djDetailAPI = await getDjDetail(id.value)
         
         djDetailList.data = djDetailAPI.data.programs
-        /* console.log('okprogramdetail',djDetailList.data); */
+        /*  console.log('okprogramdetail',djDetailList.data);  */
       
     }
     catch(err){
@@ -42,11 +42,6 @@ const anchors=[
 const height = ref(anchors[1]);
 
 
-watchEffect(() => {
-        if(djDetailList.data.length===0){
-            showFailToast('暂无数据');
-        }
-  });
 
 </script>
 
@@ -133,7 +128,7 @@ watchEffect(() => {
             <div class="content" v-for="(item, index) in djDetailList?.data" :key="index">
 
                 <div class="contentImg">
-                    <img :src="item?.blurCoverUrl||null" alt="pic1" class="contentPic">
+                    <img :src="item.coverUrl" alt="pic1" class="contentPic">
                 </div>
 
                 <div class="contentDesc">

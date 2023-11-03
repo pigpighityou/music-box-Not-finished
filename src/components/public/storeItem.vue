@@ -18,7 +18,7 @@ let storeAlbumData = reactive({
 (async () => {
     storeMvAPI = await storeMv()
     storeMvData.data = storeMvAPI.data.data
-    /* console.log('okMv',storeMvData.data); */
+    /*  console.log('okMv',storeMvData.data);  */
    
 
 })();

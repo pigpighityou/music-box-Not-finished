@@ -307,9 +307,9 @@ const direction = ref('btt')
 
               
                     <div class="songAuthor" v-for="(item1, index1) in item.ar" :key="index1">
-                    <div class="judge" >
-                      {{ item1.name  }}
-                    </div>
+                      <div class="judge" >
+                        {{ item1.name  }}
+                      </div>
             
 
             
@@ -319,6 +319,7 @@ const direction = ref('btt')
             <div class="album">
               {{ item.al.name }}
             </div>
+
           </div>
           
          
@@ -686,16 +687,6 @@ const direction = ref('btt')
   
 }
 
-.authors{
-  display: flex;
-  flex-direction: row;
-  
-  font-size: 3vw;
-  max-width: 40vw;
-  overflow: hidden;
- 
-
-}
 
 
 .pic{
@@ -850,11 +841,11 @@ const direction = ref('btt')
 
 .songAuthor{
     display: inline-block;
-    padding-right: 2vw;
+    
     margin-right: 2vw;
     max-height: 4vw;
-    max-width: 30vw;
- 
+    max-width: 40vw;
+  flex-wrap: wrap;
     overflow: hidden;
 }
 
@@ -862,13 +853,41 @@ const direction = ref('btt')
   display: inline-block;
   
     padding-right: 1vw;
-    margin-left: 4vw;
-    width: 40vw;
+    margin-left: 2vw;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    max-width: 40vw;
     height: 4vw;
-    
+    flex-wrap: wrap;
     overflow: hidden;
     color: grey;
+    margin-top: 0.4vw;
     
+
+}
+
+.judge{
+  
+  max-width: 25vw;
+  max-height: 3.5vw;
+  flex-wrap: wrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-size: 2.9vw;
+  color: black;
+  white-space:nowrap;
+  
+}
+
+
+.authors{
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  font-size: 3vw;
+  max-height: 3.5vw;
+  overflow: hidden;
+ 
 
 }
 
@@ -879,9 +898,11 @@ const direction = ref('btt')
   
   margin-top: 1.4vw;
   font-size: 3vw;
-  max-width: 70vw;
+  max-width: 75vw;
   overflow: hidden;
   text-align: center;
+  flex-wrap: wrap;
+  max-height: 4vw;
  
 
 }
