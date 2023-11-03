@@ -69,8 +69,9 @@ const userId=ref(JSON.parse(localStorage.getItem('userData')));
         <div class="storeRadio" v-for="(item, index) in storeRadioData.data" :key="index">
             
                 <div class="Radio">
-                
+                    <router-link :to="{name:'storeRadioItem',params:{id:item.id}}">
                     <img :src="item.coverUrl" alt="pic" class="radioPic">
+                </router-link>
              
                 </div>
 

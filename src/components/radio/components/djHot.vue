@@ -11,6 +11,7 @@ let djHotAPI
 
 
 
+
 let djHotList = reactive({
     djHot:[],
     failImages:[
@@ -38,7 +39,7 @@ let songs=reactive({
     try{
          idAPI = await getId() 
             idList.id = idAPI.data.data
-           console.log('ok1',idList.id);  
+         /*   console.log('ok1',idList.id);   */
         
     }
     catch(err){
@@ -60,7 +61,13 @@ let songs=reactive({
     }
 })();
 
-const getSong=async (id)=>{
+
+
+
+
+
+
+ const getSong=async (id)=>{
     try{
         songAPI=await getSongs(id)
         songs.data=songAPI.data.data
@@ -69,7 +76,7 @@ const getSong=async (id)=>{
     catch(err){
         console.log(err)
     }
-}
+} 
 
 
 
@@ -163,7 +170,10 @@ const getDjHotByPage = async (page)=>{
             <div class="wrapper">
 
                 <div class="picture">
+
+                    <router-link :to="{name:'storeRadioItem',params:{id:childItem.id}}">     
                 <img :src="childItem?.picUrl||idList.failImages" alt="pic"  class="pic">
+                    </router-link>
                 </div>
 
                 <div class="wordWrapper">
@@ -204,18 +214,30 @@ const getDjHotByPage = async (page)=>{
         {{ djHotList.djHot[currentPage-1]?.category }}在线
    </div>
        
+   
     <div class="content" v-for="(item, index) in djHotList.djHot" :key="index">
-        
-        <div  class="picWrapper" @click="getSong(item.id)">
+
+   
+       
+        <div  class="picWrapper" @click="getDetail(item.id)">
+
+        <router-link :to="{name:'storeRadioItem',params:{id:item.id}}">     
             <img :src="item.picUrl" alt="pic2" class="pictures">
+        </router-link> 
+
         </div>
+   
         <div class="desc">
             {{ item.desc }}
-            {{ item.id }}
+            <!-- {{ item.id }} -->
         </div>
         
-    
+        
+  
+
     </div>
+
+
 </div>
 
 

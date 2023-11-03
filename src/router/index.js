@@ -226,6 +226,13 @@ const routes = [
         },
 
     },
+    {
+        path:'/storeRadioItem/:id',
+        name:'storeRadioItem',
+        components:{
+            default:() => import('../components/public/storeRadioItem.vue'),
+        },
+    },
 
 
 

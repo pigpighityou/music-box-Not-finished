@@ -23,7 +23,7 @@ const singerMV=reactive({
 (async()=>{
   singerMVAPI=await getSingerMV(id.value)
   singerMV.data=singerMVAPI.data.mvs
-   console.log('okMV',singerMV.data); 
+   /* console.log('okMV',singerMV.data);  */
 })();
 </script>
 

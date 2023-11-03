@@ -19,8 +19,9 @@ export function getDjHot(id){
 export function getDjDetail(id){
     return root({
         method:'GET',
-        url:`/dj/detail?rid=${id}`,
+        url:`/dj/program/?rid=${id}`,
   
        
     })
 }
+
