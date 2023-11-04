@@ -18,7 +18,7 @@ let storeAlbumData = reactive({
 (async () => {
     storeMvAPI = await storeMv()
     storeMvData.data = storeMvAPI.data.data
-    /*  console.log('okMv',storeMvData.data);  */
+     /*  console.log('okMv',storeMvData.data);   */
    
 
 })();
@@ -93,7 +93,9 @@ let storeAlbumData = reactive({
         <div class="storeMV" v-for="(item, index) in storeMvData.data" :key="index">
 
             <div class="pic">
+                <router-link :to="{name:'mvPlayerAlias',params:{id:item.vid}}">
                     <img :src="item.coverUrl" alt="pic" class="mvPic">
+                </router-link>
             </div>
 
             <div class="desc">

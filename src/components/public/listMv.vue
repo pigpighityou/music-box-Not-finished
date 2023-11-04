@@ -23,7 +23,7 @@ const singerMV=reactive({
 (async()=>{
   singerMVAPI=await getSingerMV(id.value)
   singerMV.data=singerMVAPI.data.mvs
-   /* console.log('okMV',singerMV.data);  */
+  /*   console.log('okMV',singerMV.data);   */
 })();
 </script>
 
@@ -39,9 +39,9 @@ const singerMV=reactive({
            
 
                 <div class="imgWrapper">
-
+                    <router-link :to="{name:'mvPlayer',params:{id:item.id}}">
                         <img :src="item.imgurl" alt="pic" class="img">
-
+                    </router-link>
                 </div>
 
                 <div class="desc">

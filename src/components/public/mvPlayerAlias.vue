@@ -1,12 +1,18 @@
 <script setup>
 import {ref,reactive,watchEffect} from 'vue'
 import { useRoute,useRouter } from 'vue-router';
+import { getMvDetailAlias } from '@/axios/routes/mv';
+import {getMvUrlAlias} from '@/axios/routes/mv'
 import { getMvDetail } from '@/axios/routes/mv';
 import {getMvUrl} from '@/axios/routes/mv'
 
 const route = useRoute();
 const router = useRouter();
 const id=ref(route.params.id)
+
+const reg=/[a-zA-Z]/
+const tester=reg.test(id.value)
+console.log('test',tester);
 console.log(id.value);
 
 
@@ -25,17 +31,60 @@ let mvUrlData=reactive({
   
 });
 
- (async ()=>{
-    mvDetailAPI=await getMvDetail(id.value)
-    mvDetailData.data=mvDetailAPI.data.data
-   /*   console.log('okDetail',mvDetailData.data);  */
-})();
+watchEffect(()=>{
+    if(tester===false){
+        (async ()=>{
+            mvDetailAPI=await getMvDetail(id.value)
+            mvDetailData.data=mvDetailAPI.data.data
+             /*  console.log('okDetail',mvDetailData.data);  */ 
+        })();
+        
+         (async ()=>{
+            mvUrlAPI=await getMvUrl(id.value)
+            mvUrlData.data=mvUrlAPI.data.data
+                /*  console.log('okUrl',mvUrlData.data);  */
+        })() ;
+}   
+else{
+    (async ()=>{
+        mvDetailAPI=await getMvDetailAlias(id.value)
+        mvDetailData.data=mvDetailAPI.data.data
+        /*  console.log('okDetailAlias',mvDetailData.data);  */
+    })();
+    
+     (async ()=>{
+        mvUrlAPI=await getMvUrlAlias(id.value)
+        
+        mvUrlData.data=mvUrlAPI.data.urls[0]
+            /*  console.log('okUrlAlias',mvUrlData.data);  */
+    })() ;
+}
+}
 
- (async ()=>{
-    mvUrlAPI=await getMvUrl(id.value)
-    mvUrlData.data=mvUrlAPI.data.data
-  /*   console.log('okMvUrl',mvUrlData.data); */
-})() ;
+
+
+
+);
+
+const timestamp=ref(0)
+const year=ref(null)
+const month=ref(null)
+const day=ref(null)
+watchEffect(()=>{
+    if(mvDetailData.data.publishTime!=undefined){
+         timestamp.value=mvDetailData.data.publishTime
+        console.log(timestamp.value);
+        const date=new Date(timestamp.value)
+         year.value=date.getFullYear()
+         month.value=date.getMonth()+1
+         day.value=date.getDate()
+    }
+    
+})
+
+
+
+
 
 
 const isPlaying=ref(true)
@@ -44,7 +93,7 @@ console.log(isPlaying.value);
 const anchors = [
       100,
       Math.round(0.45 * window.innerHeight),
-      Math.round(0.7 * window.innerHeight),
+      Math.round(0.8 * window.innerHeight),
     ];
     const height = ref(anchors[1]);
 
@@ -71,8 +120,8 @@ const onClickLeft = () => history.back();
 />
 
     <div class="playerWrapper">
-
-        <video  
+           
+                <video  
         :src="mvUrlData.data.url" 
         ref="video"
         controls
@@ -84,6 +133,7 @@ const onClickLeft = () => history.back();
         @pause="isPlaying=false"
         >
         </video>
+       
 
         <div class="overlay" v-if="isPlaying===false">
             
@@ -130,18 +180,24 @@ const onClickLeft = () => history.back();
             <div class="desc" >
 
                 <div class="img">
-                    <img :src="mvDetailData.data.cover" alt="pic" class="descImg">
+                    <img :src="tester===false?mvDetailData.data.cover:mvDetailData.data.coverUrl" alt="pic" class="descImg">
                 </div>
 
 
                 <div class="desc1">
 
-                    <div class="mvName">
+                    <div class="mvName"  v-if="tester===false">
                        {{ mvDetailData.data.name }}
                     </div>
+                    <div class="mvName" v-if="tester===true">
+                       {{ mvDetailData.data.title }}
+                    </div>
 
-                    <div class="author" v-for="(item1, index1) in mvDetailData.data.artists" :key="index1">
+                    <div class="author" v-if="tester===false" v-for="(item1, index1) in mvDetailData.data.artists" :key="index1">
                         {{ item1.name }}
+                    </div>
+                    <div class="author" v-if="tester===true" >
+                          上传者：{{ mvDetailData.data.creator.nickname}}
                     </div>
 
                 </div>
@@ -149,15 +205,22 @@ const onClickLeft = () => history.back();
 
                 <div class="desc2">
 
-                    <div class="playCount">
+                    <div class="playCount" v-if="tester===false">
                         播放量：{{ mvDetailData.data.playCount<100000?mvDetailData.data.playCount:(mvDetailData.data.playCount/100000).toFixed(1)+'万' }}
 
                     </div>
+                    <div class="playCount" v-if="tester===true">
+                        播放量：{{ mvDetailData.data.playTime<100000?mvDetailData.data.playTime:(mvDetailData.data.playTime/100000).toFixed(1)+'万' }}
 
-                    <div class="publishTime">
+                    </div>
+
+                    <div class="publishTime" v-if="tester===false">
                         发布时间：{{ mvDetailData.data.publishTime }}
                     </div>
                     
+                    <div v-else="tester===true&&mvDetailData.data.publishTime!=null" class="publishTime"> 
+                        发布时间：{{ year+'-'+month+'-'+day}}
+                    </div>
                 
                 
                 
@@ -187,46 +250,50 @@ const onClickLeft = () => history.back();
     <van-floating-panel v-model:height="height" :anchors="anchors" class="panel">
         <div style="text-align: center; padding: 15px;" class="panelWrapper">
 
-<div class="header" >
-    该视频的创作者
-</div>
+            <div class="header" v-if="tester===false">
+                该视频的创作者
+            </div>
+            <div class="header specialHeader" v-if="tester===true">
+                该视频不是原创，暂不提供视频创作者信息；<br>
+                如果确实是原创，因为接口问题，也暂不提供视频创作者信息
+                
+            </div>
+
+            <div class="relatedSinger" v-for="(item4, index4) in mvDetailData.data.artists" :key="index4">
+
+                <div class="reImg">
+                    <router-link :to="{name:'listSinger',params:{id:item4.id}}" >
+                    <img :src="item4.img1v1Url" alt="pic" class="reImg" >
+                    </router-link>
+                 </div>
+                
+                <div class="reSingerName">
+                    {{ item4.name }}<hr>
+                </div>
+               
+            </div>
+
+            <div class="tag">
+                <div class="tagHead" v-if="mvDetailData.data.videoGroup?.length===0">
+                    标签暂无
+                </div>
+                <div class="tagHead" v-else>
+                    标签
+                </div>
+
+                <div class="tagContent" v-for="(item5, index5) in mvDetailData.data.videoGroup" :key="index5">
+                        {{ item5.name }}
+                </div>
+            </div>
+
+            <hr>
+           
 
 
-<div class="relatedSinger" v-for="(item4, index4) in mvDetailData.data.artists" :key="index4">
 
-    <div class="reImg">
-        <router-link :to="{name:'listSinger',params:{id:item4.id}}" >
-        <img :src="item4.img1v1Url" alt="pic" class="reImg" >
-        </router-link>
-     </div>
-    
-    <div class="reSingerName">
-        {{ item4.name }}<hr>
-    </div>
-   
-</div>
-
-<div class="tag">
-    <div class="tagHead" v-if="mvDetailData.data.videoGroup?.length===0">
-        标签暂无
-    </div>
-    <div class="tagHead" v-else>
-        标签
-    </div>
-
-    <div class="tagContent" v-for="(item5, index5) in mvDetailData.data.videoGroup" :key="index5">
-            {{ item5.name }}
-    </div>
-</div>
-
-<hr>
-
-
-
-
-
-
-</div>
+        
+            
+        </div>
     </van-floating-panel>
 
 
@@ -237,6 +304,7 @@ const onClickLeft = () => history.back();
 
 
 <style scoped>
+
 .header{
     width: 100vw;
     height: 5vw;
@@ -246,7 +314,7 @@ const onClickLeft = () => history.back();
     font-size: 4vw;
     font-weight: bold;
     margin-top: 2vw;
-    margin-bottom: 4vw;
+    margin-bottom: 2vw;
     margin-left: -3vw;
 }
 
@@ -326,13 +394,11 @@ const onClickLeft = () => history.back();
 
 
 
-
 .panel{
     border: 0.1vw rgb(241, 234, 234)  solid;
     background-color: rgb(221, 225, 236);
     position: absolute;
     z-index: 999999;
-   
    
 }
 
@@ -371,7 +437,40 @@ const onClickLeft = () => history.back();
    color: white;
    z-index: 999;
 }
+.layerSingerWrapper{
+    max-height: 13vw;
+  
+    overflow: hidden;
+    white-space: nowraprap;
+    text-overflow: ellipsis;
+}
 
+
+.layerSinger{
+    width: 90vw;
+    height: 6.5vw;
+    display: flex;
+    margin-left: 4vw;
+    align-items: center;
+    font-size: 5.6vw;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    flex-wrap: wrap;
+}
+
+.judge2{
+    width: 90vw;
+    height: 6.5vw;
+    display: flex;
+    margin-left: 4vw;
+    align-items: center;
+    font-size: 5.6vw;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    color: rgb(175, 172, 168);
+}
 .current{
     width: 90vw;
     height: 5vw;
@@ -413,17 +512,22 @@ const onClickLeft = () => history.back();
     text-overflow: ellipsis;
 }
 
-.layerSingerWrapper{
-    max-height: 12vw;
+
+.special{
+    width: 90vw;
+    height: 20vw;
+    margin-left: 4vw;
+    
+    font-size: 7.5vw;
+    font-weight: bold;
     overflow: hidden;
-    white-space: nowraprap;
+    white-space: wrap;
     text-overflow: ellipsis;
 }
-
 
 .layerSinger{
     width: 90vw;
-    height: 6.5vw;
+    height: 6w;
     display: flex;
     margin-left: 4vw;
     align-items: center;
@@ -431,32 +535,19 @@ const onClickLeft = () => history.back();
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
-}
-
-.judge2{
-    width: 90vw;
-    height: 6.5vw;
-    display: flex;
-    margin-left: 4vw;
-    align-items: center;
-    font-size: 5.6vw;
-    overflow: hidden;
-    white-space: nowrap;
-    text-overflow: ellipsis;
-    color: rgb(175, 172, 168);
 }
 
 .briefDesc{
     width: 90vw;
     height: 20vw;
-    display: flex;
+   
     margin-left: 5vw;
-    align-items: center;
+   
     font-size: 4vw;
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
-    margin-top: 2vw;
+    margin-top: 3vw;
     margin-bottom: 2vw;
    
 }
@@ -517,6 +608,7 @@ const onClickLeft = () => history.back();
     justify-content: center;
     align-items: center;
     flex-direction: column;
+    overflow: hidden;
 }
 
 .mvName{
@@ -545,7 +637,7 @@ const onClickLeft = () => history.back();
     white-space: nowrap;
     text-overflow: ellipsis;
     display: flex;
-   
+   margin-top: 0.5vw;
     align-items: center;
     font-size: 2.5vw;
    

@@ -254,6 +254,15 @@ const routes = [
 
     },
 },
+    {
+        path:'/mvPlayerAlias/:id',
+        name:'mvPlayerAlias',
+        components:{
+            default:()=>import('../components/public/mvPlayerAlias.vue'),
+            
+
+    },
+},
 
     {
         path:'/mv/category',
