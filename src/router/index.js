@@ -1,5 +1,6 @@
 import { createRouter, createWebHistory } from "vue-router";
 import store from '../store/store.js'
+import { nextTick } from "vue";
 
 
 
@@ -9,6 +10,7 @@ const routes = [
         path: '/',
         components: {
             default:() => import('../components/homePage/public/publicComponent.vue'),
+            musicPlayer:() => import('../components/musicPlayer/musicPlayer.vue'),
 
     },
 
@@ -23,11 +25,13 @@ const routes = [
         },
 
     },
+  
     {
         path:'/singer',
         name:'singer',
         components:{
             default:() => import('../components/public/singer.vue'),
+            musicPlayer:() => import('../components/musicPlayer/musicPlayer.vue'),
             
         },
        
@@ -40,7 +44,8 @@ const routes = [
             name:'hotSongList',
             components:{
                 default:() => import('../components/homePage/body/hotListSong.vue'),
-                footBar:() => import('../components/public/footBar.vue'),   
+              
+                musicPlayer:() => import('../components/musicPlayer/musicPlayer.vue'),
             },
 
    },
@@ -49,7 +54,8 @@ const routes = [
     name:'recSongList',
     components:{
         default:() => import('../components/homePage/body/recListSong.vue'),
-        footBar:() => import('../components/public/footBar.vue'),   
+
+        musicPlayer:() => import('../components/musicPlayer/musicPlayer.vue'),
     },
 
 },
@@ -58,16 +64,20 @@ const routes = [
     name:'listSong',
     components:{
         default:() => import('../components/public/listSong.vue'),
-        footBar:() => import('../components/public/footBar.vue'),   
+       
+        musicPlayer:() => import('../components/musicPlayer/musicPlayer.vue'),   
     },
 
 },
+
+
 {
     path:'/listSinger/:id',
     name:'listSinger',
     components:{
         default:() => import('../components/public/listSinger.vue'),
-        footBar:() => import('../components/public/footBar.vue'),   
+       
+        musicPlayer:() => import('../components/musicPlayer/musicPlayer.vue'),   
     },
 
 },
@@ -77,7 +87,8 @@ const routes = [
     name:'hotListSong',
     components:{
         default:() => import('../components/homePage/body/hotListSinger.vue'),
-        footBar:() => import('../components/public/footBar.vue'),   
+       
+        musicPlayer:() => import('../components/musicPlayer/musicPlayer.vue'),
     },
 
 },
@@ -86,7 +97,8 @@ const routes = [
     name:'listSong',
     components:{
         default:() => import('../components/public/listSong.vue'),
-        footBar:() => import('../components/public/footBar.vue'),   
+       
+        musicPlayer:() => import('../components/musicPlayer/musicPlayer.vue'),  
     },
 
 },
@@ -95,7 +107,8 @@ const routes = [
     name:'album',
     components:{
         default:() => import('../components/public/album.vue'),
-        footBar:() => import('../components/public/footBar.vue'),
+       
+        musicPlayer:() => import('../components/musicPlayer/musicPlayer.vue'),
     },
 },
 
@@ -108,7 +121,7 @@ const routes = [
         path:'/dailyRec',
         components:{
             default:() => import('../components/public/dailyRec.vue'),
-            footBar:() => import('../components/public/footBar.vue'),
+            musicPlayer:() => import('../components/musicPlayer/musicPlayer.vue'),
         }
     }
     ,
@@ -123,7 +136,8 @@ const routes = [
         name:'adContent',
         components:{
             default:() => import('../components/public/adContent.vue'),
-            footBar:() => import('../components/public/footBar.vue'),
+         
+            musicPlayer:() => import('../components/musicPlayer/musicPlayer.vue'),
         }
     },   
     {
@@ -132,6 +146,8 @@ const routes = [
             default: () => import('../components/homePage/public/publicComponent.vue'),
             world: () => import('../components/homePage/world.vue'),
             footBar:() => import('../components/public/footBar.vue'),
+            musicPlayer:() => import('../components/musicPlayer/musicPlayer.vue'),
+            
              },
          name: 'world'
     },
@@ -142,6 +158,7 @@ const routes = [
             default: () => import('../components/homePage/public/publicComponent.vue'),
             Chinese: () => import('../components/homePage/Chinese.vue'),
             footBar:() => import('../components/public/footBar.vue'),
+            musicPlayer:() => import('../components/musicPlayer/musicPlayer.vue'),
         },
         name: 'Chinese'
         
@@ -152,6 +169,7 @@ const routes = [
             default: () => import('../components/homePage/public/publicComponent.vue'),
             Japan: () => import('../components/homePage/Japan.vue'),
             footBar:() => import('../components/public/footBar.vue'),
+            musicPlayer:() => import('../components/musicPlayer/musicPlayer.vue'),
         },
         name: 'Japan'
     },
@@ -161,6 +179,7 @@ const routes = [
             default: () => import('../components/homePage/public/publicComponent.vue'),
             Korea: () => import('../components/homePage/Korea.vue'),
             footBar:() => import('../components/public/footBar.vue'),
+            musicPlayer:() => import('../components/musicPlayer/musicPlayer.vue'),
         },
         name: 'Korea'
     },
@@ -170,6 +189,7 @@ const routes = [
             default: () => import('../components/homePage/public/publicComponent.vue'),
             English: () => import('../components/homePage/English.vue'),
             footBar:() => import('../components/public/footBar.vue'),
+            musicPlayer:() => import('../components/musicPlayer/musicPlayer.vue'),
         },
         name: 'English'
     },
@@ -180,6 +200,7 @@ const routes = [
         components: {
              default: () => import('../components/myPage/myPage.vue'),
              footBar:() => import('../components/public/footBar.vue'),
+             musicPlayer:() => import('../components/musicPlayer/musicPlayer.vue'),
             
         },
        
@@ -198,6 +219,7 @@ const routes = [
         name:'recentSongs',
         components:{
             default:() => import('../components/mypage/user/components/recentSongs.vue'),
+            musicPlayer:() => import('../components/musicPlayer/musicPlayer.vue'),
             
         },
     },
@@ -206,6 +228,7 @@ const routes = [
             name:'storeItem',
             components:{
                 default:() => import('../components/public/storeItem.vue'),
+                musicPlayer:() => import('../components/musicPlayer/musicPlayer.vue'),
                 
             },
 
@@ -215,6 +238,7 @@ const routes = [
         name:'localStore',
         components:{
             default:() => import('../components/mypage/user/components/localStore.vue'),
+            musicPlayer:() => import('../components/musicPlayer/musicPlayer.vue'),
 
         },
     },
@@ -223,6 +247,7 @@ const routes = [
         name:'storeRadio',
         components:{
             default:() => import('../components/mypage/user/components/storeRadio.vue'),
+            musicPlayer:() => import('../components/musicPlayer/musicPlayer.vue'),
         },
 
     },
@@ -231,6 +256,7 @@ const routes = [
         name:'storeRadioItem',
         components:{
             default:() => import('../components/public/storeRadioItem.vue'),
+            musicPlayer:() => import('../components/musicPlayer/musicPlayer.vue'),
         },
     },
 
@@ -298,13 +324,15 @@ const routes = [
         components:{
             default:()=>import('../components/radio/radio.vue'),
             footBar:() => import('../components/public/footBar.vue'),
+            musicPlayer:() => import('../components/musicPlayer/musicPlayer.vue'),
         }
     }
     ,
     {
         path:'/more',
         components:{
-            default:()=>import('../components/mypage/header/more.vue')
+            default:()=>import('../components/mypage/header/more.vue'),
+            musicPlayer:() => import('../components/musicPlayer/musicPlayer.vue'),
         }
     },
     {
@@ -348,6 +376,24 @@ const router = createRouter({
     history: createWebHistory(),
     routes,
 })
+
+
+// 如果该页面有footbar，将标记传给store，然后再传给组件，进行dom更改
+router.beforeEach((to,from,next)=>{
+    const footbar=to.matched.some((route)=>'footBar' in route.components)
+    if(footbar){
+        store.state.hasFootBar=true
+        
+    }else{
+        store.state.hasFootBar=false
+    }
+    console.log('hasFootBar?',store.state.hasFootBar);
+    next()
+
+
+
+})
+
 
 
 

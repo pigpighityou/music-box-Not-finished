@@ -8,3 +8,14 @@ export function getSongs(id){
        
     })
 }
+
+
+
+export function getSongDetail(id){
+    return root({
+        method:'GET',
+        url:`/song/detail?ids=${id}`,
+      
+       
+    })
+}

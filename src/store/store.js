@@ -10,8 +10,20 @@ const store=createStore({
             token:'',
             userData:{
                 
-            }
+            },
 
+            // 是否有footbar
+
+            hasFootBar:false,
+
+
+
+            // 播放状态
+            playList:[
+                {
+
+                }
+            ]
 
 
 

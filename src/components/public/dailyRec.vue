@@ -1,61 +1,3 @@
-<script setup>
-import {reactive,ref} from 'vue'
-import {getDailyRecommandSongList} from '@/axios/routes/dailyRecommand'
-import { getDailyRecommandSong } from '../../axios/routes/dailyRecommand';
-
-
-
-let dailyRecommandSongListAPI
-let dailyRecommandSongAPI
-
-let dailyRecommandSongList=reactive({
-    data:[
-        
-    ],
-    failImages:[
-        'https://redchairrecruitment.ie/wp-content/uploads/2019/05/No-Data.png'
-    ]
-    
-
-});
-
-let dailyRecommandSong=reactive({
-    data:[
-
-    ],
-    failImages:[
-        'https://redchairrecruitment.ie/wp-content/uploads/2019/05/No-Data.png'
-    ]
-});
-
-(async ()=>{
-    try{
-        dailyRecommandSongListAPI=await getDailyRecommandSongList()
-        dailyRecommandSongList.data=dailyRecommandSongListAPI.data.recommend
-         /* console.log('oksonglist',dailyRecommandSongList.data)  */
-    }
-    catch(err){
-        console.log(err)
-    }
-})();
-
-(async ()=>{
-    try{
-        dailyRecommandSongAPI=await getDailyRecommandSong()
-        dailyRecommandSong.data=dailyRecommandSongAPI.data.data
-         /*  console.log('oksong',dailyRecommandSong.data)   */
-    }
-    catch(err){
-        console.log(err)
-    }
-})();
-
-const onClickLeft = () => history.back();
-
-</script>
-
-
-
 <template>
 
         <div class="recWrapper">
@@ -76,7 +18,7 @@ const onClickLeft = () => history.back();
 
                     <div class="picture">
                          
-                        <img :src="item.al.picUrl" alt="pic" class="pic">
+                        <img :src="item.al.picUrl" alt="pic" class="pic" @click="console.log(item)">
 
                     </div>
 
@@ -177,7 +119,61 @@ const onClickLeft = () => history.back();
     
 </template>
 
+<script setup>
+import {reactive,ref} from 'vue'
+import {getDailyRecommandSongList} from '@/axios/routes/dailyRecommand'
+import { getDailyRecommandSong } from '../../axios/routes/dailyRecommand';
 
+
+
+let dailyRecommandSongListAPI
+let dailyRecommandSongAPI
+
+let dailyRecommandSongList=reactive({
+    data:[
+        
+    ],
+    failImages:[
+        'https://redchairrecruitment.ie/wp-content/uploads/2019/05/No-Data.png'
+    ]
+    
+
+});
+
+let dailyRecommandSong=reactive({
+    data:[
+
+    ],
+    failImages:[
+        'https://redchairrecruitment.ie/wp-content/uploads/2019/05/No-Data.png'
+    ]
+});
+
+(async ()=>{
+    try{
+        dailyRecommandSongListAPI=await getDailyRecommandSongList()
+        dailyRecommandSongList.data=dailyRecommandSongListAPI.data.recommend
+         /*  console.log('oksonglist',dailyRecommandSongList.data)   */
+    }
+    catch(err){
+        console.log(err)
+    }
+})();
+
+(async ()=>{
+    try{
+        dailyRecommandSongAPI=await getDailyRecommandSong()
+        dailyRecommandSong.data=dailyRecommandSongAPI.data.data
+            console.log('oksong',dailyRecommandSong.data)    
+    }
+    catch(err){
+        console.log(err)
+    }
+})();
+
+const onClickLeft = () => history.back();
+
+</script>
 
 
 

@@ -1,70 +1,4 @@
-<script setup>
-import { useRoute,useRouter } from 'vue-router';
-import {ref,reactive,onMounted,computed,watchEffect} from 'vue'
-import {getListSong} from '@/axios/routes/getListSong.js'
-import {getListSongDetail} from '@/axios/routes/getListSong.js'
 
-const route=useRoute()
-const id=ref(route.params.id)
-
-const drawer=ref(false)
-const direction=ref('btt')
-
-
-
-let songs=reactive({
-    data:[],
-    failImages:[
-        'https://redchairrecruitment.ie/wp-content/uploads/2019/05/No-Data.png'
-    ]
-});
-
-let songDetail=reactive({
-    data:[],
-    failImages:[
-        'https://redchairrecruitment.ie/wp-content/uploads/2019/05/No-Data.png'
-    ]
-});
-
-(async ()=>{
-    try{
-        const res=await getListSong(id.value)
-        songs.data=res.data
-       /*  console.log('ok',songs.data) */
-    }
-    catch(err){
-        console.log(err)
-    }
-})();
-
-
-(async ()=>{
-    try{
-        const res=await getListSongDetail(id.value)
-         songDetail.data=res.data 
-       /*  console.log('okdetail',songDetail.data) */
-    }
-    catch(err){
-        console.log(err)
-    }
-})();
-
-
-
-
-
-
-
-
-
-
-
-
-
-const onClickLeft = () => history.back();
-
-
-</script>
 
 
 
@@ -222,7 +156,73 @@ const onClickLeft = () => history.back();
 
 </template>
 
+<script setup>
+import { useRoute,useRouter } from 'vue-router';
+import {ref,reactive,onMounted,computed,watchEffect} from 'vue'
+import {getListSong} from '@/axios/routes/getListSong.js'
+import {getListSongDetail} from '@/axios/routes/getListSong.js'
 
+const route=useRoute()
+const id=ref(route.params.id)
+
+const drawer=ref(false)
+const direction=ref('btt')
+
+
+
+let songs=reactive({
+    data:[],
+    failImages:[
+        'https://redchairrecruitment.ie/wp-content/uploads/2019/05/No-Data.png'
+    ]
+});
+
+let songDetail=reactive({
+    data:[],
+    failImages:[
+        'https://redchairrecruitment.ie/wp-content/uploads/2019/05/No-Data.png'
+    ]
+});
+
+(async ()=>{
+    try{
+        const res=await getListSong(id.value)
+        songs.data=res.data
+       /*  console.log('ok',songs.data) */
+    }
+    catch(err){
+        console.log(err)
+    }
+})();
+
+
+(async ()=>{
+    try{
+        const res=await getListSongDetail(id.value)
+         songDetail.data=res.data 
+       /*  console.log('okdetail',songDetail.data) */
+    }
+    catch(err){
+        console.log(err)
+    }
+})();
+
+
+
+
+
+
+
+
+
+
+
+
+
+const onClickLeft = () => history.back();
+
+
+</script>
 
 
 

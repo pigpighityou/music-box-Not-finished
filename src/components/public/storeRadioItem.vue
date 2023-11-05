@@ -1,6 +1,7 @@
 <script setup>
 import {ref,reactive,watchEffect} from 'vue'
 import { getDjDetail } from '@/axios/routes/djHot.js';
+import { getSongs } from '@/axios/routes/getSongs.js';
 import { useRoute,useRouter } from 'vue-router';
 import { showFailToast } from 'vant';
 
@@ -10,7 +11,13 @@ const id=ref(route.params.id)
 console.log(id.value);
 
 let djDetailAPI
+let songsAPI
 let djDetailList=reactive({
+    data:[],
+    
+});
+
+let songsList=reactive({
     data:[],
     
 });
@@ -20,13 +27,26 @@ let djDetailList=reactive({
         djDetailAPI = await getDjDetail(id.value)
         
         djDetailList.data = djDetailAPI.data.programs
-        /*  console.log('okprogramdetail',djDetailList.data);  */
+          console.log('okprogramdetail',djDetailList.data);  
       
     }
     catch(err){
         console.log(err)
     }
 } )();
+
+/* const getSongsAPI = async (id) => {
+    try{
+        songsAPI = await getSongs(id)
+        console.log('ok',songsAPI);
+        songsList.data = songsAPI.data.songs
+          console.log('ok',songsList.data);  
+      
+    }
+    catch(err){
+        console.log(err)
+    }
+} */
 
 
 const onClickLeft = () => history.back();
@@ -127,7 +147,7 @@ const height = ref(anchors[1]);
 
             <div class="content" v-for="(item, index) in djDetailList?.data" :key="index">
 
-                <div class="contentImg">
+                <div class="contentImg" @click="getSongsAPI(item.id)">
                     <img :src="item.coverUrl" alt="pic1" class="contentPic">
                 </div>
 

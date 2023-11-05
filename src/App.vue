@@ -1,6 +1,6 @@
 <script setup>
 import homepage from './components/homePage/homepage.vue';
-import footBar from './components/public/footBar.vue';
+
 
 
 
