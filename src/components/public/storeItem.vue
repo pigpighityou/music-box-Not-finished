@@ -1,44 +1,4 @@
-<script setup>
-import { ref,reactive } from 'vue'
 
-import {storeMv} from '@/axios/routes/store.js'
-import {storeAlbum} from '@/axios/routes/store.js'
-
-let storeMvAPI
-let storeAlbumAPI
-
-let storeMvData = reactive({
-    data: []
-})
-
-let storeAlbumData = reactive({
-    data: []
-});
-
-(async () => {
-    storeMvAPI = await storeMv()
-    storeMvData.data = storeMvAPI.data.data
-     /*  console.log('okMv',storeMvData.data);   */
-   
-
-})();
-
-(async () => {
-    storeAlbumAPI = await storeAlbum()
-    storeAlbumData.data = storeAlbumAPI.data.data
-    /* console.log('okAlbum',storeAlbumData.data); */
-
-})();
-
-
-
-
-
- const active = ref(0);
- const onClickLeft = () => history.back();
-
-
-</script>
 
 
 
@@ -130,6 +90,48 @@ let storeAlbumData = reactive({
 
 
 </template>
+
+<script setup>
+import { ref,reactive } from 'vue'
+
+import {storeMv} from '@/axios/routes/store.js'
+import {storeAlbum} from '@/axios/routes/store.js'
+
+let storeMvAPI
+let storeAlbumAPI
+
+let storeMvData = reactive({
+    data: []
+})
+
+let storeAlbumData = reactive({
+    data: []
+});
+
+(async () => {
+    storeMvAPI = await storeMv()
+    storeMvData.data = storeMvAPI.data.data
+     /*  console.log('okMv',storeMvData.data);   */
+   
+
+})();
+
+(async () => {
+    storeAlbumAPI = await storeAlbum()
+    storeAlbumData.data = storeAlbumAPI.data.data
+    /* console.log('okAlbum',storeAlbumData.data); */
+
+})();
+
+
+
+
+
+ const active = ref(0);
+ const onClickLeft = () => history.back();
+
+
+</script>
 
 
 

@@ -227,6 +227,12 @@ const onClickLeft = () => history.back();
 
 
 <style scoped>
+.listSongsWrapper{
+
+margin-bottom: 20vw;
+}
+
+
 .desc{
   display: flex;
   flex-direction: row;

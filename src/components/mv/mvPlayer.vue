@@ -1,61 +1,4 @@
-<script setup>
-import {ref,reactive,watchEffect} from 'vue'
-import { useRoute,useRouter } from 'vue-router';
-import { getMvDetail } from '@/axios/routes/mv';
-import {getMvUrl} from '@/axios/routes/mv'
 
-const route = useRoute();
-const router = useRouter();
-const id=ref(route.params.id)
-console.log(id.value);
-
-
-
-
-let mvDetailAPI
-let mvUrlAPI
-
-let mvDetailData=reactive({
-    data:{},
-  
-});
-
-let mvUrlData=reactive({
-    data:{},
-  
-});
-
- (async ()=>{
-    mvDetailAPI=await getMvDetail(id.value)
-    mvDetailData.data=mvDetailAPI.data.data
-   /*   console.log('okDetail',mvDetailData.data);  */
-})();
-
- (async ()=>{
-    mvUrlAPI=await getMvUrl(id.value)
-    mvUrlData.data=mvUrlAPI.data.data
-  /*   console.log('okMvUrl',mvUrlData.data); */
-})() ;
-
-
-const isPlaying=ref(true)
-console.log(isPlaying.value);
-
-const anchors = [
-      100,
-      Math.round(0.45 * window.innerHeight),
-      Math.round(0.7 * window.innerHeight),
-    ];
-    const height = ref(anchors[1]);
-
-
-
-
-
-
-const onClickLeft = () => history.back();
-
-</script>
 
 
 
@@ -163,6 +106,14 @@ const onClickLeft = () => history.back();
                 
                 </div>
 
+
+
+
+
+
+
+
+
                
 
 
@@ -181,10 +132,7 @@ const onClickLeft = () => history.back();
 
     </div>
 
-
-
-
-    <van-floating-panel v-model:height="height" :anchors="anchors" class="panel">
+    <van-floating-panel v-model:height="height" :anchors="anchors" class="panel" :class="{pausePanel:!isPlaying}">
         <div style="text-align: center; padding: 15px;" class="panelWrapper">
 
 <div class="header" >
@@ -234,9 +182,69 @@ const onClickLeft = () => history.back();
 
 </template>
 
+<script setup>
+import {ref,reactive,watchEffect} from 'vue'
+import { useRoute,useRouter } from 'vue-router';
+import { getMvDetail } from '@/axios/routes/mv';
+import {getMvUrl} from '@/axios/routes/mv'
+
+const route = useRoute();
+const router = useRouter();
+const id=ref(route.params.id)
+console.log(id.value);
+
+
+
+
+let mvDetailAPI
+let mvUrlAPI
+
+let mvDetailData=reactive({
+    data:{},
+  
+});
+
+let mvUrlData=reactive({
+    data:{},
+  
+});
+
+ (async ()=>{
+    mvDetailAPI=await getMvDetail(id.value)
+    mvDetailData.data=mvDetailAPI.data.data
+   /*   console.log('okDetail',mvDetailData.data);  */
+})();
+
+ (async ()=>{
+    mvUrlAPI=await getMvUrl(id.value)
+    mvUrlData.data=mvUrlAPI.data.data
+  /*   console.log('okMvUrl',mvUrlData.data); */
+})() ;
+
+
+const isPlaying=ref(true)
+console.log(isPlaying.value);
+
+const anchors = [
+      100,
+      Math.round(0.45 * window.innerHeight),
+      Math.round(0.7 * window.innerHeight),
+    ];
+    const height = ref(anchors[1]);
+
+
+
+
+
+
+const onClickLeft = () => history.back();
+
+</script>
+
 
 
 <style scoped>
+
 .header{
     width: 100vw;
     height: 5vw;
@@ -330,11 +338,20 @@ const onClickLeft = () => history.back();
 .panel{
     border: 0.1vw rgb(241, 234, 234)  solid;
     background-color: rgb(221, 225, 236);
-    position: absolute;
-    z-index: 999999;
+    border-radius: 2vw;
+    max-height: 150vw;
+    overflow: hidden;
    
    
 }
+
+.pausePanel{
+    position: absolute;
+    z-index: 999999;
+
+  
+}
+
 
 .navbar{
     z-index: 99999;
@@ -357,7 +374,7 @@ const onClickLeft = () => history.back();
     position: absolute;
     top: 0;
     left: 0;
-    pointer-events: none;
+    pointer-events:none;
     z-index: 99;
    
 }

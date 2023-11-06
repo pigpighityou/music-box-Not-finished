@@ -1,24 +1,35 @@
 <template>
    
-<div class="musicPlayerWrapper" ref="musicPlayer" @click="handleClick">
+<div class="musicPlayerWrapper" ref="musicPlayer" >
+
+    <audio ref="audio"  :src="store.state.url" @ended="nextSong"></audio>
 
 
     <div class="album">
-                <img src="" alt="pic">
+   
+            <img :src="store.state.playSong.al.picUrl" alt="pic" class="albumPic">
+     
+               
     </div>
 
     <div class="name">
-        <span>歌曲名</span>
+     
+        <div>{{store.state.playSong.name}}</div>
+     
     </div>
 
-    <div class="author">
-        <span>歌手名</span>
+    <div class="author" >
+       
+        <div v-for="(item, index) in store.state.playSong.ar" :key="index">
+            {{item.name}}
+        </div>
+   
         
     </div>
 
     <div class="icon">
-        <svg class="playIcon" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg" data-v-ea893728=""><path fill="currentColor" d="M512 64a448 448 0 1 1 0 896 448 448 0 0 1 0-896zm0 832a384 384 0 0 0 0-768 384 384 0 0 0 0 768zm-48-247.616L668.608 512 464 375.616v272.768zm10.624-342.656 249.472 166.336a48 48 0 0 1 0 79.872L474.624 718.272A48 48 0 0 1 400 678.336V345.6a48 48 0 0 1 74.624-39.936z"></path></svg>
-        <!-- <svg viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg" data-v-ea893728=""><path fill="currentColor" d="M512 64a448 448 0 1 1 0 896 448 448 0 0 1 0-896zm0 832a384 384 0 0 0 0-768 384 384 0 0 0 0 768zm-96-544q32 0 32 32v256q0 32-32 32t-32-32V384q0-32 32-32zm192 0q32 0 32 32v256q0 32-32 32t-32-32V384q0-32 32-32z"></path></svg> -->
+        <svg class="playIcon" v-if="isPlaying===false" @click="play" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg" data-v-ea893728=""><path fill="currentColor" d="M512 64a448 448 0 1 1 0 896 448 448 0 0 1 0-896zm0 832a384 384 0 0 0 0-768 384 384 0 0 0 0 768zm-48-247.616L668.608 512 464 375.616v272.768zm10.624-342.656 249.472 166.336a48 48 0 0 1 0 79.872L474.624 718.272A48 48 0 0 1 400 678.336V345.6a48 48 0 0 1 74.624-39.936z"></path></svg>
+        <svg class="playIcon" v-if="isPlaying===true" @click="pause" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg" data-v-ea893728=""><path fill="currentColor" d="M512 64a448 448 0 1 1 0 896 448 448 0 0 1 0-896zm0 832a384 384 0 0 0 0-768 384 384 0 0 0 0 768zm-96-544q32 0 32 32v256q0 32-32 32t-32-32V384q0-32 32-32zm192 0q32 0 32 32v256q0 32-32 32t-32-32V384q0-32 32-32z"></path></svg> 
     </div>
 
     <div class="listSongs">
@@ -33,10 +44,28 @@
     v-model="drawer"
     title="I am the title"
     :direction="direction"
-    :before-close="handleClose"
+    
   >
-    <span>Hi, there!</span>
+    <span>Hi, there!
+     <!--    {{ isPlaying }} -->
+        <!-- {{ store.state.audio }} -->
+       <!--  {{ audioState }}
+        {{ audio.currentTime }} -->
+       <!--  {{ store.state.playList }}  -->
+       <!--  {{ store.state.url }} -->
+      <!--   {{ store.state.playSong }} -->
+        <!-- {{ store.state.playList }} -->
+        {{ playList }}
+
+        {{ store.state.playIndex }}
+
+
+       
+    </span>
   </el-drawer>
+
+
+ 
 
 </div>
 
@@ -44,8 +73,15 @@
 
 <script setup>
 import {ref,reactive,onMounted,computed,provide,watchEffect} from 'vue'
+import {useRouter,useRoute} from 'vue-router'
+import {getSongs} from '@/axios/routes/getSongs.js'
 import store from '../../store/store';
+import { ElLoading } from 'element-plus'
 
+
+
+const router=useRouter()
+const route=useRoute()
 
 const drawer = ref(false)
 const direction = ref('btt')
@@ -58,12 +94,157 @@ const handleClick=()=>{
     
 }
 
+const openFullScreen2 = () => {
+  const loading = ElLoading.service({
+    lock: true,
+    text: 'Loading',
+    background: 'rgba(0, 0, 0, 0.9)',
+  })
+  setTimeout(() => {
+    loading.close()
+  }, 500)
+}
+
+const hasFootBar=ref(store.state.hasFootBar)
+
+ watchEffect(()=>{
+    if(hasFootBar.value&&musicPlayer.value){
+           musicPlayer.value.style.marginBottom='12vw'
+   }
+ }) 
+
+ router.beforeEach((to, from, next) => {
+    if(to.path==='/world'||to.path==='/Chinese'
+    ||to.path==='/English'||to.path==='/Japan'||to.path==='/Korea'
+    ||from.path==='/world'||from.path==='/Chinese'||from.path==='/English'
+    ||from.path==='/Japan'||from.path==='/Korea'){
+        // 刷新页面
+        openFullScreen2()
+        setTimeout(()=>{
+           
+            router.go(0)
+        },500)
+   
+      
+    }
+   next()
+ })
+
+ const audio=ref(null)
+
+const isPlaying=ref(store.state.isPlayingSong)
+
+
+let audioState=reactive({ })
+
 watchEffect(()=>{
-    // ref绑定dom，加载出来ref的值以后
-    if(musicPlayer.value){
-        console.log('watch',musicPlayer.value);
+    if(audio.value){
+
+         audioState=reactive({
+    currentTime: audio.value.currentTime,
+    paused: audio.value.paused,
+                                        })
+
+    }
+    
+})
+
+// 离开的时候也要记录状态,否则一刷新，就重制了
+window.addEventListener('beforeunload',()=>{
+        localStorage.setItem('currentTime',JSON.stringify(audio.value.currentTime)) 
+        localStorage.setItem('paused',JSON.stringify(audio.value.paused));
+    })
+
+// 进入页面，加载，找到状态，恢复
+const cachedCurrentTime = localStorage.getItem('currentTime');
+ const cachedPaused = localStorage.getItem('paused'); 
+watchEffect(()=>{
+    if(audio.value){
+        if(cachedCurrentTime&&cachedPaused){
+            audio.value.currentTime=JSON.parse(cachedCurrentTime) 
+           /*  audio.value.paused=JSON.parse(cachedPaused) */
+        }
     }
 })
+
+// 防止资源加载不出来，点按钮可实现再次获取资源
+ const backUpGetUrl=async()=>{
+    try{
+        const res=await getSongs(store.state.playSong.id)
+        store.state.url=res.data.data[0].url
+    }
+    catch(err){
+        console.log(err)
+    }
+}
+
+// 播放功能
+ const play=()=>{
+    
+   store.state.audioState=audioState
+    audio.value.play()
+    store.state.played=audio.value.play
+   
+   isPlaying.value=true
+   backUpGetUrl()
+ 
+ }
+
+
+//  暂停功能
+ const pause=()=>{
+   
+    store.state.audioState=audioState
+    audio.value.pause()
+    store.state.paused=audio.value.paused
+    isPlaying.value=false
+    backUpGetUrl()
+  
+ 
+ }
+
+
+//  切换歌，按钮应该变为暂停键
+ watchEffect(()=>{
+    if(store.state.playSong){
+        if(audio.value){
+            backUpGetUrl()
+            isPlaying.value=false
+           
+
+        }
+       
+       
+
+
+    }
+ })
+
+
+const playList=computed(()=>{
+//    把数组里的对象取出来，用forEach
+    if(store.state.playList!=null){
+
+        let arr=[]
+        store.state.playList.forEach((item,index)=>{
+            arr.push(item.name)
+        })
+        return arr
+
+        
+
+    }
+   
+})
+
+  
+
+
+
+
+
+
+
 
 
 
@@ -81,7 +262,7 @@ watchEffect(()=>{
    
      display: flex;
     flex-direction: row;
-    justify-content: space-between;
+   overflow: hidden;
     align-items: center; 
     box-sizing: border-box;
     border-top: 1px solid #ccc;
@@ -89,7 +270,7 @@ watchEffect(()=>{
 }
 
 .album{
-    width: 15vw;
+    width: 18vw;
     height: 15vw;
     margin: 0 2vw;
     border-radius: 50%;
@@ -97,16 +278,73 @@ watchEffect(()=>{
     overflow: hidden;
 }
 
+.albumPic{
+    width: 100%;
+    height: 100%;
+
+}
+
+
 .name{
     font-size: 4vw;
     color: #333;
     margin: 0 2vw;
+    overflow: hidden;
+    width: 25vw;
+ 
+
 }
 
+
+
+.name div{
+    white-space: nowrap;
+    animation: myMove 8s linear infinite;
+ 
+
+
+}
+
+ 
+
+
 .author{
-    font-size: 3vw;
+    font-size: 3.5vw;
     color: #333;
     margin: 0 2vw;
+    overflow: hidden;
+    width: 25vw;
+    display: flex;
+    flex-direction: row;
+    max-height: 3.5vw;
+
+}
+
+
+.author div{
+    white-space: nowrap;
+   
+    margin-right: 4vw;
+      animation: myMove 8s linear infinite;  
+}
+
+ /*文字无缝滚动*/
+ @keyframes myMove {
+  0% {
+    transform: translateX(40vw);
+  }
+  100% {
+    transform: translateX(-50vw);
+  }
+}
+
+
+
+.icon{
+    width: 10vw;
+    height: 10vw;
+    fill: #ccc;
+
 }
 
 .playIcon{
@@ -114,6 +352,7 @@ watchEffect(()=>{
     height: 10vw;
     fill: #ccc;
     margin: 0 5vw;
+    transform: scale(0.95);
 }
 
 .moreIcon{
@@ -121,6 +360,16 @@ watchEffect(()=>{
     height: 10vw;
     fill: #ccc;
     margin: 0 5vw;
+}
+
+.listSongs{
+    width: 10vw;
+    height: 10vw;
+    fill: #ccc;
+    margin: 0 3vw;
+    margin-right: 5vw;
+    transform: scale(0.95);
+   
 }
 
 

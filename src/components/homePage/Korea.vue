@@ -1,3 +1,6 @@
+
+
+
 <script setup>
  
  import hotKoreaSinger from './body/hotKoreaSinger.vue';
@@ -13,20 +16,18 @@
 
 </script>
 
-
 <template>
     
 
-    <newKoreaSong></newKoreaSong>
-    
-    <hotKoreaSinger></hotKoreaSinger>
-    <newKoreaAlbum></newKoreaAlbum>
+  <newKoreaSong></newKoreaSong>
+  
+  <hotKoreaSinger></hotKoreaSinger>
+  <newKoreaAlbum></newKoreaAlbum>
 
 
 
 
 </template>
-
 
 
 <style scoped>

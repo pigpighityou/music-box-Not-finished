@@ -1,5 +1,6 @@
 import { createStore } from 'vuex'
 
+
 const store=createStore({
 
     state(){
@@ -15,22 +16,41 @@ const store=createStore({
             // 是否有footbar
 
             hasFootBar:false,
-
-
+            
 
             // 播放状态
-            playList:[
+            isPlayingSong:false,
+
+            playSong:
                 {
+                
 
-                }
-            ]
+                },
+
+                url:'',
+
+            playList:[],
+            playIndex:'',
 
 
 
 
+
+
+
+
+
+
+             audioState:{
+
+             }
+
+           
 
         }
+            
     },
+  
 
 
 
@@ -70,8 +90,6 @@ const store=createStore({
 
 
     },
-
-
 
 
 

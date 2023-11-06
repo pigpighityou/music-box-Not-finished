@@ -18,7 +18,7 @@
 
                     <div class="picture">
                          
-                        <img :src="item.al.picUrl" alt="pic" class="pic" @click="console.log(item)">
+                        <img :src="item.al.picUrl" alt="pic" class="pic" @click="clickHandler(index)">
 
                     </div>
 
@@ -73,6 +73,7 @@
             </div>
 
 
+
             <div class="header">
                         <div class="words">
                             每日推荐歌单<i class="iconfont icon-xiajiantou"></i>
@@ -123,7 +124,8 @@
 import {reactive,ref} from 'vue'
 import {getDailyRecommandSongList} from '@/axios/routes/dailyRecommand'
 import { getDailyRecommandSong } from '../../axios/routes/dailyRecommand';
-
+import { getSongs } from '../../axios/routes/getSongs.js';
+import store from '@/store/store.js'
 
 
 let dailyRecommandSongListAPI
@@ -153,7 +155,7 @@ let dailyRecommandSong=reactive({
     try{
         dailyRecommandSongListAPI=await getDailyRecommandSongList()
         dailyRecommandSongList.data=dailyRecommandSongListAPI.data.recommend
-         /*  console.log('oksonglist',dailyRecommandSongList.data)   */
+/*            console.log('oksonglist',dailyRecommandSongList.data)    */
     }
     catch(err){
         console.log(err)
@@ -164,6 +166,7 @@ let dailyRecommandSong=reactive({
     try{
         dailyRecommandSongAPI=await getDailyRecommandSong()
         dailyRecommandSong.data=dailyRecommandSongAPI.data.data
+       store.state.playList=dailyRecommandSong.data.dailySongs
             console.log('oksong',dailyRecommandSong.data)    
     }
     catch(err){
@@ -173,16 +176,34 @@ let dailyRecommandSong=reactive({
 
 const onClickLeft = () => history.back();
 
+
+ const clickHandler=(id)=>{
+    store.state.playIndex=id
+    store.state.playSong=store.state.playList[id];
+(async()=>{
+    try{
+        const res=await getSongs(store.state.playSong.id)
+    const songUrl=res.data.data[0].url
+    store.state.url=songUrl
+   /*  console.log('url',songUrl) */
+    }
+    catch(err){
+        console.log('没加载出来音乐url，多点几次',err)
+    }
+    
+})();
+
+} 
+
+
+
 </script>
 
 
 
 <style scoped>
 
-.recSong{
-  
 
-}
 
 .songIntro{
     width: 90vw;
@@ -297,6 +318,7 @@ const onClickLeft = () => history.back();
     display: flex;
     flex-direction: row;
     overflow: auto;
+    margin-bottom: 20vw;
  
 }
 

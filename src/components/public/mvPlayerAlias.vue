@@ -1,110 +1,4 @@
-<script setup>
-import {ref,reactive,watchEffect} from 'vue'
-import { useRoute,useRouter } from 'vue-router';
-import { getMvDetailAlias } from '@/axios/routes/mv';
-import {getMvUrlAlias} from '@/axios/routes/mv'
-import { getMvDetail } from '@/axios/routes/mv';
-import {getMvUrl} from '@/axios/routes/mv'
 
-const route = useRoute();
-const router = useRouter();
-const id=ref(route.params.id)
-
-const reg=/[a-zA-Z]/
-const tester=reg.test(id.value)
-console.log('test',tester);
-console.log(id.value);
-
-
-
-
-let mvDetailAPI
-let mvUrlAPI
-
-let mvDetailData=reactive({
-    data:{},
-  
-});
-
-let mvUrlData=reactive({
-    data:{},
-  
-});
-
-watchEffect(()=>{
-    if(tester===false){
-        (async ()=>{
-            mvDetailAPI=await getMvDetail(id.value)
-            mvDetailData.data=mvDetailAPI.data.data
-             /*  console.log('okDetail',mvDetailData.data);  */ 
-        })();
-        
-         (async ()=>{
-            mvUrlAPI=await getMvUrl(id.value)
-            mvUrlData.data=mvUrlAPI.data.data
-                /*  console.log('okUrl',mvUrlData.data);  */
-        })() ;
-}   
-else{
-    (async ()=>{
-        mvDetailAPI=await getMvDetailAlias(id.value)
-        mvDetailData.data=mvDetailAPI.data.data
-        /*  console.log('okDetailAlias',mvDetailData.data);  */
-    })();
-    
-     (async ()=>{
-        mvUrlAPI=await getMvUrlAlias(id.value)
-        
-        mvUrlData.data=mvUrlAPI.data.urls[0]
-            /*  console.log('okUrlAlias',mvUrlData.data);  */
-    })() ;
-}
-}
-
-
-
-
-);
-
-const timestamp=ref(0)
-const year=ref(null)
-const month=ref(null)
-const day=ref(null)
-watchEffect(()=>{
-    if(mvDetailData.data.publishTime!=undefined){
-         timestamp.value=mvDetailData.data.publishTime
-        console.log(timestamp.value);
-        const date=new Date(timestamp.value)
-         year.value=date.getFullYear()
-         month.value=date.getMonth()+1
-         day.value=date.getDate()
-    }
-    
-})
-
-
-
-
-
-
-const isPlaying=ref(true)
-console.log(isPlaying.value);
-
-const anchors = [
-      100,
-      Math.round(0.45 * window.innerHeight),
-      Math.round(0.8 * window.innerHeight),
-    ];
-    const height = ref(anchors[1]);
-
-
-
-
-
-
-const onClickLeft = () => history.back();
-
-</script>
 
 
 
@@ -247,7 +141,7 @@ const onClickLeft = () => history.back();
 
 
 
-    <van-floating-panel v-model:height="height" :anchors="anchors" class="panel">
+    <van-floating-panel v-model:height="height" :anchors="anchors" class="panel" :class="{pausePanel:!isPlaying}">
         <div style="text-align: center; padding: 15px;" class="panelWrapper">
 
             <div class="header" v-if="tester===false">
@@ -300,6 +194,114 @@ const onClickLeft = () => history.back();
 
 
 </template>
+
+<script setup>
+import {ref,reactive,watchEffect} from 'vue'
+import { useRoute,useRouter } from 'vue-router';
+import { getMvDetailAlias } from '@/axios/routes/mv';
+import {getMvUrlAlias} from '@/axios/routes/mv'
+import { getMvDetail } from '@/axios/routes/mv';
+import {getMvUrl} from '@/axios/routes/mv'
+
+const route = useRoute();
+const router = useRouter();
+const id=ref(route.params.id)
+
+const reg=/[a-zA-Z]/
+const tester=reg.test(id.value)
+console.log('test',tester);
+console.log(id.value);
+
+
+
+
+let mvDetailAPI
+let mvUrlAPI
+
+let mvDetailData=reactive({
+    data:{},
+  
+});
+
+let mvUrlData=reactive({
+    data:{},
+  
+});
+
+watchEffect(()=>{
+    if(tester===false){
+        (async ()=>{
+            mvDetailAPI=await getMvDetail(id.value)
+            mvDetailData.data=mvDetailAPI.data.data
+             /*  console.log('okDetail',mvDetailData.data);  */ 
+        })();
+        
+         (async ()=>{
+            mvUrlAPI=await getMvUrl(id.value)
+            mvUrlData.data=mvUrlAPI.data.data
+                /*  console.log('okUrl',mvUrlData.data);  */
+        })() ;
+}   
+else{
+    (async ()=>{
+        mvDetailAPI=await getMvDetailAlias(id.value)
+        mvDetailData.data=mvDetailAPI.data.data
+        /*  console.log('okDetailAlias',mvDetailData.data);  */
+    })();
+    
+     (async ()=>{
+        mvUrlAPI=await getMvUrlAlias(id.value)
+        
+        mvUrlData.data=mvUrlAPI.data.urls[0]
+            /*  console.log('okUrlAlias',mvUrlData.data);  */
+    })() ;
+}
+}
+
+
+
+
+);
+
+const timestamp=ref(0)
+const year=ref(null)
+const month=ref(null)
+const day=ref(null)
+watchEffect(()=>{
+    if(mvDetailData.data.publishTime!=undefined){
+         timestamp.value=mvDetailData.data.publishTime
+        console.log(timestamp.value);
+        const date=new Date(timestamp.value)
+         year.value=date.getFullYear()
+         month.value=date.getMonth()+1
+         day.value=date.getDate()
+    }
+    
+})
+
+
+
+
+
+
+const isPlaying=ref(true)
+console.log(isPlaying.value);
+
+const anchors = [
+      100,
+      Math.round(0.45 * window.innerHeight),
+      Math.round(0.8 * window.innerHeight),
+    ];
+    const height = ref(anchors[1]);
+
+
+
+
+
+
+const onClickLeft = () => history.back();
+
+</script>
 
 
 
@@ -399,8 +401,18 @@ const onClickLeft = () => history.back();
     background-color: rgb(221, 225, 236);
     position: absolute;
     z-index: 999999;
+    max-height: 150vw;
+    overflow: hidden;
    
 }
+
+.pausePanel{
+    position: absolute;
+    z-index: 999999;
+
+  
+}
+
 
 .navbar{
     z-index: 99999;

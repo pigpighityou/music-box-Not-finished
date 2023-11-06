@@ -1,3 +1,4 @@
+
 <script setup>
  import newChineseAlbums from './body/newChineseAlbums.vue'
 import hotChineseSinger from './body/hotChineseSinger.vue'
@@ -15,7 +16,6 @@ import  newChineseSong  from './body/newChineseSong.vue'
 
 
 </script>
-
 
 <template>
     
