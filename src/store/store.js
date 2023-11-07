@@ -43,6 +43,11 @@ const store=createStore({
 
              audioState:{
 
+             },
+
+             test:{
+                    name:'test',
+                    age:'',
              }
 
            

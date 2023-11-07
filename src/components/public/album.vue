@@ -56,6 +56,7 @@ const clickHandler=(index)=>{
   left-text="返回"
   left-arrow
   @click-left="onClickLeft"
+  class="navBar"
 />
 
 
@@ -198,6 +199,12 @@ const clickHandler=(index)=>{
 
 
 <style scoped>
+.navBar{
+  position: sticky;
+  top:0vw;
+}
+
+
 .desc{
   display: flex;
   flex-direction: row;

@@ -5,7 +5,7 @@
     <audio ref="audio"  :src="store.state.url" @ended="nextSong"></audio>
 
 
-    <div class="album">
+    <div class="album" >
    
             <img :src="store.state.playSong.al?.picUrl||store.state.playSong.album?.picUrl||store.state.playSong.data?.al.picUrl" alt="pic" class="albumPic">
      
@@ -60,7 +60,7 @@
         {{ store.state.playIndex }}
        <!--  {{ store.state.playSong }}
         {{ store.state.playList }} -->
-
+        {{ store.state.test }}
 
        
     </span>
@@ -140,6 +140,7 @@ const isPlaying=ref(store.state.isPlayingSong)
 
 let audioState=reactive({ })
 
+// 保存状态
 watchEffect(()=>{
     if(audio.value){
 

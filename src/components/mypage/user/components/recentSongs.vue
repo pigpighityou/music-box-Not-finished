@@ -1,32 +1,4 @@
-<script setup>
-import { ref, onMounted, onUnmounted,reactive } from 'vue'
-import store from '../../../../store/store';
 
-import { getRecentSongs } from '../../../../axios/routes/userList.js';
-
-let recentSongsAPI
-
-let recentSongs = reactive({
-    songs: []
-});
-
-(async () => {
-    recentSongsAPI = await getRecentSongs()
-    store.state.playList=recentSongsAPI.data.data.list
-    recentSongs.songs = recentSongsAPI.data.data.list
-      /*  console.log(recentSongs.songs)    */
-})();
-
-
-
-
-const onClickLeft = () => history.back();
-
-const clickHandler=(index)=>{
-    store.commit('getIndexPlay',index)
-}
-
-</script>
 
 
 
@@ -91,6 +63,36 @@ const clickHandler=(index)=>{
 
 </template>
 
+<script setup>
+import { ref, onMounted, onUnmounted,reactive } from 'vue'
+import store from '../../../../store/store';
+
+import { getRecentSongs } from '../../../../axios/routes/userList.js';
+
+let recentSongsAPI
+
+let recentSongs = reactive({
+    songs: []
+});
+
+(async () => {
+    recentSongsAPI = await getRecentSongs()
+    store.state.playList=recentSongsAPI.data.data.list
+    recentSongs.songs = recentSongsAPI.data.data.list
+      /*  console.log(recentSongs.songs)    */
+})();
+
+
+
+
+const onClickLeft = () => history.back();
+
+const clickHandler=(index)=>{
+    store.commit('getIndexPlay',index)
+}
+
+</script>
+
 
 <style scoped>
 
@@ -102,6 +104,10 @@ const clickHandler=(index)=>{
     width: 100vw;
     max-height: 15vw;
     margin-bottom: 3vw;
+}
+
+.recentSongsWrapper{
+    margin-bottom: 20vw;
 }
 
 

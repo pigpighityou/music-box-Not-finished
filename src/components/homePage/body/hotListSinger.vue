@@ -61,6 +61,7 @@ const onClickLeft = () => {
   left-text="返回"
   left-arrow
   @click-left="onClickLeft"
+  class="navBar"
 />
 
 
@@ -101,6 +102,12 @@ const onClickLeft = () => {
 
 
 <style scoped>
+
+.navBar{
+    position:sticky;
+    top:0;
+}
+
 .list{
     display: flex;
     flex-direction: row;

@@ -70,7 +70,10 @@ provide('button',{
 
 
 <style scoped>
-
+.navBar{
+  position: sticky;
+  top:0vw;
+}
 
 
 

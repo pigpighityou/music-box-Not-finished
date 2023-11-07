@@ -125,6 +125,11 @@ const userId=ref(JSON.parse(localStorage.getItem('userData')));
 
 
 
+.storeRadioWrapper{
+    margin-bottom: 20vw;
+}
+
+
 
 
 

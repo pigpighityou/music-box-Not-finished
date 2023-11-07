@@ -116,6 +116,8 @@ const token=ref(localStorage.getItem('token'));
 
 </div>
 
+<div class="blank"></div>
+
 
 
 
@@ -125,6 +127,11 @@ const token=ref(localStorage.getItem('token'));
 
 
 <style scoped>
+
+.blank{
+  width: 100vw;
+  height: 20vw;
+}
 
 
 .headerWrapper{

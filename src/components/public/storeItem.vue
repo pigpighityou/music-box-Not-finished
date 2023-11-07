@@ -212,6 +212,10 @@ let storeAlbumData = reactive({
     color: rgb(92, 87, 87);
 }
 
+.storeAlbumWrapper{
+    margin-bottom: 20vw;
+}
+
 
 
 

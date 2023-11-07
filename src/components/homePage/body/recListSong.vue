@@ -18,7 +18,7 @@ let RecSongsList=reactive({
         try{
             RecSongsAPI=await getRecSongList()
             RecSongsList.songs=RecSongsAPI.data.result
-             console.log('ok',RecSongsList.songs) 
+            /*  console.log('ok',RecSongsList.songs)  */
         }
         catch(err){
             console.log(err)
@@ -39,6 +39,7 @@ let RecSongsList=reactive({
   left-text="返回"
   left-arrow
   @click-left="onClickLeft"
+  class="navBar"
 />
 
 
@@ -81,6 +82,12 @@ let RecSongsList=reactive({
 
 
 <style scoped>
+.navBar{
+    position: sticky;
+    top:0vw;
+}
+
+
 .list{
     display: flex;
     flex-direction: row;

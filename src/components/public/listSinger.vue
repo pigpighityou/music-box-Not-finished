@@ -8,6 +8,7 @@
   left-text="返回"
   left-arrow
   @click-left="onClickLeft"
+  class="navBar"
 />
 
 
@@ -400,6 +401,13 @@ const clickHandlerSong=(index)=>{
 
 
 <style scoped>
+.navBar{
+  position: sticky;
+  top:0vw;
+
+}
+
+
 .iconfont{
   font-size: 5vw;
 

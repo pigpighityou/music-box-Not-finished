@@ -109,6 +109,10 @@ let purchasedAlbumData = reactive({
     width: 98vw;
 }
 
+.purchasedAlbumWrapper{
+    margin-bottom: 20vw;
+}
+
 .desc{
     display: flex;
     flex-direction: column;

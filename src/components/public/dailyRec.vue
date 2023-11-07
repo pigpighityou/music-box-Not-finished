@@ -6,6 +6,7 @@
                 left-text="返回"
                 left-arrow
                 @click-left="onClickLeft"
+                class="navBar"
                 />
                         
 
@@ -203,6 +204,10 @@ const onClickLeft = () => history.back();
 
 
 <style scoped>
+.navBar{
+    position: sticky;
+    top: 0vw;
+}
 
 
 
