@@ -239,6 +239,12 @@ watchEffect(()=>{
  })
 
 
+//  下一首歌
+ const nextSong=()=>{
+    store.state.playIndex++
+    store.commit('getIndexPlay',store.state.playIndex)
+ }
+
 
 
   
