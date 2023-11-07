@@ -1,28 +1,3 @@
-<script setup>
-
-import hotSingerAlias from './hotSingerAlias.vue';
-import chooseSinger from './chooseSinger.vue';
-import { ref, reactive,provide } from 'vue';
-
-
-const button1Num = ref(-1);
-const button2Num = ref(-1);
-
-const onClickLeft = () => history.back();
-
-provide('button',{
-    button1Num,
-    button2Num
-})
-
-
-
-
-
-
-
-
-</script>
 
 
 <template>
@@ -64,6 +39,33 @@ provide('button',{
 
 
 </template> 
+
+<script setup>
+
+import hotSingerAlias from './hotSingerAlias.vue';
+import chooseSinger from './chooseSinger.vue';
+import { ref, reactive,provide } from 'vue';
+
+
+const button1Num = ref(-1);
+const button2Num = ref(-1);
+
+const onClickLeft = () => history.back();
+
+provide('button',{
+    button1Num,
+    button2Num
+})
+
+
+
+
+
+
+
+
+</script>
+
 
 
 

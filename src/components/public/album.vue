@@ -1,7 +1,7 @@
 <script setup>
 import { useRoute,useRouter } from 'vue-router';
 import {ref,reactive,onMounted,computed,watchEffect} from 'vue'
-
+import store from '../../store/store';
 import {getNewAlbumInfo} from '@/axios/routes/newAlbumAPI.js'
 
 const route=useRoute()
@@ -24,8 +24,9 @@ let albumDetail=reactive({
 (async ()=>{
     try{
         const res=await getNewAlbumInfo(id.value)
+        store.state.playList=res.data.songs
          albumDetail.data=res.data 
-        /*  console.log('okdetail',albumDetail.data)  */
+         /*  console.log('okdetail',albumDetail.data)   */
     }
     catch(err){
         console.log(err)
@@ -37,6 +38,10 @@ let albumDetail=reactive({
 
 
 const onClickLeft = () => history.back();
+
+const clickHandler=(index)=>{
+  store.commit('getIndexPlay',index)
+}
 
 
 </script>
@@ -147,7 +152,7 @@ const onClickLeft = () => history.back();
 
               {{ index+1 }}
         </div>
-          <div class="albumWrapper">
+          <div class="albumWrapper" @click="clickHandler(index)">
               <div class="albumName">
                 {{ item.name }}
             </div>
@@ -314,7 +319,7 @@ const onClickLeft = () => history.back();
 
 .brief{
     width: 93vw;
-    height: 5vw;
+    height: 4.2vw;
     overflow: hidden;
 }
 
@@ -357,6 +362,7 @@ const onClickLeft = () => history.back();
   background-color: #fff;
   overflow: hidden;
   border: 0.3vw black solid;
+  margin-bottom: 20vw;
 }
 
 .listalbum{

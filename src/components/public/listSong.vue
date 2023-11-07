@@ -105,7 +105,7 @@
 
               {{ index+1 }}
         </div>
-          <div class="songWrapper">
+          <div class="songWrapper" @click="clickHandler(index)">
               <div class="songName">
                 {{ item.name }}
             </div>
@@ -161,6 +161,7 @@ import { useRoute,useRouter } from 'vue-router';
 import {ref,reactive,onMounted,computed,watchEffect} from 'vue'
 import {getListSong} from '@/axios/routes/getListSong.js'
 import {getListSongDetail} from '@/axios/routes/getListSong.js'
+import store from '@/store/store.js';
 
 const route=useRoute()
 const id=ref(route.params.id)
@@ -187,8 +188,9 @@ let songDetail=reactive({
 (async ()=>{
     try{
         const res=await getListSong(id.value)
+        store.state.playList=res.data.songs
         songs.data=res.data
-       /*  console.log('ok',songs.data) */
+        /*  console.log('ok',songs.data)  */
     }
     catch(err){
         console.log(err)
@@ -200,12 +202,16 @@ let songDetail=reactive({
     try{
         const res=await getListSongDetail(id.value)
          songDetail.data=res.data 
-       /*  console.log('okdetail',songDetail.data) */
+      /*    console.log('okdetail',songDetail.data)  */
     }
     catch(err){
         console.log(err)
     }
 })();
+
+const clickHandler=(index)=>{
+  store.commit('getIndexPlay',index)
+}
 
 
 

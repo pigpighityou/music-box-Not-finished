@@ -69,6 +69,7 @@
     display: flex;
     flex-direction: row;
     margin-left: 1.5vw;
+    margin-bottom: 20vw;
    
   
 }

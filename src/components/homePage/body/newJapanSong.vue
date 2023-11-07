@@ -1,31 +1,4 @@
-<script setup>
-import { getNewJapanSong } from '../../../axios/routes/newJapanSong';
-import {ref,reactive,onMounted,computed} from 'vue'
-let newJapanSongAPI
-let newJapanSong=reactive({
-    lists:[
-        
-    ],
-    failImages:[
-        'https://redchairrecruitment.ie/wp-content/uploads/2019/05/No-Data.png'
-    ]
-});
-     
-        (async ()=>{
-            try{
-                
-                newJapanSongAPI=await getNewJapanSong()
-                newJapanSong.lists=newJapanSongAPI.data
-                 /* console.log('ok',newJapanSong.lists)    */
-            }
-            catch(err){
-                console.log(err)
-            }
-        })()
 
-
-
-</script>
 
 
 <template>
@@ -44,7 +17,7 @@ let newJapanSong=reactive({
             
                     <div class="newJapanSong" v-if="index<5">
             
-                         <div class="imgWrapper">
+                         <div class="imgWrapper" @click="clickHandler(index)">
                             <img :src="item.album.blurPicUrl" alt="newJapanSongPic" class="img">
                         </div>
                         <div class="song">
@@ -81,7 +54,39 @@ let newJapanSong=reactive({
             
  </template>
             
+            <script setup>
+            import { getNewJapanSong } from '../../../axios/routes/newJapanSong';
+            import {ref,reactive,onMounted,computed} from 'vue'
+            import store from '../../../store/store';
+            let newJapanSongAPI
+            let newJapanSong=reactive({
+                lists:[
+                    
+                ],
+                failImages:[
+                    'https://redchairrecruitment.ie/wp-content/uploads/2019/05/No-Data.png'
+                ]
+            });
+                 
+                    (async ()=>{
+                        try{
+                            
+                            newJapanSongAPI=await getNewJapanSong()
+                        store.state.playList=newJapanSongAPI.data.data
+                            newJapanSong.lists=newJapanSongAPI.data
+                             /* console.log('ok',newJapanSong.lists)    */
+                        }
+                        catch(err){
+                            console.log(err)
+                        }
+                    })()
             
+               const clickHandler=(index)=>{
+                store.commit('getIndexPlay',index)
+               }     
+            
+            
+            </script>        
             
             <style scoped>
         

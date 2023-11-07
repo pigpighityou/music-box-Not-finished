@@ -17,6 +17,7 @@ import djHot from './components/djHot.vue';
         <radioBanner></radioBanner>
         <djCategory></djCategory>
         <djHot></djHot>
+        <div class="blank"></div>
 
        
 
@@ -27,7 +28,11 @@ import djHot from './components/djHot.vue';
 
 
 <style scoped>
-
+.blank{
+        width:100vw;
+        height:20vw;
+        background-color: white;
+}
 
 
 </style>  

@@ -394,6 +394,6 @@ router.beforeEach((to,from,next)=>{
 
 })
 
-console.log('playsong',store.state.playSong);
+/* console.log('playsong',store.state.playSong); */
 
 export default router

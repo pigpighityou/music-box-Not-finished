@@ -1,5 +1,6 @@
 <script setup>
 import { ref, onMounted, onUnmounted,reactive } from 'vue'
+import store from '../../../../store/store';
 
 import { getRecentSongs } from '../../../../axios/routes/userList.js';
 
@@ -11,14 +12,19 @@ let recentSongs = reactive({
 
 (async () => {
     recentSongsAPI = await getRecentSongs()
+    store.state.playList=recentSongsAPI.data.data.list
     recentSongs.songs = recentSongsAPI.data.data.list
-    /* console.log(recentSongs.songs) */
+      /*  console.log(recentSongs.songs)    */
 })();
 
 
 
 
 const onClickLeft = () => history.back();
+
+const clickHandler=(index)=>{
+    store.commit('getIndexPlay',index)
+}
 
 </script>
 
@@ -37,7 +43,7 @@ const onClickLeft = () => history.back();
 
         <div class="recentSongs"  v-for="(item, index) in recentSongs.songs" :key="index">
 
-                <div class="desc">
+                <div class="desc" @click="clickHandler(index)">
 
                     <div class="songName">
                         {{ item.data.name }}
@@ -63,8 +69,10 @@ const onClickLeft = () => history.back();
 
             
             <div class="mv">
-                <svg class="mvIcon" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg" data-v-ea893728=""><path fill="currentColor" d="M704 768V256H128v512h576zm64-416 192-96v512l-192-96v128a32 32 0 0 1-32 32H96a32 32 0 0 1-32-32V224a32 32 0 0 1 32-32h640a32 32 0 0 1 32 32v128zm0 71.552v176.896l128 64V359.552l-128 64zM192 320h192v64H192v-64z"></path></svg>
-            </div>
+                <router-link :to="{name:'mvPlayer',params:{id:item.data.mv}}">
+                         <svg class="mvIcon"  viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg" data-v-ea893728=""><path fill="currentColor" d="M704 768V256H128v512h576zm64-416 192-96v512l-192-96v128a32 32 0 0 1-32 32H96a32 32 0 0 1-32-32V224a32 32 0 0 1 32-32h640a32 32 0 0 1 32 32v128zm0 71.552v176.896l128 64V359.552l-128 64zM192 320h192v64H192v-64z"></path></svg>
+                </router-link>
+        </div>
 
             
 
@@ -161,6 +169,7 @@ const onClickLeft = () => history.back();
     height: 5vw;
     margin-top: 1vw;
     margin-left: 1vw;
+    color:black;
 }
 
 

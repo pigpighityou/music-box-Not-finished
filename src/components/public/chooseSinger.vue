@@ -1,3 +1,132 @@
+
+
+
+
+<template>
+
+
+
+
+
+
+   
+    <div class="word">
+        查找歌手
+        <i class="iconfont icon-xiajiantou1"></i>
+    </div>
+    <div class="buttonWrapper">
+
+        <div class="first-line" >
+
+           
+                <button class="button1" 
+                v-for="(item, index) in button1Context" 
+                @click="changeColor1(index);
+                result.button1Num.value=item.value1;
+                singerRandom();
+
+                " 
+                :class="{default:index==0}"
+                >
+                                {{ item.category }}
+
+                </button>
+
+
+          
+
+                 
+        </div>
+
+
+
+        
+        <div class="second-line">
+
+
+
+
+
+
+
+
+            <button class="button2" 
+            v-for="(item, index) in button2Context"
+                @click="changeColor2(index);
+                result.button2Num.value=item.value2;
+                singerRandom();
+
+                
+                " 
+                :class="{default:index==0}"
+                >
+                                {{ item.category }}
+
+                </button>
+
+
+
+            
+               
+
+        </div>
+        
+
+
+
+    </div>
+
+
+
+
+
+
+    <div class="singerWrapper" v-for="(item, index) in singerRandomList.singerRandom.artists" :key="index" >
+
+        <router-link :to="{name:'listSinger',params:{id:item.id}}">
+                 
+
+                <img :src="item.picUrl" alt="singer" class="singerImg" v-if="index<15">
+
+                </router-link>
+
+<div class="singerName" v-if="index<15">
+
+    <div class="name">
+        {{item.name}}
+        
+    </div>
+
+ 
+
+
+
+
+
+</div>
+
+<div v-if="index<15">
+    <button class="button">
+        关注
+    </button>
+        
+</div> 
+
+
+
+
+
+
+
+</div> 
+
+
+
+
+
+    
+</template>
+
 <script setup>
 import {ref,reactive,inject} from 'vue'
 import {getSingerRandom} from '../../axios/routes/singer.js';
@@ -142,144 +271,6 @@ const button2Context=reactive([
 
 
 </script>    
-
-
-
-<template>
-
-<!-- <button @click="()=>{ result.button1Num.value+=1/* ;console.log(result.button1Num.value); */
-
-    }">test1</button>
-
-<button @click="()=>{ result.button2Num.value+=1/* ;console.log(result.button2Num.value); */
-
-    }">test2</button>
- -->
-
-
-<!-- {{result.button1Num}}
-{{ result.button2Num }} -->
-
-
-
-
-   
-    <div class="word">
-        查找歌手
-        <i class="iconfont icon-xiajiantou1"></i>
-    </div>
-    <div class="buttonWrapper">
-
-        <div class="first-line" >
-
-           
-                <button class="button1" 
-                v-for="(item, index) in button1Context" 
-                @click="changeColor1(index);
-                result.button1Num.value=item.value1;
-                singerRandom();
-
-                " 
-                :class="{default:index==0}"
-                >
-                                {{ item.category }}
-
-                </button>
-
-
-          
-
-                 
-        </div>
-
-
-
-        
-        <div class="second-line">
-
-
-
-
-
-
-
-
-            <button class="button2" 
-            v-for="(item, index) in button2Context"
-                @click="changeColor2(index);
-                result.button2Num.value=item.value2;
-                singerRandom();
-
-                
-                " 
-                :class="{default:index==0}"
-                >
-                                {{ item.category }}
-
-                </button>
-
-
-
-            
-               
-
-        </div>
-        
-
-
-
-    </div>
-
-
-
-
-
-
-    <div class="singerWrapper" v-for="(item, index) in singerRandomList.singerRandom.artists" :key="index" >
-
-        <router-link :to="{name:'listSinger',params:{id:item.id}}">
-                 
-
-                <img :src="item.picUrl" alt="singer" class="singerImg" v-if="index<15">
-
-                </router-link>
-
-<div class="singerName" v-if="index<15">
-
-    <div class="name">
-        {{item.name}}
-        
-    </div>
-
- 
-
-
-
-
-
-</div>
-
-<div v-if="index<15">
-    <button class="button">
-        关注
-    </button>
-        
-</div> 
-
-
-
-
-
-
-
-</div> 
-
-
-
-
-
-    
-</template>
 
 
 <style scoped>

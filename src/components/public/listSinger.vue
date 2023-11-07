@@ -1,157 +1,3 @@
-<script setup>
-import {ref ,reactive,watchEffect} from 'vue'
-
-import {getSingerWiki} from '../../axios/routes/singerInfo'
-import { getSingerDetail } from '../../axios/routes/singerInfo';
-import { getSingerHotSong } from '../../axios/routes/singerInfo';
-
-
-import { getSingerFans } from '../../axios/routes/singerInfo';
-import {getSingerSimi} from '../../axios/routes/singerInfo'
-
-
-
-import listAlbum from '../public/listAlbum.vue'
-import listMv from './listMv.vue';
-
-
-
-import { useRoute,useRouter } from 'vue-router';
-import router from '../../router';
-
-
-
-
-
-const route=useRoute()
-
-
-
-const id=ref(route.params.id)
-
-
-console.log(id.value);
-
-let singerWikiAPI
-let singerDetailAPI
-let singerHotSongAPI
-
-
-let singerFansAPI
-let singerSimiAPI
-
-const singerDetail=reactive({
-  data:[],
-});
-
-const singerWiki=reactive({
-  data:[],
-});
-
-const singerHotSong=reactive({
-  data:[],
-});
-
-
-
-
-
-const singerFans=reactive({
-  data:[],
-});
-
-const singerSimi=reactive({
-  data:[],
-});
-
-(async()=>{
-  singerWikiAPI=await getSingerWiki(id.value)
-  singerWiki.data=singerWikiAPI.data.data
-   /* console.log('okWIKI',singerWiki.data); */ 
-})();
-
-
-(async()=>{
-  singerDetailAPI=await getSingerDetail(id.value)
-  singerDetail.data=singerDetailAPI.data.data
-   /* console.log('okDETAIL',singerDetail.data);  */
-})();
-
-(async()=>{
-  singerHotSongAPI=await getSingerHotSong(id.value)
-  singerHotSong.data=singerHotSongAPI.data.songs
-   /*  console.log('okHOTSONG',singerHotSong.data);   */
-})();
-
-
-
-
-(async()=>{
-  singerFansAPI=await getSingerFans(id.value)
-  singerFans.data=singerFansAPI.data.data
- /*   console.log('okFANS',singerFans.data);  */
-})();
-
-(async()=>{
-  singerSimiAPI=await getSingerSimi(id.value)
-  singerSimi.data=singerSimiAPI.data.artists
-/*   console.log('okSIMI',singerSimi.data); */
-})();
-
-/* console.log(history.state.back); */
-
-const onClickLeft = () => {
-  const reg=/^\/listSinger\/\d+$/
-  //  当上一个路由是/listsinger/：num ，
-      // 换言之是通过查找相似歌手页面跳转的，返回大世界
-  if(reg.test(history.state.back)){
-    router.push('/world')
-
-
-
-}else{
-  router.go(-1)
-}
-}
-
-
-const isSimi=ref(false)
-
-const simiHandler=()=>{
-  isSimi.value=!isSimi.value;
-/*   console.log(isSimi.value); */
-}
-
-const isClick=ref(false)
-
-const clickHandler=()=>{
-  isClick.value=!isClick.value
-  console.log(isClick.value);
-};
-
-
-const fullscreenLoading = ref(false)
-
-watchEffect(()=>{
-  if(isClick.value===true){
-    fullscreenLoading.value = true
-   setTimeout(()=>{
-    fullscreenLoading.value = false
-    router.go(0)
-   },500)
-  }
-
-
-})
-
-const drawer = ref(false)
-const direction = ref('btt')
-
-
-
-
-
-</script>
 
 
 
@@ -298,7 +144,7 @@ const direction = ref('btt')
 
             {{ index+1 }}
       </div>
-        <div class="songWrapper">
+        <div class="songWrapper" @click='clickHandlerSong(index)'>
             <div class="songName">
               {{ item.name }}
           </div>
@@ -391,6 +237,166 @@ const direction = ref('btt')
 
 
 </template>
+
+<script setup>
+import {ref ,reactive,watchEffect} from 'vue'
+import store from '../../store/store'
+
+import {getSingerWiki} from '../../axios/routes/singerInfo'
+import { getSingerDetail } from '../../axios/routes/singerInfo';
+import { getSingerHotSong } from '../../axios/routes/singerInfo';
+
+
+import { getSingerFans } from '../../axios/routes/singerInfo';
+import {getSingerSimi} from '../../axios/routes/singerInfo'
+
+
+
+import listAlbum from '../public/listAlbum.vue'
+import listMv from './listMv.vue';
+
+
+
+import { useRoute,useRouter } from 'vue-router';
+import router from '../../router';
+
+
+
+
+
+const route=useRoute()
+
+
+
+const id=ref(route.params.id)
+
+
+console.log(id.value);
+
+let singerWikiAPI
+let singerDetailAPI
+let singerHotSongAPI
+
+
+let singerFansAPI
+let singerSimiAPI
+
+const singerDetail=reactive({
+  data:[],
+});
+
+const singerWiki=reactive({
+  data:[],
+});
+
+const singerHotSong=reactive({
+  data:[],
+});
+
+
+
+
+
+const singerFans=reactive({
+  data:[],
+});
+
+const singerSimi=reactive({
+  data:[],
+});
+
+(async()=>{
+  singerWikiAPI=await getSingerWiki(id.value)
+  singerWiki.data=singerWikiAPI.data.data
+   /* console.log('okWIKI',singerWiki.data); */ 
+})();
+
+
+(async()=>{
+  singerDetailAPI=await getSingerDetail(id.value)
+  singerDetail.data=singerDetailAPI.data.data
+   /* console.log('okDETAIL',singerDetail.data);  */
+})();
+
+(async()=>{
+  singerHotSongAPI=await getSingerHotSong(id.value)
+  store.state.playList=singerHotSongAPI.data.songs
+  singerHotSong.data=singerHotSongAPI.data.songs
+    /*  console.log('okHOTSONG',singerHotSong.data);    */
+})();
+
+
+
+
+(async()=>{
+  singerFansAPI=await getSingerFans(id.value)
+  singerFans.data=singerFansAPI.data.data
+ /*   console.log('okFANS',singerFans.data);  */
+})();
+
+(async()=>{
+  singerSimiAPI=await getSingerSimi(id.value)
+  singerSimi.data=singerSimiAPI.data.artists
+/*   console.log('okSIMI',singerSimi.data); */
+})();
+
+/* console.log(history.state.back); */
+
+const onClickLeft = () => {
+  const reg=/^\/listSinger\/\d+$/
+  //  当上一个路由是/listsinger/：num ，
+      // 换言之是通过查找相似歌手页面跳转的，返回大世界
+  if(reg.test(history.state.back)){
+    router.push('/world')
+
+
+
+}else{
+  router.go(-1)
+}
+}
+
+
+const isSimi=ref(false)
+
+const simiHandler=()=>{
+  isSimi.value=!isSimi.value;
+/*   console.log(isSimi.value); */
+}
+
+const isClick=ref(false)
+
+const clickHandler=()=>{
+  isClick.value=!isClick.value
+  console.log(isClick.value);
+};
+
+
+const fullscreenLoading = ref(false)
+
+watchEffect(()=>{
+  if(isClick.value===true){
+    fullscreenLoading.value = true
+   setTimeout(()=>{
+    fullscreenLoading.value = false
+    router.go(0)
+   },500)
+  }
+
+
+})
+
+const drawer = ref(false)
+const direction = ref('btt')
+
+const clickHandlerSong=(index)=>{
+    store.commit('getIndexPlay',index)
+}
+
+
+
+</script>
+
 
 
 <style scoped>

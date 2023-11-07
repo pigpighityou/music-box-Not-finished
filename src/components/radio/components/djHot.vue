@@ -90,7 +90,7 @@ const getDjHotByPage = async (page)=>{
     try{
         djHotAPI = await getDjHot(page)
         djHotList.djHot = djHotAPI.data.djRadios
-        console.log('new ok2',djHotList.djHot)
+        /* console.log('new ok2',djHotList.djHot) */
         
     }
     catch(err){

@@ -1,3 +1,14 @@
+
+
+<template>
+    
+<newJapanSong></newJapanSong>
+<newJapanAlbum></newJapanAlbum>
+<hotJapanSinger></hotJapanSinger>
+<div class="blank"></div>
+
+
+</template>
 <script setup>
  import newJapanSong from './body/newJapanSong.vue';
  import newJapanAlbum from './body/newJapanAlbum.vue';
@@ -12,20 +23,13 @@
 </script>
 
 
-<template>
-    
-<newJapanSong></newJapanSong>
-<newJapanAlbum></newJapanAlbum>
-<hotJapanSinger></hotJapanSinger>
-
-
-
-</template>
-
-
 
 <style scoped>
-
+.blank{
+    width:100vw;
+    height:20vw;
+    background-color:rgb(240,240,240);
+}
 
 
 

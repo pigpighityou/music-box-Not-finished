@@ -7,20 +7,20 @@
 
     <div class="album">
    
-            <img :src="store.state.playSong.al.picUrl" alt="pic" class="albumPic">
+            <img :src="store.state.playSong.al?.picUrl||store.state.playSong.album?.picUrl||store.state.playSong.data?.al.picUrl" alt="pic" class="albumPic">
      
                
     </div>
 
     <div class="name">
      
-        <div>{{store.state.playSong.name}}</div>
+        <div>{{store.state.playSong?.name||store.state.playSong.data?.name}}</div>
      
     </div>
 
     <div class="author" >
        
-        <div v-for="(item, index) in store.state.playSong.ar" :key="index">
+        <div v-for="(item, index) in store.state.playSong?.ar||store.state.playSong?.artists||store.state.playSong.data?.ar" :key="index">
             {{item.name}}
         </div>
    
@@ -47,17 +47,19 @@
     
   >
     <span>Hi, there!
-     <!--    {{ isPlaying }} -->
+    
         <!-- {{ store.state.audio }} -->
-       <!--  {{ audioState }}
-        {{ audio.currentTime }} -->
-       <!--  {{ store.state.playList }}  -->
+   
+       
+       <!--   {{ store.state.playList }}   -->
        <!--  {{ store.state.url }} -->
-      <!--   {{ store.state.playSong }} -->
+        <!--  {{ store.state.playSong }}  -->
         <!-- {{ store.state.playList }} -->
-        {{ playList }}
+     <!--    {{ playList }} -->
 
         {{ store.state.playIndex }}
+       <!--  {{ store.state.playSong }}
+        {{ store.state.playList }} -->
 
 
        
@@ -117,7 +119,8 @@ const hasFootBar=ref(store.state.hasFootBar)
     if(to.path==='/world'||to.path==='/Chinese'
     ||to.path==='/English'||to.path==='/Japan'||to.path==='/Korea'
     ||from.path==='/world'||from.path==='/Chinese'||from.path==='/English'
-    ||from.path==='/Japan'||from.path==='/Korea'){
+    ||from.path==='/Japan'||from.path==='/Korea'||to.path==='/user'||from.path==='/user'
+    ||to.path==='radio'||from.path==='radio'){
         // 刷新页面
         openFullScreen2()
         setTimeout(()=>{
@@ -153,16 +156,26 @@ watchEffect(()=>{
 window.addEventListener('beforeunload',()=>{
         localStorage.setItem('currentTime',JSON.stringify(audio.value.currentTime)) 
         localStorage.setItem('paused',JSON.stringify(audio.value.paused));
+        localStorage.setItem('isPlayingSong',JSON.stringify(store.state.isPlayingSong)) 
+    localStorage.setItem('playSong',JSON.stringify(store.state.playSong));
+    localStorage.setItem('playIndex',JSON.stringify(store.state.playIndex));
     })
 
 // 进入页面，加载，找到状态，恢复
 const cachedCurrentTime = localStorage.getItem('currentTime');
  const cachedPaused = localStorage.getItem('paused'); 
+ const cachedPlaySong = localStorage.getItem('playSong');
+ const cachedIsPlayingSong = localStorage.getItem('isPlayingSong'); 
+    const cachedPlayIndex = localStorage.getItem('playIndex');
+ 
 watchEffect(()=>{
     if(audio.value){
-        if(cachedCurrentTime&&cachedPaused){
+        if(cachedCurrentTime&&cachedPaused&&cachedPlaySong&&cachedIsPlayingSong){
             audio.value.currentTime=JSON.parse(cachedCurrentTime) 
-           /*  audio.value.paused=JSON.parse(cachedPaused) */
+            store.state.isPlaying=JSON.parse(cachedIsPlayingSong) 
+            store.state.playSong=JSON.parse(cachedPlaySong)
+            store.state.playIndex=JSON.parse(cachedPlayIndex)
+           
         }
     }
 })
@@ -170,8 +183,13 @@ watchEffect(()=>{
 // 防止资源加载不出来，点按钮可实现再次获取资源
  const backUpGetUrl=async()=>{
     try{
-        const res=await getSongs(store.state.playSong.id)
-        store.state.url=res.data.data[0].url
+        if(store.state.playSong.id||store.state.playSong.resourceId){
+        const res=await getSongs(store.state.playSong.id||store.state.playSong.resourceId)
+         console.log(store.state.playSong.id||store.state.playSong.resourceId)   
+           /*  console.log(res) */
+        store.state.url=res.data.data[0]?.url
+        }
+       
     }
     catch(err){
         console.log(err)
@@ -221,21 +239,7 @@ watchEffect(()=>{
  })
 
 
-const playList=computed(()=>{
-//    把数组里的对象取出来，用forEach
-    if(store.state.playList!=null){
 
-        let arr=[]
-        store.state.playList.forEach((item,index)=>{
-            arr.push(item.name)
-        })
-        return arr
-
-        
-
-    }
-   
-})
 
   
 
@@ -316,7 +320,8 @@ const playList=computed(()=>{
     width: 25vw;
     display: flex;
     flex-direction: row;
-    max-height: 3.5vw;
+    max-height: 4vw;
+    margin-top:-0.6vw;
 
 }
 

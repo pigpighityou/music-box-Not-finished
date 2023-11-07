@@ -178,8 +178,9 @@ const onClickLeft = () => history.back();
 
 
  const clickHandler=(id)=>{
-    store.state.playIndex=id
-    store.state.playSong=store.state.playList[id];
+    // 至关重要的一个功能
+    store.commit('getIndexPlay',id)
+    
 (async()=>{
     try{
         const res=await getSongs(store.state.playSong.id)

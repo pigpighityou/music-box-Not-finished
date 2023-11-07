@@ -70,6 +70,13 @@ const store=createStore({
 
     mutations:{
 
+        //  别忘了加上state
+        getIndexPlay(state,index){
+            
+            this.state.playIndex=index
+            this.state.playSong=state.playList[index]
+        
+        }
 
 
 

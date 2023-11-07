@@ -1,31 +1,4 @@
-<script setup>
-import { getNewEnglishSong } from '../../../axios/routes/newEnglishSong';
-import {ref,reactive,onMounted,computed} from 'vue'
-let newEnglishSongAPI
-let newEnglishSong=reactive({
-    lists:[
-        
-    ],
-    failImages:[
-        'https://redchairrecruitment.ie/wp-content/uploads/2019/05/No-Data.png'
-    ]
-});
-     
-        (async ()=>{
-            try{
-                
-                newEnglishSongAPI=await getNewEnglishSong()
-                newEnglishSong.lists=newEnglishSongAPI.data
-                 /* console.log('ok',newEnglishSong.lists)    */
-            }
-            catch(err){
-                console.log(err)
-            }
-        })()
 
-
-
-</script>
 
 
 <template>
@@ -42,9 +15,9 @@ let newEnglishSong=reactive({
                 <div class="newEnglishSongList" v-for="(item, index) in newEnglishSong.lists.data" 
             :key="index" >
             
-                    <div class="newEnglishSong" v-if="index<5">
+                    <div class="newEnglishSong" v-if="index<10">
             
-                         <div class="imgWrapper">
+                         <div class="imgWrapper" @click="clickHandler(index)">
                             <img :src="item.album.blurPicUrl" alt="newEnglishSongPic" class="img">
                         </div>
                         <div class="song">
@@ -80,6 +53,40 @@ let newEnglishSong=reactive({
             
             
  </template>
+
+<script setup>
+import { getNewEnglishSong } from '../../../axios/routes/newEnglishSong';
+import {ref,reactive,onMounted,computed} from 'vue'
+import store from '../../../store/store';
+let newEnglishSongAPI
+let newEnglishSong=reactive({
+    lists:[
+        
+    ],
+    failImages:[
+        'https://redchairrecruitment.ie/wp-content/uploads/2019/05/No-Data.png'
+    ]
+});
+     
+        (async ()=>{
+            try{
+                
+                newEnglishSongAPI=await getNewEnglishSong()
+                store.state.playList=newEnglishSongAPI.data.data
+                newEnglishSong.lists=newEnglishSongAPI.data
+                 /*  console.log('ok',newEnglishSong.lists)   */  
+            }
+            catch(err){
+                console.log(err)
+            }
+        })()
+
+    const clickHandler=(index)=>{
+        store.commit('getIndexPlay',index)
+    }
+
+
+</script>
             
             
             

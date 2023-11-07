@@ -23,7 +23,7 @@ import  newChineseSong  from './body/newChineseSong.vue'
     <hotChineseSinger></hotChineseSinger>
     <hotChineseSongList></hotChineseSongList>
     <newChineseSong></newChineseSong>
-
+    <div class="blank"></div>
 
 
 
@@ -32,7 +32,11 @@ import  newChineseSong  from './body/newChineseSong.vue'
 
 
 <style scoped>
-
+.blank{
+    width:100vw;
+    height:20vw;
+    background-color:rgb(240,240,240);
+}
 
 
 
