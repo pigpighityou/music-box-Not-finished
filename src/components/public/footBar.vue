@@ -1,11 +1,10 @@
-<script setup>
-import {ref} from 'vue'
-const active=ref(0)
-
-</script>
 
 
 <template>
+
+
+
+<musicPlayer class="musicPlayer"></musicPlayer>
 
 
 <div class="footWrapper" >
@@ -31,12 +30,40 @@ const active=ref(0)
 
 </template>
 
+
+<script setup>
+import {ref,onBeforeMount }from 'vue'
+import musicPlayer from '../musicPlayer/musicPlayer.vue'
+import store from '../../store/store'
+const active=ref(0)
+
+const hasFootBar=ref(store.state.hasFootBar)
+
+
+
+</script>
+
+
 <style scoped>
   
   .footWrapper{
     position:relative;
     z-index:9999999;
   }
+
+  .musicPlayer{
+    position:sticky;
+    bottom:10vw;
+    left:0;
+    right:0;
+    
+   
+  }
+
+
+
+
+ 
 
 
 </style>

@@ -45,11 +45,7 @@ const store=createStore({
 
              },
 
-             test:{
-                    name:'test',
-                    age:'',
-             }
-
+             
            
 
         }

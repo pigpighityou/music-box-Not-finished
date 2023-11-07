@@ -7,20 +7,20 @@
 
     <div class="album" >
    
-            <img :src="store.state.playSong.al?.picUrl||store.state.playSong.album?.picUrl||store.state.playSong.data?.al.picUrl" alt="pic" class="albumPic">
+            <img :src="store.state.playSong?.al?.picUrl||store.state.playSong?.album?.picUrl||store.state.playSong?.data?.al.picUrl" alt="pic" class="albumPic">
      
                
     </div>
 
     <div class="name">
      
-        <div>{{store.state.playSong?.name||store.state.playSong.data?.name}}</div>
+        <div>{{store.state.playSong?.name||store.state.playSong?.data?.name}}</div>
      
     </div>
 
     <div class="author" >
        
-        <div v-for="(item, index) in store.state.playSong?.ar||store.state.playSong?.artists||store.state.playSong.data?.ar" :key="index">
+        <div v-for="(item, index) in store.state.playSong?.ar||store.state.playSong?.artists||store.state.playSong?.data?.ar" :key="index">
             {{item.name}}
         </div>
    
@@ -28,8 +28,8 @@
     </div>
 
     <div class="icon">
-        <svg class="playIcon" v-if="isPlaying===false" @click="play" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg" data-v-ea893728=""><path fill="currentColor" d="M512 64a448 448 0 1 1 0 896 448 448 0 0 1 0-896zm0 832a384 384 0 0 0 0-768 384 384 0 0 0 0 768zm-48-247.616L668.608 512 464 375.616v272.768zm10.624-342.656 249.472 166.336a48 48 0 0 1 0 79.872L474.624 718.272A48 48 0 0 1 400 678.336V345.6a48 48 0 0 1 74.624-39.936z"></path></svg>
-        <svg class="playIcon" v-if="isPlaying===true" @click="pause" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg" data-v-ea893728=""><path fill="currentColor" d="M512 64a448 448 0 1 1 0 896 448 448 0 0 1 0-896zm0 832a384 384 0 0 0 0-768 384 384 0 0 0 0 768zm-96-544q32 0 32 32v256q0 32-32 32t-32-32V384q0-32 32-32zm192 0q32 0 32 32v256q0 32-32 32t-32-32V384q0-32 32-32z"></path></svg> 
+        <svg class="playIcon" v-if="store.state.isPlayingSong===false" @click="play" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg" data-v-ea893728=""><path fill="currentColor" d="M512 64a448 448 0 1 1 0 896 448 448 0 0 1 0-896zm0 832a384 384 0 0 0 0-768 384 384 0 0 0 0 768zm-48-247.616L668.608 512 464 375.616v272.768zm10.624-342.656 249.472 166.336a48 48 0 0 1 0 79.872L474.624 718.272A48 48 0 0 1 400 678.336V345.6a48 48 0 0 1 74.624-39.936z"></path></svg>
+        <svg class="playIcon" v-if="store.state.isPlayingSong===true"  @click="pause" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg" data-v-ea893728=""><path fill="currentColor" d="M512 64a448 448 0 1 1 0 896 448 448 0 0 1 0-896zm0 832a384 384 0 0 0 0-768 384 384 0 0 0 0 768zm-96-544q32 0 32 32v256q0 32-32 32t-32-32V384q0-32 32-32zm192 0q32 0 32 32v256q0 32-32 32t-32-32V384q0-32 32-32z"></path></svg> 
     </div>
 
     <div class="listSongs">
@@ -60,7 +60,8 @@
         {{ store.state.playIndex }}
        <!--  {{ store.state.playSong }}
         {{ store.state.playList }} -->
-        {{ store.state.test }}
+       {{ store.state.isPlayingSong }}
+       {{ isPlaying }}
 
        
     </span>
@@ -85,10 +86,13 @@ import { ElLoading } from 'element-plus'
 const router=useRouter()
 const route=useRoute()
 
+
+
 const drawer = ref(false)
 const direction = ref('btt')
 
 const musicPlayer=ref(null)
+
 
 const handleClick=()=>{
    
@@ -109,7 +113,7 @@ const openFullScreen2 = () => {
 
 const hasFootBar=ref(store.state.hasFootBar)
 
- watchEffect(()=>{
+/*  watchEffect(()=>{
     if(hasFootBar.value&&musicPlayer.value){
            musicPlayer.value.style.marginBottom='12vw'
    }
@@ -131,11 +135,10 @@ const hasFootBar=ref(store.state.hasFootBar)
       
     }
    next()
- })
+ }) */
 
  const audio=ref(null)
-
-const isPlaying=ref(store.state.isPlayingSong)
+ const isPlaying=ref(!audio.value?.paused)
 
 
 let audioState=reactive({ })
@@ -155,29 +158,80 @@ watchEffect(()=>{
 
 // 离开的时候也要记录状态,否则一刷新，就重制了
 window.addEventListener('beforeunload',()=>{
-        localStorage.setItem('currentTime',JSON.stringify(audio.value.currentTime)) 
-        localStorage.setItem('paused',JSON.stringify(audio.value.paused));
-        localStorage.setItem('isPlayingSong',JSON.stringify(store.state.isPlayingSong)) 
-    localStorage.setItem('playSong',JSON.stringify(store.state.playSong));
-    localStorage.setItem('playIndex',JSON.stringify(store.state.playIndex));
-    })
+    console.log('重载了')
+        localStorage.setItem('currentTime',JSON.stringify(audio.value?.currentTime)) 
+        localStorage.setItem('paused',JSON.stringify(audio.value?.paused));
+        localStorage.setItem('isPlayingSong',JSON.stringify(store.state?.isPlayingSong)) 
+    localStorage.setItem('playSong',JSON.stringify(store.state?.playSong));
+    localStorage.setItem('playIndex',JSON.stringify(store.state?.playIndex));
+    });
 
-// 进入页面，加载，找到状态，恢复
+
+router.beforeEach((to, from, next) => {
+    console.log('路由即将跳转');
+    if(audio.value){
+                if(audio.value.paused!=null&&isPlaying.value){
+                    store.state.isPlayingSong=true
+            localStorage.setItem('isPlaying',JSON.stringify(isPlaying.value)); 
+            localStorage.setItem('pausedAlias',JSON.stringify(audio.value.paused));
+            localStorage.setItem('isPlayingSongAlias',JSON.stringify(store.state?.isPlayingSong)) 
+        localStorage.setItem('playSongAlias',JSON.stringify(store.state?.playSong));
+        localStorage.setItem('playIndexAlias',JSON.stringify(store.state?.playIndex));
+
+        }
+    }
+  
+   
+    
+   
+   next()
+ })
+
+
+ // 进入页面，加载，找到状态，恢复
+// isPlayingSong的作用就是每次不小心刷新或者路由跳转引起的故障导致的歌曲暂停，
+    // 可以把按钮的状态也变成暂停
 const cachedCurrentTime = localStorage.getItem('currentTime');
  const cachedPaused = localStorage.getItem('paused'); 
  const cachedPlaySong = localStorage.getItem('playSong');
  const cachedIsPlayingSong = localStorage.getItem('isPlayingSong'); 
     const cachedPlayIndex = localStorage.getItem('playIndex');
+
+const cachedCurrentTimeAlias = localStorage.getItem('currentTimeAlias');
+ const cachedPausedAlias = localStorage.getItem('pausedAlias'); 
+ const cachedPlaySongAlias = localStorage.getItem('playSongAlias');
+ const cachedIsPlayingSongAlias = localStorage.getItem('isPlayingSongAlias'); 
+    const cachedPlayIndexAlias = localStorage.getItem('playIndexAlias');
+
+ router.afterEach((to, from) => {
+    if(audio.value){
+        if(cachedCurrentTime&&cachedPaused&&cachedPlaySong&&cachedIsPlayingSong){
+            store.state.isPlayingSong=JSON.parse(cachedIsPlayingSongAlias) 
+            store.state.playSong=JSON.parse(cachedPlaySongAlias)
+            store.state.playIndex=JSON.parse(cachedPlayIndexAlias)
+           
+        }
+    };
+
+  
+ 
+
+});
+
+
  
 watchEffect(()=>{
     if(audio.value){
-        if(cachedCurrentTime&&cachedPaused&&cachedPlaySong&&cachedIsPlayingSong){
+        if(audio.value.currentTime){
+            if(cachedCurrentTime&&cachedPaused&&cachedPlaySong&&cachedIsPlayingSong){
             audio.value.currentTime=JSON.parse(cachedCurrentTime) 
-            store.state.isPlaying=JSON.parse(cachedIsPlayingSong) 
+            store.state.isPlayingSong=JSON.parse(cachedIsPlayingSong) 
             store.state.playSong=JSON.parse(cachedPlaySong)
             store.state.playIndex=JSON.parse(cachedPlayIndex)
            
         }
+        }
+      
     }
 })
 
@@ -202,8 +256,8 @@ watchEffect(()=>{
     
    store.state.audioState=audioState
     audio.value.play()
-    store.state.played=audio.value.play
-   
+    /* store.state.played=audio.value.play */
+    store.state.isPlayingSong=true
    isPlaying.value=true
    backUpGetUrl()
  
@@ -215,7 +269,8 @@ watchEffect(()=>{
    
     store.state.audioState=audioState
     audio.value.pause()
-    store.state.paused=audio.value.paused
+   /*  store.state.paused=audio.value.paused */
+   store.state.isPlayingSong=false
     isPlaying.value=false
     backUpGetUrl()
   

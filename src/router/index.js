@@ -380,6 +380,7 @@ const router = createRouter({
 
 // 如果该页面有footbar，将标记传给store，然后再传给组件，进行dom更改
 router.beforeEach((to,from,next)=>{
+    
     const footbar=to.matched.some((route)=>'footBar' in route.components)
     if(footbar){
         store.state.hasFootBar=true
