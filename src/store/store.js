@@ -76,7 +76,7 @@ const store=createStore({
             
             this.state.playIndex=index
             this.state.playSong=state.playList[index]
-        
+            this.state.isPlayingSong=false
         }
 
 

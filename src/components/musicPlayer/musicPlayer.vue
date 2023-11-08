@@ -42,29 +42,31 @@
     <el-drawer
     class="drawer"
     v-model="drawer"
-    title="I am the title"
+    title="歌曲详情"
     :direction="direction"
+    size="100%"
+    append-to-body="true"
+    z-index="999999999"
+  
     
   >
-    <span>Hi, there!
+
+    <div class="songDetailWrapper">
+        
+        <span>Hi, there!
     
-        <!-- {{ store.state.audio }} -->
+        
+    {{ store.state.playIndex }}
+  
+   {{ store.state.isPlayingSong }}
+
+  
+
    
-       
-       <!--   {{ store.state.playList }}   -->
-       <!--  {{ store.state.url }} -->
-        <!--  {{ store.state.playSong }}  -->
-        <!-- {{ store.state.playList }} -->
-     <!--    {{ playList }} -->
+            </span>
 
-        {{ store.state.playIndex }}
-       <!--  {{ store.state.playSong }}
-        {{ store.state.playList }} -->
-       {{ store.state.isPlayingSong }}
-       {{ isPlaying }}
-
-       
-    </span>
+    </div>
+   
   </el-drawer>
 
 
@@ -138,10 +140,12 @@ const hasFootBar=ref(store.state.hasFootBar)
  }) */
 
  const audio=ref(null)
- const isPlaying=ref(!audio.value?.paused)
+
 
 
 let audioState=reactive({ })
+
+
 
 // 保存状态
 watchEffect(()=>{
@@ -156,33 +160,89 @@ watchEffect(()=>{
     
 })
 
+
+
 // 离开的时候也要记录状态,否则一刷新，就重制了
 window.addEventListener('beforeunload',()=>{
-    console.log('重载了')
-        localStorage.setItem('currentTime',JSON.stringify(audio.value?.currentTime)) 
+  /*   console.log('重载了')  */
+   store.state.isPlayingSong=false
+   if(store.state.playIndex&&store.state.playSong){
+    localStorage.setItem('currentTime',JSON.stringify(audio.value?.currentTime)) 
         localStorage.setItem('paused',JSON.stringify(audio.value?.paused));
         localStorage.setItem('isPlayingSong',JSON.stringify(store.state?.isPlayingSong)) 
     localStorage.setItem('playSong',JSON.stringify(store.state?.playSong));
     localStorage.setItem('playIndex',JSON.stringify(store.state?.playIndex));
+   }
+       
     });
+
+    const cachedCurrentTime = localStorage.getItem('currentTime');
+ const cachedPaused = localStorage.getItem('paused'); 
+ const cachedPlaySong = localStorage.getItem('playSong');
+ const cachedIsPlayingSong = localStorage.getItem('isPlayingSong'); 
+    const cachedPlayIndex = localStorage.getItem('playIndex');
+
+
+//  重载后发生的事情 
+    // 网页重载后的值放进去了，有，则进行下面的内容
+    watchEffect(()=>{
+
+           /*  store.state.isPlayingSong=false */
+            if(audio.value){
+                if(cachedCurrentTime&&cachedPlaySong){
+                   /*  if(audio.value.currentTime!==NaN){ */
+                         /* console.log('重载成功')  */
+                       
+                        audio.value.currentTime=JSON.parse(cachedCurrentTime) 
+                        store.state.isPlayingSong=JSON.parse(cachedIsPlayingSong) 
+                        store.state.playSong=JSON.parse(cachedPlaySong)
+                        store.state.playIndex=JSON.parse(cachedPlayIndex)
+                       
+                    }  
+            /*     } */
+            }
+        })
+
+
+/*      if(audio.value){
+           
+            if(cachedCurrentTime&&cachedPlaySong){
+                if(audio.value.currentTime!==undefined){
+                      console.log('重载成功')  
+                    store.state.isPlayingSong=false
+                    audio.value.currentTime=JSON.parse(cachedCurrentTime) 
+                    store.state.isPlayingSong=JSON.parse(cachedIsPlayingSong) 
+                    store.state.playSong=JSON.parse(cachedPlaySong)
+                    store.state.playIndex=JSON.parse(cachedPlayIndex)
+                   
+                }  
+            }
+        }  */
+    
+       
+ 
 
 
 router.beforeEach((to, from, next) => {
-    console.log('路由即将跳转');
+     /*  console.log('路由即将跳转');   */
+     if( store.state.isPlayingSong===true){
+                    store.state.isPlayingSong===true
+                }else if(store.state.isPlayingSong===false){
+                    store.state.isPlayingSong===false
+                }
     if(audio.value){
-                if(audio.value.paused!=null&&isPlaying.value){
-                    store.state.isPlayingSong=true
-            localStorage.setItem('isPlaying',JSON.stringify(isPlaying.value)); 
+              /*   if(audio.value.paused!=null){ */
+                                             
+                   
+/*             localStorage.setItem('currentTimeAlias',JSON.stringify(audio.value.currentTime)) */
             localStorage.setItem('pausedAlias',JSON.stringify(audio.value.paused));
             localStorage.setItem('isPlayingSongAlias',JSON.stringify(store.state?.isPlayingSong)) 
         localStorage.setItem('playSongAlias',JSON.stringify(store.state?.playSong));
         localStorage.setItem('playIndexAlias',JSON.stringify(store.state?.playIndex));
 
-        }
+       /*  } */
     }
   
-   
-    
    
    next()
  })
@@ -191,11 +251,7 @@ router.beforeEach((to, from, next) => {
  // 进入页面，加载，找到状态，恢复
 // isPlayingSong的作用就是每次不小心刷新或者路由跳转引起的故障导致的歌曲暂停，
     // 可以把按钮的状态也变成暂停
-const cachedCurrentTime = localStorage.getItem('currentTime');
- const cachedPaused = localStorage.getItem('paused'); 
- const cachedPlaySong = localStorage.getItem('playSong');
- const cachedIsPlayingSong = localStorage.getItem('isPlayingSong'); 
-    const cachedPlayIndex = localStorage.getItem('playIndex');
+
 
 const cachedCurrentTimeAlias = localStorage.getItem('currentTimeAlias');
  const cachedPausedAlias = localStorage.getItem('pausedAlias'); 
@@ -204,14 +260,18 @@ const cachedCurrentTimeAlias = localStorage.getItem('currentTimeAlias');
     const cachedPlayIndexAlias = localStorage.getItem('playIndexAlias');
 
  router.afterEach((to, from) => {
-    if(audio.value){
-        if(cachedCurrentTime&&cachedPaused&&cachedPlaySong&&cachedIsPlayingSong){
+     if(audio.value){ 
+        if(cachedPlaySong&&audio.value/* .currentTime */){
+              console.log('跳转后')   
             store.state.isPlayingSong=JSON.parse(cachedIsPlayingSongAlias) 
             store.state.playSong=JSON.parse(cachedPlaySongAlias)
             store.state.playIndex=JSON.parse(cachedPlayIndexAlias)
+            // 下面绝对不能加，加了进度条就变成上次的进度条了
+          /*   audio.value.currentTime=JSON.parse(cachedCurrentTimeAlias) */
+            
            
         }
-    };
+     }; 
 
   
  
@@ -220,27 +280,30 @@ const cachedCurrentTimeAlias = localStorage.getItem('currentTimeAlias');
 
 
  
-watchEffect(()=>{
-    if(audio.value){
-        if(audio.value.currentTime){
-            if(cachedCurrentTime&&cachedPaused&&cachedPlaySong&&cachedIsPlayingSong){
+
+   /*      if(audio.value&&store.state){
+        if(audio.value.currentTime!==undefined){
+              if(cachedCurrentTime&&cachedPlaySong){  
+            store.state.isPlayingSong=false
             audio.value.currentTime=JSON.parse(cachedCurrentTime) 
             store.state.isPlayingSong=JSON.parse(cachedIsPlayingSong) 
             store.state.playSong=JSON.parse(cachedPlaySong)
             store.state.playIndex=JSON.parse(cachedPlayIndex)
            
-        }
+          }  
         }
       
-    }
-})
+            }  */
+    
+    
+
 
 // 防止资源加载不出来，点按钮可实现再次获取资源
  const backUpGetUrl=async()=>{
     try{
         if(store.state.playSong.id||store.state.playSong.resourceId){
         const res=await getSongs(store.state.playSong.id||store.state.playSong.resourceId)
-         console.log(store.state.playSong.id||store.state.playSong.resourceId)   
+        /*  console.log(store.state.playSong.id||store.state.playSong.resourceId)    */
            /*  console.log(res) */
         store.state.url=res.data.data[0]?.url
         }
@@ -252,26 +315,28 @@ watchEffect(()=>{
 }
 
 // 播放功能
- const play=()=>{
+ const play= ()=>{
     
-   store.state.audioState=audioState
-    audio.value.play()
+   
+     audio.value.play()
+    store.state.audioState=audioState
     /* store.state.played=audio.value.play */
     store.state.isPlayingSong=true
-   isPlaying.value=true
+   /* isPlaying.value=true */
    backUpGetUrl()
  
  }
 
 
 //  暂停功能
- const pause=()=>{
+ const pause= ()=>{
    
+    
+     audio.value.pause()
     store.state.audioState=audioState
-    audio.value.pause()
    /*  store.state.paused=audio.value.paused */
    store.state.isPlayingSong=false
-    isPlaying.value=false
+   /*  isPlaying.value=false */
     backUpGetUrl()
   
  
@@ -283,7 +348,7 @@ watchEffect(()=>{
     if(store.state.playSong){
         if(audio.value){
             backUpGetUrl()
-            isPlaying.value=false
+           /*  isPlaying.value=false */
            
 
         }

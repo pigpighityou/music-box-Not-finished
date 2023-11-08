@@ -48,7 +48,7 @@ const hasFootBar=ref(store.state.hasFootBar)
   
   .footWrapper{
     position:relative;
-    z-index:9999999;
+    z-index:99999;
   }
 
   .musicPlayer{
@@ -56,6 +56,7 @@ const hasFootBar=ref(store.state.hasFootBar)
     bottom:10vw;
     left:0;
     right:0;
+    z-index:99999;
     
    
   }

@@ -1,7 +1,9 @@
 <script setup>
 import homepage from './components/homePage/homepage.vue';
-
+import {useRouter} from 'vue-router';
 import store from './store/store';
+
+const router=useRouter();
 
 
 
