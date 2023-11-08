@@ -46,15 +46,66 @@
     :direction="direction"
     size="100%"
     append-to-body="true"
-    z-index="999999999"
-  
-    
+    z-index="9999999" 
   >
 
     <div class="songDetailWrapper">
+
+
+        <div class="picDetail">
+            <img :src="store.state.playSong?.al?.picUrl||store.state.playSong?.album?.picUrl||store.state.playSong?.data?.al.picUrl" alt="pic" class="pic">
+        </div>
+
+        <div class="descHeader">
+            <div class="nameDetail">
+                    <div class="nameContent">
+                        {{store.state.playSong?.name||store.state.playSong?.data?.name}}
+                    </div>
+            </div>
+            <div class="mark" >
+                <svg class="markIcon" @click="marked" :class="{clickMark:markIconColor===true}" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg" data-v-ea893728=""><path fill="currentColor" d="M384 960v-64h192.064v64H384zm448-544a350.656 350.656 0 0 1-128.32 271.424C665.344 719.04 640 763.776 640 813.504V832H320v-14.336c0-48-19.392-95.36-57.216-124.992a351.552 351.552 0 0 1-128.448-344.256c25.344-136.448 133.888-248.128 269.76-276.48A352.384 352.384 0 0 1 832 416zm-544 32c0-132.288 75.904-224 192-224v-64c-154.432 0-256 122.752-256 288h64z"></path></svg>
+                <div class="markWord">
+                    {{ store.state.playSong.data.mark<10000?store.state.playSong.data.mark:((store.state.playSong.data.mark)/10000).toFixed(1)+'w' }}
+                </div>
+                
+            </div>
+
+            <div class="publishTime">
+            发布时间：{{ store.state.playSong.data.publishTime}}
+        </div>
+        </div>
+
         
-        <span>Hi, there!
-    
+
+        <div class="desc">
+
+            <div class="singerDetail">
+                <div class="singerIcon">
+                    <i class="iconfont icon-jiantouyou"></i>
+                </div>
+                <div class="singerContent"  v-for="(item, index) in store.state.playSong?.ar||store.state.playSong?.artists||store.state.playSong?.data?.ar" :key="index">
+                    {{item.name}}
+                </div>
+                
+            </div>
+
+            <div class="mvDetail">
+                <div class="mvContent">
+                   <!--  {{ store.state.playSong.data.mv||store.state.playSong.mv }} -->
+                    <svg class="mvIcon" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg" data-v-ea893728=""><path fill="currentColor" d="m768 576 192-64v320l-192-64v96a32 32 0 0 1-32 32H96a32 32 0 0 1-32-32V480a32 32 0 0 1 32-32h640a32 32 0 0 1 32 32v96zM192 768v64h384v-64H192zm192-480a160 160 0 0 1 320 0 160 160 0 0 1-320 0zm64 0a96 96 0 1 0 192.064-.064A96 96 0 0 0 448 288zm-320 32a128 128 0 1 1 256.064.064A128 128 0 0 1 128 320zm64 0a64 64 0 1 0 128 0 64 64 0 0 0-128 0z"></path></svg>
+                </div>
+            </div>
+
+        </div>
+
+        
+
+
+       
+
+        
+
+
         
     {{ store.state.playIndex }}
   
@@ -62,8 +113,10 @@
 
   
 
+  
+
    
-            </span>
+         
 
     </div>
    
@@ -77,7 +130,7 @@
 </template>
 
 <script setup>
-import {ref,reactive,onMounted,computed,provide,watchEffect} from 'vue'
+import {ref,reactive,onMounted,computed,provide,watchEffect,KeepAlive} from 'vue'
 import {useRouter,useRoute} from 'vue-router'
 import {getSongs} from '@/axios/routes/getSongs.js'
 import store from '../../store/store';
@@ -95,51 +148,33 @@ const direction = ref('btt')
 
 const musicPlayer=ref(null)
 
-
-const handleClick=()=>{
+const markIconColor=ref(false)
+const marked=()=>{
+ 
    
-        console.log(musicPlayer.value);
-    
+   if(markIconColor.value===true){
+    store.state.playSong.data.mark===store.state.playSong.data.mark
+   }else if(markIconColor.value===false){
+    markIconColor.value= true
+    store.state.playSong.data.mark+=1
+   }
+
 }
 
-const openFullScreen2 = () => {
-  const loading = ElLoading.service({
-    lock: true,
-    text: 'Loading',
-    background: 'rgba(0, 0, 0, 0.9)',
-  })
-  setTimeout(() => {
-    loading.close()
-  }, 500)
-}
+
 
 const hasFootBar=ref(store.state.hasFootBar)
 
-/*  watchEffect(()=>{
-    if(hasFootBar.value&&musicPlayer.value){
-           musicPlayer.value.style.marginBottom='12vw'
-   }
- }) 
 
- router.beforeEach((to, from, next) => {
-    if(to.path==='/world'||to.path==='/Chinese'
-    ||to.path==='/English'||to.path==='/Japan'||to.path==='/Korea'
-    ||from.path==='/world'||from.path==='/Chinese'||from.path==='/English'
-    ||from.path==='/Japan'||from.path==='/Korea'||to.path==='/user'||from.path==='/user'
-    ||to.path==='radio'||from.path==='radio'){
-        // 刷新页面
-        openFullScreen2()
-        setTimeout(()=>{
-           
-            router.go(0)
-        },500)
-   
-      
+
+ const audio=ref(null);
+
+
+ watchEffect(()=>{
+    if(store.state.playSong){
+        console.log(store.state.playSong);
     }
-   next()
- }) */
-
- const audio=ref(null)
+ })
 
 
 
@@ -383,6 +418,119 @@ const cachedCurrentTimeAlias = localStorage.getItem('currentTimeAlias');
 </script>
 
 <style scoped>
+.songDetailWrapper{
+    
+}
+
+.pic{
+    border-radius: 50%;
+    border: 0.3vw grey solid;
+    width: 75vw;
+    height: 75vw;
+    display: flex;
+    margin: 0 auto;
+}
+
+
+.descHeader{
+    display: flex;
+    flex-direction: row;
+    margin-top: 5vw;
+    width: 100vw;
+    margin-bottom: 5vw;
+    justify-content: space-around;
+   
+
+}
+
+.nameDetail{
+    display: block;
+    width: 60vw;
+    height: 8vw;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    font-size: 6vw;
+   
+}
+
+.mark{
+    font-size: 3vw;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+
+
+}
+.markWord{
+    
+}
+
+.markIcon{
+    width: 4.5vw;
+    height: 4.5vw;
+}
+
+.clickMark{
+    color: rgb(181, 193, 57);
+}
+
+.publishTime{
+    font-size: 2.5vw;
+    width: 23vw;
+    height: 8vw;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+
+}
+
+
+
+.desc{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    height: 9vw;
+}
+
+
+.singerDetail{
+    display: flex;
+    flex-direction: row;
+
+}
+
+.singerIcon{
+    margin-left: -1vw;
+    margin-right: 0.8vw;
+    margin-top: -0.25vw;
+    transform: scale(0.8);
+}
+
+.singerContent{
+   font-size: 3.5vw;
+}
+
+
+.mvContent{
+        margin-left: 2vw;
+}
+
+.mvIcon{
+    margin-left: 3vw;
+        width: 7vw;
+        height: 7vw;
+}
+
+
+
+
+
+
+
 .musicPlayerWrapper{
     width: 100vw;
     height: 18vw;
@@ -390,6 +538,7 @@ const cachedCurrentTimeAlias = localStorage.getItem('currentTimeAlias');
     position: fixed;
     bottom: 0;
     left: 0;
+    z-index: 999999;
    
      display: flex;
     flex-direction: row;

@@ -10,7 +10,7 @@ const routes = [
         path: '/',
         components: {
             default:() => import('../components/homePage/public/publicComponent.vue'),
-            musicPlayer:() => import('../components/musicPlayer/musicPlayer.vue'),
+           
 
     },
 
@@ -31,7 +31,7 @@ const routes = [
         name:'singer',
         components:{
             default:() => import('../components/public/singer.vue'),
-            musicPlayer:() => import('../components/musicPlayer/musicPlayer.vue'),
+            
             
         },
        
@@ -45,7 +45,7 @@ const routes = [
             components:{
                 default:() => import('../components/homePage/body/hotListSong.vue'),
               
-                musicPlayer:() => import('../components/musicPlayer/musicPlayer.vue'),
+               
             },
 
    },
@@ -55,7 +55,7 @@ const routes = [
     components:{
         default:() => import('../components/homePage/body/recListSong.vue'),
 
-        musicPlayer:() => import('../components/musicPlayer/musicPlayer.vue'),
+       
     },
 
 },
@@ -77,7 +77,7 @@ const routes = [
     components:{
         default:() => import('../components/public/listSinger.vue'),
        
-        musicPlayer:() => import('../components/musicPlayer/musicPlayer.vue'),   
+       
     },
 
 },
@@ -88,7 +88,7 @@ const routes = [
     components:{
         default:() => import('../components/homePage/body/hotListSinger.vue'),
        
-        musicPlayer:() => import('../components/musicPlayer/musicPlayer.vue'),
+      
     },
 
 },
@@ -98,7 +98,7 @@ const routes = [
     components:{
         default:() => import('../components/public/listSong.vue'),
        
-        musicPlayer:() => import('../components/musicPlayer/musicPlayer.vue'),  
+      
     },
 
 },
@@ -108,7 +108,7 @@ const routes = [
     components:{
         default:() => import('../components/public/album.vue'),
        
-        musicPlayer:() => import('../components/musicPlayer/musicPlayer.vue'),
+       
     },
 },
 
@@ -121,7 +121,7 @@ const routes = [
         path:'/dailyRec',
         components:{
             default:() => import('../components/public/dailyRec.vue'),
-            musicPlayer:() => import('../components/musicPlayer/musicPlayer.vue'),
+          
         }
     }
     ,
@@ -137,7 +137,7 @@ const routes = [
         components:{
             default:() => import('../components/public/adContent.vue'),
          
-            musicPlayer:() => import('../components/musicPlayer/musicPlayer.vue'),
+           
         }
     },   
     {
@@ -146,7 +146,7 @@ const routes = [
             default: () => import('../components/homePage/public/publicComponent.vue'),
             world: () => import('../components/homePage/world.vue'),
             footBar:() => import('../components/public/footBar.vue'),
-            musicPlayer:() => import('../components/musicPlayer/musicPlayer.vue'),
+           
             
              },
          name: 'world'
@@ -158,7 +158,7 @@ const routes = [
             default: () => import('../components/homePage/public/publicComponent.vue'),
             Chinese: () => import('../components/homePage/Chinese.vue'),
             footBar:() => import('../components/public/footBar.vue'),
-            musicPlayer:() => import('../components/musicPlayer/musicPlayer.vue'),
+           
         },
         name: 'Chinese'
         
@@ -169,7 +169,7 @@ const routes = [
             default: () => import('../components/homePage/public/publicComponent.vue'),
             Japan: () => import('../components/homePage/Japan.vue'),
             footBar:() => import('../components/public/footBar.vue'),
-            musicPlayer:() => import('../components/musicPlayer/musicPlayer.vue'),
+           
         },
         name: 'Japan'
     },
@@ -179,7 +179,7 @@ const routes = [
             default: () => import('../components/homePage/public/publicComponent.vue'),
             Korea: () => import('../components/homePage/Korea.vue'),
             footBar:() => import('../components/public/footBar.vue'),
-            musicPlayer:() => import('../components/musicPlayer/musicPlayer.vue'),
+          
         },
         name: 'Korea'
     },
@@ -189,7 +189,7 @@ const routes = [
             default: () => import('../components/homePage/public/publicComponent.vue'),
             English: () => import('../components/homePage/English.vue'),
             footBar:() => import('../components/public/footBar.vue'),
-            musicPlayer:() => import('../components/musicPlayer/musicPlayer.vue'),
+
         },
         name: 'English'
     },
@@ -200,7 +200,7 @@ const routes = [
         components: {
              default: () => import('../components/myPage/myPage.vue'),
              footBar:() => import('../components/public/footBar.vue'),
-             musicPlayer:() => import('../components/musicPlayer/musicPlayer.vue'),
+            
             
         },
        
