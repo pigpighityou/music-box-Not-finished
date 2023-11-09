@@ -10,7 +10,7 @@ const routes = [
         path: '/',
         components: {
             default:() => import('../components/homePage/public/publicComponent.vue'),
-           
+            musicPlayer:() => import('../components/musicPlayer/musicPlayer.vue'),
 
     },
 
@@ -31,7 +31,7 @@ const routes = [
         name:'singer',
         components:{
             default:() => import('../components/public/singer.vue'),
-            
+            musicPlayer:() => import('../components/musicPlayer/musicPlayer.vue'),
             
         },
        
@@ -44,7 +44,7 @@ const routes = [
             name:'hotSongList',
             components:{
                 default:() => import('../components/homePage/body/hotListSong.vue'),
-              
+                musicPlayer:() => import('../components/musicPlayer/musicPlayer.vue'),
                
             },
 
@@ -54,7 +54,7 @@ const routes = [
     name:'recSongList',
     components:{
         default:() => import('../components/homePage/body/recListSong.vue'),
-
+        musicPlayer:() => import('../components/musicPlayer/musicPlayer.vue'),
        
     },
 
@@ -76,7 +76,7 @@ const routes = [
     name:'listSinger',
     components:{
         default:() => import('../components/public/listSinger.vue'),
-       
+        musicPlayer:() => import('../components/musicPlayer/musicPlayer.vue'),
        
     },
 
@@ -87,7 +87,7 @@ const routes = [
     name:'hotListSong',
     components:{
         default:() => import('../components/homePage/body/hotListSinger.vue'),
-       
+        musicPlayer:() => import('../components/musicPlayer/musicPlayer.vue'),
       
     },
 
@@ -97,7 +97,7 @@ const routes = [
     name:'listSong',
     components:{
         default:() => import('../components/public/listSong.vue'),
-       
+        musicPlayer:() => import('../components/musicPlayer/musicPlayer.vue'),
       
     },
 
@@ -107,7 +107,7 @@ const routes = [
     name:'album',
     components:{
         default:() => import('../components/public/album.vue'),
-       
+        musicPlayer:() => import('../components/musicPlayer/musicPlayer.vue'),
        
     },
 },
@@ -121,7 +121,7 @@ const routes = [
         path:'/dailyRec',
         components:{
             default:() => import('../components/public/dailyRec.vue'),
-          
+            musicPlayer:() => import('../components/musicPlayer/musicPlayer.vue'),
         }
     }
     ,
@@ -136,7 +136,7 @@ const routes = [
         name:'adContent',
         components:{
             default:() => import('../components/public/adContent.vue'),
-         
+            musicPlayer:() => import('../components/musicPlayer/musicPlayer.vue'),
            
         }
     },   

@@ -53,7 +53,7 @@
 
 
         <div class="picDetail">
-            <img :src="store.state.playSong?.al?.picUrl||store.state.playSong?.album?.picUrl||store.state.playSong?.data?.al.picUrl" alt="pic" class="pic">
+            <img :src="store.state.playSong?.al?.picUrl||store.state.playSong?.album?.picUrl||store.state.playSong?.data?.al.picUrl" alt="pic" class="pic picSpin" :class="{picSpin_active:store.state?.isPlayingSong===true,picSpin_pause:store.state?.isPlayingSong===false}">
         </div>
 
         <div class="descHeader">
@@ -64,15 +64,17 @@
             </div>
             <div class="mark" >
                 <svg class="markIcon" @click="marked" :class="{clickMark:markIconColor===true}" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg" data-v-ea893728=""><path fill="currentColor" d="M384 960v-64h192.064v64H384zm448-544a350.656 350.656 0 0 1-128.32 271.424C665.344 719.04 640 763.776 640 813.504V832H320v-14.336c0-48-19.392-95.36-57.216-124.992a351.552 351.552 0 0 1-128.448-344.256c25.344-136.448 133.888-248.128 269.76-276.48A352.384 352.384 0 0 1 832 416zm-544 32c0-132.288 75.904-224 192-224v-64c-154.432 0-256 122.752-256 288h64z"></path></svg>
-                <div class="markWord">
+               <!--  <div class="markWord">
                     {{ store.state.playSong.data.mark<10000?store.state.playSong.data.mark:((store.state.playSong.data.mark)/10000).toFixed(1)+'w' }}
-                </div>
+                </div> -->
                 
             </div>
 
-            <div class="publishTime">
-            发布时间：{{ store.state.playSong.data.publishTime}}
+        <div class="publishTime">
+            发布时间：<br> {{ publish }}
+            
         </div>
+        
         </div>
 
         
@@ -98,11 +100,27 @@
 
         </div>
 
+        <div class="iconSet">
+            <div class="last" @click="lastSong">
+                <svg class="playIcon" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg" data-v-ea893728=""><path fill="currentColor" d="M529.408 149.376a29.12 29.12 0 0 1 41.728 0 30.592 30.592 0 0 1 0 42.688L259.264 511.936l311.872 319.936a30.592 30.592 0 0 1-.512 43.264 29.12 29.12 0 0 1-41.216-.512L197.76 534.272a32 32 0 0 1 0-44.672l331.648-340.224zm256 0a29.12 29.12 0 0 1 41.728 0 30.592 30.592 0 0 1 0 42.688L515.264 511.936l311.872 319.936a30.592 30.592 0 0 1-.512 43.264 29.12 29.12 0 0 1-41.216-.512L453.76 534.272a32 32 0 0 1 0-44.672l331.648-340.224z"></path></svg>
+            </div>
+
+            <div class="icon">
+                <svg class="playIcon" v-if="store.state.isPlayingSong===false" @click="play" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg" data-v-ea893728=""><path fill="currentColor" d="M512 64a448 448 0 1 1 0 896 448 448 0 0 1 0-896zm0 832a384 384 0 0 0 0-768 384 384 0 0 0 0 768zm-48-247.616L668.608 512 464 375.616v272.768zm10.624-342.656 249.472 166.336a48 48 0 0 1 0 79.872L474.624 718.272A48 48 0 0 1 400 678.336V345.6a48 48 0 0 1 74.624-39.936z"></path></svg>
+                <svg class="playIcon" v-if="store.state.isPlayingSong===true"  @click="pause" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg" data-v-ea893728=""><path fill="currentColor" d="M512 64a448 448 0 1 1 0 896 448 448 0 0 1 0-896zm0 832a384 384 0 0 0 0-768 384 384 0 0 0 0 768zm-96-544q32 0 32 32v256q0 32-32 32t-32-32V384q0-32 32-32zm192 0q32 0 32 32v256q0 32-32 32t-32-32V384q0-32 32-32z"></path></svg> 
+            </div>
+
+            <div class="next" @click="next_Song">
+                <svg class="playIcon"  viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg" data-v-ea893728=""><path fill="currentColor" d="M452.864 149.312a29.12 29.12 0 0 1 41.728.064L826.24 489.664a32 32 0 0 1 0 44.672L494.592 874.624a29.12 29.12 0 0 1-41.728 0 30.592 30.592 0 0 1 0-42.752L764.736 512 452.864 192a30.592 30.592 0 0 1 0-42.688zm-256 0a29.12 29.12 0 0 1 41.728.064L570.24 489.664a32 32 0 0 1 0 44.672L238.592 874.624a29.12 29.12 0 0 1-41.728 0 30.592 30.592 0 0 1 0-42.752L508.736 512 196.864 192a30.592 30.592 0 0 1 0-42.688z"></path></svg>
+            </div>
+        </div>
+
         
+        <van-progress stroke-width="2vw" pivot-text="" :percentage="percentage" class="progress" />
 
 
        
-
+      
         
 
 
@@ -161,6 +179,36 @@ const marked=()=>{
 
 }
 
+const publish=computed(()=>{
+    const date=new Date(store.state.playSong.data?.publishTime||store.state.playSong?.publishTime)
+    const year=date.getFullYear()
+    const month=date.getMonth()+1
+    const day=date.getDate()
+    return year+'-'+month+'-'+day
+})
+
+const lastSong=()=>{
+    if(store.state.playIndex>0){
+        store.state.playIndex-=1
+    }else{
+        store.state.playIndex=store.state.playList.length-1
+    }
+    store.commit('getIndexPlay',store.state.playIndex)
+   
+}
+
+const next_Song=()=>{
+    if(store.state.playIndex<store.state.playList.length-1){
+        store.state.playIndex+=1
+    }else{
+        store.state.playIndex=0
+    }
+    store.commit('getIndexPlay',store.state.playIndex)
+
+}
+
+
+
 
 
 const hasFootBar=ref(store.state.hasFootBar)
@@ -179,6 +227,25 @@ const hasFootBar=ref(store.state.hasFootBar)
 
 
 let audioState=reactive({ })
+
+const percentage=ref(0)
+
+// 进度条
+watchEffect(()=>{
+   
+    if(audio.value){
+      setTimeout(function setPer(){
+        percentage.value=(audio.value.currentTime/audio.value.duration*100).toFixed(1)
+        /* console.log(percentage.value) */
+        setTimeout(setPer,1000)
+
+      },1000)
+        
+    } 
+})
+
+
+
 
 
 
@@ -429,6 +496,29 @@ const cachedCurrentTimeAlias = localStorage.getItem('currentTimeAlias');
     height: 75vw;
     display: flex;
     margin: 0 auto;
+   
+
+}
+
+.picSpin{
+    animation: spinAround 12s linear infinite;
+}
+
+.picSpin_active{
+    animation-play-state: running;
+}
+
+.picSpin_pause{
+    animation-play-state: paused;
+}
+
+@keyframes spinAround {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
 }
 
 
@@ -438,7 +528,7 @@ const cachedCurrentTimeAlias = localStorage.getItem('currentTimeAlias');
     margin-top: 5vw;
     width: 100vw;
     margin-bottom: 5vw;
-    justify-content: space-around;
+    justify-content: space-between;
    
 
 }
@@ -460,6 +550,7 @@ const cachedCurrentTimeAlias = localStorage.getItem('currentTimeAlias');
     flex-direction: row;
     align-items: center;
     justify-content: center;
+    width: 10vw;
 
 
 }
@@ -478,7 +569,7 @@ const cachedCurrentTimeAlias = localStorage.getItem('currentTimeAlias');
 
 .publishTime{
     font-size: 2.5vw;
-    width: 23vw;
+    width: 33vw;
     height: 8vw;
     display: flex;
     align-items: center;
@@ -500,6 +591,11 @@ const cachedCurrentTimeAlias = localStorage.getItem('currentTimeAlias');
 .singerDetail{
     display: flex;
     flex-direction: row;
+    flex-wrap: nowrap;
+    overflow: hidden;
+    max-height: 4vw;
+    white-space:ellipsis;
+    width: 80vw;
 
 }
 
@@ -511,6 +607,8 @@ const cachedCurrentTimeAlias = localStorage.getItem('currentTimeAlias');
 }
 
 .singerContent{
+   margin-left: 0.5vw;
+   margin-right: 2vw;
    font-size: 3.5vw;
 }
 
@@ -523,6 +621,46 @@ const cachedCurrentTimeAlias = localStorage.getItem('currentTimeAlias');
     margin-left: 3vw;
         width: 7vw;
         height: 7vw;
+}
+
+.iconSet{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    margin-left: -5vw;
+    margin-top: 5vw;
+    margin-bottom: 5vw;
+    width: 100vw;
+    position: fixed;
+    bottom: 0;
+    transform: scale(1.);
+}
+
+.iconSet .icon{
+    width: 10vw;
+    height: 10vw;
+    fill: #ccc;
+    margin-left: -12vw;
+    margin-top: -1vw;
+    transform: scale(1.3);
+   
+    
+ 
+}
+
+.progress{
+    width: 100vw;
+    height: 1vw;
+    margin-top: 5vw;
+    margin-bottom: 5vw;
+    margin-left: -5vw;
+    position: fixed;
+    bottom: 16vw;
+ 
+    background-color: #ccc;
+   
+
 }
 
 

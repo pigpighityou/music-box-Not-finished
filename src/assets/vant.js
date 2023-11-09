@@ -2,7 +2,7 @@
 
 import {Button,Form, Field, CellGroup,Tabbar,TabbarItem,Icon,
     Sidebar,SidebarItem,NavBar,Tab,Tabs,Pagination, Grid, GridItem,
-    ActionSheet,FloatingPanel
+    ActionSheet,FloatingPanel,Progress
 
 
 } from 'vant'
@@ -11,7 +11,7 @@ import {Button,Form, Field, CellGroup,Tabbar,TabbarItem,Icon,
 let components=[
     Button,Form, Field, CellGroup,Tabbar,TabbarItem,Icon
     ,Sidebar,SidebarItem,NavBar,Tab,Tabs,Pagination, Grid, GridItem,
-    ActionSheet,FloatingPanel
+    ActionSheet,FloatingPanel,Progress
 ]
 
 // 封装一个函数，用来注册所有的组件
