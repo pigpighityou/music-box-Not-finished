@@ -40,13 +40,13 @@
     </div>
 
     <el-drawer
-    class="drawer"
+    class="drawerWrapper"
     v-model="drawer"
     title="歌曲详情"
     :direction="direction"
     size="100%"
     append-to-body="true"
-    z-index="9999999" 
+    z-index="999999" 
   >
 
     <div class="songDetailWrapper">
@@ -81,15 +81,39 @@
 
         <div class="desc">
 
-            <div class="singerDetail">
+            <div class="singerDetail" @click="drawer2=true">
                 <div class="singerIcon">
                     <i class="iconfont icon-jiantouyou"></i>
                 </div>
                 <div class="singerContent"  v-for="(item, index) in store.state.playSong?.ar||store.state.playSong?.artists||store.state.playSong?.data?.ar" :key="index">
                     {{item.name}}
                 </div>
+
+                <el-drawer
+                    v-model="drawer2"
+                    title="歌手"
+                    :direction="direction"
+                    :before-close="handleClose"
+                    size="40%"
+                >
+
+                
+                <div class="singerContent singerContent2"  v-for="(item, index) in store.state.playSong?.ar||store.state.playSong?.artists||store.state.playSong?.data?.ar" :key="index">
+                    <router-link :to="{name:'listSinger',params:{id:item.id}}" style="color: black;" @click="drawer=false">
+
+                        <div><i class="iconfont icon-xiajiantou1"></i></div>
+                            {{item.name}}
+                       
+                    </router-link>
+
+      
+
+                </div>
+
+                </el-drawer>
                 
             </div>
+
 
             <div class="mvDetail">
                 <div class="mvContent">
@@ -100,40 +124,77 @@
 
         </div>
 
-        <div class="iconSet">
-            <div class="last" @click="lastSong">
-                <svg class="playIcon" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg" data-v-ea893728=""><path fill="currentColor" d="M529.408 149.376a29.12 29.12 0 0 1 41.728 0 30.592 30.592 0 0 1 0 42.688L259.264 511.936l311.872 319.936a30.592 30.592 0 0 1-.512 43.264 29.12 29.12 0 0 1-41.216-.512L197.76 534.272a32 32 0 0 1 0-44.672l331.648-340.224zm256 0a29.12 29.12 0 0 1 41.728 0 30.592 30.592 0 0 1 0 42.688L515.264 511.936l311.872 319.936a30.592 30.592 0 0 1-.512 43.264 29.12 29.12 0 0 1-41.216-.512L453.76 534.272a32 32 0 0 1 0-44.672l331.648-340.224z"></path></svg>
+
+        <div class="bottom">
+
+            <div class="playTimeWrapper">
+
+                <div class="currentTimer">
+                        {{ minute }}:{{ second }}&nbsp;/
+                </div>
+                <div class="totalTimer">
+                {{ (audio?.duration/60).toFixed(0) }}:{{ (audio?.duration%60).toFixed(0) }}
+                </div>
             </div>
 
-            <div class="icon">
-                <svg class="playIcon" v-if="store.state.isPlayingSong===false" @click="play" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg" data-v-ea893728=""><path fill="currentColor" d="M512 64a448 448 0 1 1 0 896 448 448 0 0 1 0-896zm0 832a384 384 0 0 0 0-768 384 384 0 0 0 0 768zm-48-247.616L668.608 512 464 375.616v272.768zm10.624-342.656 249.472 166.336a48 48 0 0 1 0 79.872L474.624 718.272A48 48 0 0 1 400 678.336V345.6a48 48 0 0 1 74.624-39.936z"></path></svg>
-                <svg class="playIcon" v-if="store.state.isPlayingSong===true"  @click="pause" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg" data-v-ea893728=""><path fill="currentColor" d="M512 64a448 448 0 1 1 0 896 448 448 0 0 1 0-896zm0 832a384 384 0 0 0 0-768 384 384 0 0 0 0 768zm-96-544q32 0 32 32v256q0 32-32 32t-32-32V384q0-32 32-32zm192 0q32 0 32 32v256q0 32-32 32t-32-32V384q0-32 32-32z"></path></svg> 
+
+            <div class="iconSet">
+                    
+                    <div class="last" @click="lastSong">
+                        <svg class="playIcon" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg" data-v-ea893728=""><path fill="currentColor" d="M529.408 149.376a29.12 29.12 0 0 1 41.728 0 30.592 30.592 0 0 1 0 42.688L259.264 511.936l311.872 319.936a30.592 30.592 0 0 1-.512 43.264 29.12 29.12 0 0 1-41.216-.512L197.76 534.272a32 32 0 0 1 0-44.672l331.648-340.224zm256 0a29.12 29.12 0 0 1 41.728 0 30.592 30.592 0 0 1 0 42.688L515.264 511.936l311.872 319.936a30.592 30.592 0 0 1-.512 43.264 29.12 29.12 0 0 1-41.216-.512L453.76 534.272a32 32 0 0 1 0-44.672l331.648-340.224z"></path></svg>
+                    </div>
+
+                    <div class="icon">
+                        <svg class="playIcon" v-if="store.state.isPlayingSong===false" @click="play" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg" data-v-ea893728=""><path fill="currentColor" d="M512 64a448 448 0 1 1 0 896 448 448 0 0 1 0-896zm0 832a384 384 0 0 0 0-768 384 384 0 0 0 0 768zm-48-247.616L668.608 512 464 375.616v272.768zm10.624-342.656 249.472 166.336a48 48 0 0 1 0 79.872L474.624 718.272A48 48 0 0 1 400 678.336V345.6a48 48 0 0 1 74.624-39.936z"></path></svg>
+                        <svg class="playIcon" v-if="store.state.isPlayingSong===true"  @click="pause" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg" data-v-ea893728=""><path fill="currentColor" d="M512 64a448 448 0 1 1 0 896 448 448 0 0 1 0-896zm0 832a384 384 0 0 0 0-768 384 384 0 0 0 0 768zm-96-544q32 0 32 32v256q0 32-32 32t-32-32V384q0-32 32-32zm192 0q32 0 32 32v256q0 32-32 32t-32-32V384q0-32 32-32z"></path></svg> 
+                    </div>
+
+                    <div class="next" @click="next_Song">
+                        <svg class="playIcon"  viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg" data-v-ea893728=""><path fill="currentColor" d="M452.864 149.312a29.12 29.12 0 0 1 41.728.064L826.24 489.664a32 32 0 0 1 0 44.672L494.592 874.624a29.12 29.12 0 0 1-41.728 0 30.592 30.592 0 0 1 0-42.752L764.736 512 452.864 192a30.592 30.592 0 0 1 0-42.688zm-256 0a29.12 29.12 0 0 1 41.728.064L570.24 489.664a32 32 0 0 1 0 44.672L238.592 874.624a29.12 29.12 0 0 1-41.728 0 30.592 30.592 0 0 1 0-42.752L508.736 512 196.864 192a30.592 30.592 0 0 1 0-42.688z"></path></svg>
+                    </div>
             </div>
 
-            <div class="next" @click="next_Song">
-                <svg class="playIcon"  viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg" data-v-ea893728=""><path fill="currentColor" d="M452.864 149.312a29.12 29.12 0 0 1 41.728.064L826.24 489.664a32 32 0 0 1 0 44.672L494.592 874.624a29.12 29.12 0 0 1-41.728 0 30.592 30.592 0 0 1 0-42.752L764.736 512 452.864 192a30.592 30.592 0 0 1 0-42.688zm-256 0a29.12 29.12 0 0 1 41.728.064L570.24 489.664a32 32 0 0 1 0 44.672L238.592 874.624a29.12 29.12 0 0 1-41.728 0 30.592 30.592 0 0 1 0-42.752L508.736 512 196.864 192a30.592 30.592 0 0 1 0-42.688z"></path></svg>
-            </div>
         </div>
 
         
-        <van-progress stroke-width="2vw" pivot-text="" :percentage="percentage" class="progress" />
 
+        
+        <van-progress stroke-width="2vw" pivot-text="" :percentage="percentage" class="progress" />
+       
+        {{ store.state.playIndex }}
+  
+        {{ store.state.isPlayingSong }}
 
        
+    
+
+
+
+            <div class="lyricWrapper" ref="lyricElement">
+
+        
+
+                 <div 
+                 class="lyric" 
+                v-for="(lyricItem, lyricIndex) in store.getters.lyrics" 
+                :key="lyricIndex"
+                :class="{active:(  audio.currentTime>=lyricItem.time&&audio.currentTime<lyricItem.nextTime )}"
+                
+                > 
+               
+                <!-- <div class="lyric"> -->
+
+                        <div class="lyricCSS">
+                            {{ lyricItem.lyric }}
+                        </div>
+                     
+
+                </div> 
+
+
+            </div>
+       
       
-        
-
-
-        
-    {{ store.state.playIndex }}
-  
-   {{ store.state.isPlayingSong }}
-
-  
-
-  
-
-   
          
 
     </div>
@@ -148,7 +209,7 @@
 </template>
 
 <script setup>
-import {ref,reactive,onMounted,computed,provide,watchEffect,KeepAlive} from 'vue'
+import {ref,reactive,onMounted,computed,provide,watchEffect,KeepAlive,watch} from 'vue'
 import {useRouter,useRoute} from 'vue-router'
 import {getSongs} from '@/axios/routes/getSongs.js'
 import store from '../../store/store';
@@ -162,10 +223,12 @@ const route=useRoute()
 
 
 const drawer = ref(false)
+const drawer2=ref(false)
 const direction = ref('btt')
 
 const musicPlayer=ref(null)
 
+// 日常打卡歌单小按钮
 const markIconColor=ref(false)
 const marked=()=>{
  
@@ -179,6 +242,8 @@ const marked=()=>{
 
 }
 
+
+// 歌曲发布时间
 const publish=computed(()=>{
     const date=new Date(store.state.playSong.data?.publishTime||store.state.playSong?.publishTime)
     const year=date.getFullYear()
@@ -187,6 +252,7 @@ const publish=computed(()=>{
     return year+'-'+month+'-'+day
 })
 
+// 上一首歌
 const lastSong=()=>{
     if(store.state.playIndex>0){
         store.state.playIndex-=1
@@ -197,6 +263,8 @@ const lastSong=()=>{
    
 }
 
+
+// 下一首歌
 const next_Song=()=>{
     if(store.state.playIndex<store.state.playList.length-1){
         store.state.playIndex+=1
@@ -208,8 +276,36 @@ const next_Song=()=>{
 }
 
 
+// 实现歌词滚动
+const lyricElement=ref(null)
+
+      watchEffect(()=>{
+        if(lyricElement.value){
+            setTimeout(function time(){
+                const el=document.querySelector('.active')
+            // 查看元素对象里的方法，必须加[]
+                // 引用时，不要加
+                        /* console.log([el]) 
+                        console.log(el.offsetTop)  */
+                if(el.offsetTop>616){
+                    // 如果超过距离顶部的某个临界值，超过多少，就让他滚动多少
+                            //以确保歌词一直在同一个地方
+                  
+                    lyricElement.value.scrollTop=el.offsetTop-616
+                     /*  console.log(lyricElement.value.scrollTop) */
+                }
+            
+           
+            
+            setTimeout(time,1000)
+            },1000)
+           
+           
+        }
+      })
 
 
+      
 
 const hasFootBar=ref(store.state.hasFootBar)
 
@@ -217,7 +313,7 @@ const hasFootBar=ref(store.state.hasFootBar)
 
  const audio=ref(null);
 
-
+// 打印获得的歌曲
  watchEffect(()=>{
     if(store.state.playSong){
         console.log(store.state.playSong);
@@ -236,7 +332,8 @@ watchEffect(()=>{
     if(audio.value){
       setTimeout(function setPer(){
         percentage.value=(audio.value.currentTime/audio.value.duration*100).toFixed(1)
-        /* console.log(percentage.value) */
+        /*  console.log(percentage.value)  */
+       /*   console.log('currentTime',audio.value.currentTime) */
         setTimeout(setPer,1000)
 
       },1000)
@@ -246,10 +343,34 @@ watchEffect(()=>{
 
 
 
+// 当前歌曲时间，转换为分秒
+
+  const minute=ref()
+const second=ref()
 
 
 
-// 保存状态
+watchEffect(()=>{
+    if(audio.value){
+        setTimeout(function time(){
+            minute.value=ref(Math.floor(audio.value?.currentTime/60))
+            second.value=ref(Math.floor(audio.value?.currentTime%60))
+            setTimeout(time,1000)
+        },1000);
+        
+    }
+})
+
+
+
+
+
+
+
+
+
+
+// 保存歌词当前状态，防止重载歌曲有些实时数据也重载
 watchEffect(()=>{
     if(audio.value){
 
@@ -470,21 +591,58 @@ const cachedCurrentTimeAlias = localStorage.getItem('currentTimeAlias');
 
 
 
-  
-
-
-
-
-
-
-
-
 
 
 
 </script>
 
 <style scoped>
+
+
+
+.lyricWrapper{
+    width: 100vw;
+    height: 60vw;
+    overflow: scroll;
+    margin-left: -2vw;
+
+}
+
+
+
+.lyric{
+   
+
+}
+.lyricCSS{
+    font-size: 4vw;
+    text-align: center;
+    margin-top: 4vw;
+    margin-bottom: 2vw;
+    
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width: 100vw;
+    height: 4.3vw;
+    line-height: 4.3vw;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: -2vw;
+    font-family:cursive;
+    font-weight:700;
+}
+
+.active{
+    color: rgb(138, 147, 19);
+    font-size: 7vw;
+    transform: scale(1.8);
+   
+}
+
+
+
 .songDetailWrapper{
     
 }
@@ -611,6 +769,9 @@ const cachedCurrentTimeAlias = localStorage.getItem('currentTimeAlias');
    margin-right: 2vw;
    font-size: 3.5vw;
 }
+.singerContent2{
+    margin-bottom: 25vw;
+}
 
 
 .mvContent{
@@ -621,6 +782,21 @@ const cachedCurrentTimeAlias = localStorage.getItem('currentTimeAlias');
     margin-left: 3vw;
         width: 7vw;
         height: 7vw;
+}
+
+
+
+.playTimeWrapper{
+    display: flex;
+    flex-direction: row;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    color:dimgray;
+    margin-top:1vw;
+    position: fixed;
+    bottom: 16.5vw;
+    left: 44.5vw;
+   
+
 }
 
 .iconSet{

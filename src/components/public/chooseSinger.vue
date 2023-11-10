@@ -83,7 +83,7 @@
 
     <div class="singerWrapper" v-for="(item, index) in singerRandomList.singerRandom.artists" :key="index" >
 
-        <router-link :to="{name:'listSinger',params:{id:item.id}}">
+            <router-link :to="{name:'listSinger',params:{id:item.id}}">
                  
 
                 <img :src="item.picUrl" alt="singer" class="singerImg" v-if="index<15">
