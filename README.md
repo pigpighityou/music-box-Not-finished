@@ -2,7 +2,7 @@
 
 ## 用vscode等ide打开
 
-## 终端安装node (yarn也行)
+## 终端安装包管理器npm||yarn（版本要新）
 
 ```markdown
 npm install
