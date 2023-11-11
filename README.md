@@ -1,6 +1,6 @@
 # 16music-box(请注意：半成品！)
 
-## 用vscode等ide打开
+## 用vscode等打开
 
 ## 终端安装包管理器npm||yarn（版本要新）
 
