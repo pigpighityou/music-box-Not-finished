@@ -19,6 +19,7 @@ import {
   ActionSheet,
   FloatingPanel,
   Progress,
+  Popup,
 } from "vant";
 
 let components = [
@@ -40,6 +41,7 @@ let components = [
   ActionSheet,
   FloatingPanel,
   Progress,
+  Popup,
 ];
 
 // 封装一个函数，用来注册所有的组件
