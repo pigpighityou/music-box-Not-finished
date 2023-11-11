@@ -31,14 +31,19 @@
     <template #dropdown>
       <el-dropdown-menu class="menu">
 
-        <div class="item" @click="console.log(111)">
-            <svg class="searchIcon" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg" data-v-ea893728=""><path fill="currentColor" d="m795.904 750.72 124.992 124.928a32 32 0 0 1-45.248 45.248L750.656 795.904a416 416 0 1 1 45.248-45.248zM480 832a352 352 0 1 0 0-704 352 352 0 0 0 0 704z"></path></svg>
-            2131
+        <div class="itemWrapper" >
+            <div 
+            class="item" 
+            v-for="(item, index) in suggestion.data" :key="index"  
+            @click="username=item.keyword">
+                <svg class="searchIcon" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg" data-v-ea893728=""><path fill="currentColor" d="m795.904 750.72 124.992 124.928a32 32 0 0 1-45.248 45.248L750.656 795.904a416 416 0 1 1 45.248-45.248zM480 832a352 352 0 1 0 0-704 352 352 0 0 0 0 704z"></path></svg>
+                {{ item.keyword }} 
+            </div>
+            <hr>
         </div>
-        <div class="item" @click="console.log(222)">2131</div>
-        <div class="item" @click="console.log(333)">2131</div>
-        <div class="item" @click="console.log(444)">2131</div>
-        <div class="item" @click="console.log(444)">2131</div>
+        
+       
+       
        
       </el-dropdown-menu>
     </template>
@@ -72,11 +77,16 @@ const showPopup = () => {
       show.value = true;
     };
 
+let suggestion=reactive({
+  data:[]
+})
+
 // 搜索建议
 watchEffect(() => {
   if (username.value) {
     console.log(username.value);
     getSearchSuggest(username.value).then((res) => {
+        suggestion.data=res.data.result.allMatch;
       console.log('suggestion',res.data.result.allMatch);
     });
     showClick();
@@ -125,7 +135,7 @@ const search = async () => {
 
 .menu{
    width: 90vw;
-   height: 50vw;
+   height: 60vw;
    display: flex;
    
    flex-direction: column;
@@ -134,11 +144,13 @@ const search = async () => {
  
 }
 
-.item{
-    width: 90vw;
-    height: 20vw;
-    
+.itemWrapper{
    
+
+}
+
+.item{
+    height: 15vw;
 }
 
 .searchIcon{
