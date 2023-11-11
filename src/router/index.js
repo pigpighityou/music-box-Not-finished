@@ -7,7 +7,8 @@ const routes = [
   {
     path: "/",
     components: {
-      default: () => import("../components/homePage/public/publicComponent.vue"),
+      default: () =>
+        import("../components/homePage/public/publicComponent.vue"),
       musicPlayer: () => import("../components/musicPlayer/musicPlayer.vue"),
     },
   },
@@ -16,11 +17,11 @@ const routes = [
     path: "/search/:id",
     name: "search",
     components: {
-      default:()=> import('../components/search/components/searchContent.vue'), 
+      default: () =>
+        import("../components/search/components/searchContent.vue"),
       musicPlayer: () => import("../components/musicPlayer/musicPlayer.vue"),
     },
   },
-  
 
   {
     path: "/footBar",

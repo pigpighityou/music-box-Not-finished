@@ -417,7 +417,7 @@ const audio = ref(null);
 // 打印获得的歌曲
 watchEffect(() => {
   if (store.state.playSong) {
-   /*  console.log(store.state.playSong); */
+    /*  console.log(store.state.playSong); */
   }
 });
 
