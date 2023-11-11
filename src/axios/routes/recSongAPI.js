@@ -1,16 +1,11 @@
-import root from '../index.js'
+import root from "../index.js";
 
-export function getRecSongList(){
-    return root({
-        method:'GET',
-        url:'/personalized?limit=10',
-        
-        
-       
-        
-    })
+export function getRecSongList() {
+  return root({
+    method: "GET",
+    url: "/personalized?limit=10",
+  });
 }
-
 
 /* export function getRecSongList2(){
     return root({

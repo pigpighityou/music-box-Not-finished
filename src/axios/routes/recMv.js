@@ -1,10 +1,8 @@
-import root from '../index'
+import root from "../index";
 
-
-export function getRecMv(){
-    return root({
-        url:'/personalized/mv?limit=15',
-        method:'GET'
-    })
-    
+export function getRecMv() {
+  return root({
+    url: "/personalized/mv?limit=15",
+    method: "GET",
+  });
 }

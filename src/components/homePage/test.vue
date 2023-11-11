@@ -1,21 +1,7 @@
-<script setup>
-
-
-</script>
-
+<script setup></script>
 
 <template>
-    <div>
-        hello test
-    </div>
+  <div>hello test</div>
 </template>
 
-
-<style scoped>
-
-
-
-
-
-
-</style>
+<style scoped></style>

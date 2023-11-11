@@ -1,12 +1,8 @@
-import root from '../index'
+import root from "../index";
 
-
-
-
-export function getLoginUserAccount(){
-    return root({
-        method:'GET',
-        url:`/user/account`
-    })
+export function getLoginUserAccount() {
+  return root({
+    method: "GET",
+    url: `/user/account`,
+  });
 }
-

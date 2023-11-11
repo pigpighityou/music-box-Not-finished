@@ -1,8 +1,8 @@
-import root from '../index'
+import root from "../index";
 
-export function getVIPTask(){
-    return root({
-        method:'GET',
-        url:'/vip/tasks'
-    })
+export function getVIPTask() {
+  return root({
+    method: "GET",
+    url: "/vip/tasks",
+  });
 }

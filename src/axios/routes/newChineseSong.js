@@ -1,11 +1,8 @@
-import root from '../index'
+import root from "../index";
 
-export function getNewChineseSong(){
-
-
-    return root({
-        method: 'GET',
-        url: '/top/song?type=7',
-        
-    })
+export function getNewChineseSong() {
+  return root({
+    method: "GET",
+    url: "/top/song?type=7",
+  });
 }

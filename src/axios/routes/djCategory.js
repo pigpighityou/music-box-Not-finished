@@ -1,9 +1,8 @@
-import root from '../index'
+import root from "../index";
 
-
-export function getDjCategory(){
-    return root({
-        method:"GET",
-        url:'/dj/program/toplist'
-    })
+export function getDjCategory() {
+  return root({
+    method: "GET",
+    url: "/dj/program/toplist",
+  });
 }

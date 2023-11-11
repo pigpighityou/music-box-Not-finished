@@ -1,256 +1,209 @@
-
-
-
-
 <template>
+  <van-nav-bar
+    title="歌曲列表"
+    left-text="返回"
+    left-arrow
+    @click-left="onClickLeft"
+    class="navBar"
+  />
 
-
-    <van-nav-bar
-  title="歌曲列表"
-  left-text="返回"
-  left-arrow
-  @click-left="onClickLeft"
-  class="navBar"
-/>
-
-
-
-
-<div class="desc">
-
-  <div class="bgPic">
-    <img :src="songDetail.data.playlist?.coverImgUrl" alt="pic" class="pic">
-  </div>
-
-  <div class="total">
-    <div class="name">
-        {{  songDetail.data.playlist?.name }}
+  <div class="desc">
+    <div class="bgPic">
+      <img :src="songDetail.data.playlist?.coverImgUrl" alt="pic" class="pic" />
     </div>
 
-    <div class="author">
-          作者：{{  songDetail.data.playlist?.creator.nickname }}
-    </div>
+    <div class="total">
+      <div class="name">
+        {{ songDetail.data.playlist?.name }}
+      </div>
 
-    <div class="tags" v-for="(item, index) in songDetail.data.playlist?.tags" :key="index">
-           {{ item}}
-          
+      <div class="author">
+        作者：{{ songDetail.data.playlist?.creator.nickname }}
+      </div>
+
+      <div
+        class="tags"
+        v-for="(item, index) in songDetail.data.playlist?.tags"
+        :key="index"
+      >
+        {{ item }}
+      </div>
     </div>
   </div>
- 
-  
 
-</div>
-
-<div class="describe" @click="drawer=true"> 
-
-  <div class="brief">
-    {{  songDetail.data.playlist?.description }}
-  
-    
-  </div>
-  <div class="icon">
+  <div class="describe" @click="drawer = true">
+    <div class="brief">
+      {{ songDetail.data.playlist?.description }}
+    </div>
+    <div class="icon">
       <i class="iconfont icon-jiantouyou"></i>
+    </div>
   </div>
-  
 
-</div>
-
-<el-drawer
+  <el-drawer
     v-model="drawer"
     title="详细介绍"
     :direction="direction"
     :before-close="handleClose"
     size="100%"
   >
-
-  <div class="wrapper" >
-
-    <img :src="songDetail.data.playlist?.coverImgUrl" alt="pic3" class="pic3">
+    <div class="wrapper">
+      <img
+        :src="songDetail.data.playlist?.coverImgUrl"
+        alt="pic3"
+        class="pic3"
+      />
 
       <div class="bgPic1">
-        <img :src="songDetail.data.playlist.coverImgUrl" alt="pic" class="pic1">
+        <img
+          :src="songDetail.data.playlist.coverImgUrl"
+          alt="pic"
+          class="pic1"
+        />
       </div>
       <div class="name1">
-        {{  songDetail.data.playlist.name }}
+        {{ songDetail.data.playlist.name }}
       </div>
-      <div class="tags1" v-for="(item, index) in songDetail.data.playlist.tags" :key="index">
-              {{ item}}
-              
-      </div>
-
-        <div class="brief1">
-        {{  songDetail.data.playlist.description }}
-      
-        
+      <div
+        class="tags1"
+        v-for="(item, index) in songDetail.data.playlist.tags"
+        :key="index"
+      >
+        {{ item }}
       </div>
 
-  </div>
+      <div class="brief1">
+        {{ songDetail.data.playlist.description }}
+      </div>
+    </div>
+  </el-drawer>
 
-
-
-
-
-</el-drawer>
-
-<div class="listSongsWrapper">
-  <div class="title">
+  <div class="listSongsWrapper">
+    <div class="title">
       歌曲列表
       <i class="iconfont icon-xiajiantou1"></i>
-  </div>
+    </div>
 
-  <div class="listSongs" >
-
-
-      <div class="listSong" v-for="(item, index) in songs.data.songs" :key="index">
+    <div class="listSongs">
+      <div
+        class="listSong"
+        v-for="(item, index) in songs.data.songs"
+        :key="index"
+      >
         <div class="rankWrapper">
-
-              {{ index+1 }}
+          {{ index + 1 }}
         </div>
-          <div class="songWrapper" @click="clickHandler(index)">
-              <div class="songName">
-                {{ item.name }}
-            </div>
-            <div class="twoItems">
-                <div class="authors">
-
-                
-                      <div class="songAuthor" v-for="(item1, index1) in item.ar" :key="index1">
-                        
-                      
-                        {{ item1.name  }}
-                      
-              
-  
-              
-                        </div>
-                </div>
-
-              <div class="album">
-                {{ item.al.name }}
+        <div class="songWrapper" @click="clickHandler(index)">
+          <div class="songName">
+            {{ item.name }}
+          </div>
+          <div class="twoItems">
+            <div class="authors">
+              <div
+                class="songAuthor"
+                v-for="(item1, index1) in item.ar"
+                :key="index1"
+              >
+                {{ item1.name }}
               </div>
             </div>
-            
-           
-          </div>
 
-          <div class="mv" v-if="item.mv!=0">
-            <router-link :to="{name:'mvPlayer',params:{id:item.mv}}">
-            <svg class="videoIcon" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg" data-v-ea893728=""><path fill="currentColor" d="M704 768V256H128v512h576zm64-416 192-96v512l-192-96v128a32 32 0 0 1-32 32H96a32 32 0 0 1-32-32V224a32 32 0 0 1 32-32h640a32 32 0 0 1 32 32v128zm0 71.552v176.896l128 64V359.552l-128 64zM192 320h192v64H192v-64z"></path></svg>
+            <div class="album">
+              {{ item.al.name }}
+            </div>
+          </div>
+        </div>
+
+        <div class="mv" v-if="item.mv != 0">
+          <router-link :to="{ name: 'mvPlayer', params: { id: item.mv } }">
+            <svg
+              class="videoIcon"
+              viewBox="0 0 1024 1024"
+              xmlns="http://www.w3.org/2000/svg"
+              data-v-ea893728=""
+            >
+              <path
+                fill="currentColor"
+                d="M704 768V256H128v512h576zm64-416 192-96v512l-192-96v128a32 32 0 0 1-32 32H96a32 32 0 0 1-32-32V224a32 32 0 0 1 32-32h640a32 32 0 0 1 32 32v128zm0 71.552v176.896l128 64V359.552l-128 64zM192 320h192v64H192v-64z"
+              ></path>
+            </svg>
           </router-link>
-          </div>
-         
-          
+        </div>
       </div>
-
+    </div>
   </div>
-
-
-
-
-
-
-</div>
-
-
-
-
-
 </template>
 
 <script setup>
-import { useRoute,useRouter } from 'vue-router';
-import {ref,reactive,onMounted,computed,watchEffect} from 'vue'
-import {getListSong} from '@/axios/routes/getListSong.js'
-import {getListSongDetail} from '@/axios/routes/getListSong.js'
-import store from '@/store/store.js';
+import { useRoute, useRouter } from "vue-router";
+import { ref, reactive, onMounted, computed, watchEffect } from "vue";
+import { getListSong } from "@/axios/routes/getListSong.js";
+import { getListSongDetail } from "@/axios/routes/getListSong.js";
+import store from "@/store/store.js";
 
-const route=useRoute()
-const id=ref(route.params.id)
+const route = useRoute();
+const id = ref(route.params.id);
 
-const drawer=ref(false)
-const direction=ref('btt')
+const drawer = ref(false);
+const direction = ref("btt");
 
-
-
-let songs=reactive({
-    data:[],
-    failImages:[
-        'https://redchairrecruitment.ie/wp-content/uploads/2019/05/No-Data.png'
-    ]
+let songs = reactive({
+  data: [],
+  failImages: [
+    "https://redchairrecruitment.ie/wp-content/uploads/2019/05/No-Data.png",
+  ],
 });
 
-let songDetail=reactive({
-    data:[],
-    failImages:[
-        'https://redchairrecruitment.ie/wp-content/uploads/2019/05/No-Data.png'
-    ]
+let songDetail = reactive({
+  data: [],
+  failImages: [
+    "https://redchairrecruitment.ie/wp-content/uploads/2019/05/No-Data.png",
+  ],
 });
 
-(async ()=>{
-    try{
-        const res=await getListSong(id.value)
-        store.state.playList=res.data.songs
-        songs.data=res.data
-        /*  console.log('ok',songs.data)  */
-    }
-    catch(err){
-        console.log(err)
-    }
+(async () => {
+  try {
+    const res = await getListSong(id.value);
+    store.state.playList = res.data.songs;
+    songs.data = res.data;
+    /*  console.log('ok',songs.data)  */
+  } catch (err) {
+    console.log(err);
+  }
 })();
 
-
-(async ()=>{
-    try{
-        const res=await getListSongDetail(id.value)
-         songDetail.data=res.data 
-      /*    console.log('okdetail',songDetail.data)  */
-    }
-    catch(err){
-        console.log(err)
-    }
+(async () => {
+  try {
+    const res = await getListSongDetail(id.value);
+    songDetail.data = res.data;
+    /*    console.log('okdetail',songDetail.data)  */
+  } catch (err) {
+    console.log(err);
+  }
 })();
 
-const clickHandler=(index)=>{
-  store.commit('getIndexPlay',index)
-}
-
-
-
-
-
-
-
-
-
-
-
-
+const clickHandler = (index) => {
+  store.commit("getIndexPlay", index);
+};
 
 const onClickLeft = () => history.back();
-
-
 </script>
 
-
-
 <style scoped>
-.navBar{
+.navBar {
   position: sticky;
-  top:0vw;
+  top: 0vw;
 }
 
-
-.listSongsWrapper{
-
-margin-bottom: 20vw;
+.listSongsWrapper {
+  margin-bottom: 20vw;
 }
 
-
-.desc{
+.desc {
   display: flex;
   flex-direction: row;
- margin-left: 3vw;
- 
+  margin-left: 3vw;
+
   width: 90vw;
   height: 40vw;
   margin-top: 5vw;
@@ -258,7 +211,7 @@ margin-bottom: 20vw;
   background-color: #fff;
 }
 
-.total{
+.total {
   display: flex;
   flex-direction: column;
   margin-left: 3vw;
@@ -266,60 +219,45 @@ margin-bottom: 20vw;
   height: 35vw;
   overflow: auto;
   margin-top: 1vw;
- 
+
   background-color: #fff;
-
-
 }
 
-
-.name{
+.name {
   width: 40vw;
   height: 11vw;
   font-size: 4vw;
   margin-bottom: 1vw;
-  
 }
 
-.name1{
- margin-top: 3.5vw;
- text-align: center;
- font-weight: bold;
-  
+.name1 {
+  margin-top: 3.5vw;
+  text-align: center;
+  font-weight: bold;
 }
 
-.tags{
- display: flex;
+.tags {
+  display: flex;
 
- width: 15vw;
- border: 0.2vw black solid;
+  width: 15vw;
+  border: 0.2vw black solid;
   border-radius: 1vw;
-
-
- 
-
- 
 }
-.tags1{
+.tags1 {
   display: flex;
   justify-content: center;
   align-items: center;
   margin: 0 auto;
   width: 15vw;
-    margin-top: 1vw;
-  
-  
-  
-  
+  margin-top: 1vw;
 }
 
-.author{
+.author {
   font-size: 3vw;
   margin-bottom: 1vw;
-  
 }
 
-.authors{
+.authors {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
@@ -327,63 +265,46 @@ margin-bottom: 20vw;
 
   text-overflow: ellipsis;
   overflow: hidden;
- 
- 
-
 }
 
-
-
-
-.pic{
+.pic {
   width: 35vw;
   height: 35vw;
   border-radius: 4vw;
   margin: 0 auto;
 }
 
-.pic1{
+.pic1 {
   width: 40vw;
   height: 40vw;
   border-radius: 4vw;
   margin: 0 27%;
-  
-
-
-
 }
 
-.describe{
+.describe {
   display: flex;
   flex-direction: row;
   margin-left: 3vw;
   width: 90vw;
   height: 10vw;
-  
+
   border-radius: 4vw;
   background-color: #fff;
 }
 
-.icon{
-
+.icon {
   margin-left: 1vw;
   margin-top: -0.9vw;
   transform: scale(0.8);
-  
-
-
-  
 }
 
-
-
-.brief{
-    width: 93vw;
-    height: 4.5vw;
-    overflow: hidden;
+.brief {
+  width: 93vw;
+  height: 4.5vw;
+  overflow: hidden;
 }
 
-.brief1{
+.brief1 {
   margin-top: 2vw;
   margin-left: 7vw;
   line-height: 1.9;
@@ -392,14 +313,13 @@ margin-bottom: 20vw;
   overflow: auto;
 }
 
-.wrapper{
-
+.wrapper {
   width: 100;
   height: 300px;
   backdrop-filter: blur(10px); /* 设置背景虚化的模糊程度 */
 }
 
-.pic3{
+.pic3 {
   margin-left: -10vw;
   width: 180vw;
   height: 180vw;
@@ -407,11 +327,9 @@ margin-bottom: 20vw;
   z-index: -1;
   filter: blur(10px);
   opacity: 0.5;
-
 }
 
-
-.listSongs{
+.listSongs {
   display: flex;
   flex-direction: column;
   padding-left: 3vw;
@@ -424,18 +342,16 @@ margin-bottom: 20vw;
   border: 0.3vw black solid;
 }
 
-.listSong{
+.listSong {
   display: flex;
   flex-direction: row;
   width: 100vw;
   height: 10vw;
   margin-top: 1vw;
   margin-bottom: 2vw;
-
-  
 }
 
-.rankWrapper{
+.rankWrapper {
   width: 5vw;
   margin-left: -2vw;
 
@@ -449,7 +365,7 @@ margin-bottom: 20vw;
   color: #c62f2f;
 }
 
-.title{
+.title {
   width: 100vw;
   height: 6vw;
   font-size: 4vw;
@@ -460,64 +376,58 @@ margin-bottom: 20vw;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-
 }
 
-.videoIcon{
+.videoIcon {
   width: 5vw;
   height: 5vw;
   margin-top: 1vw;
   margin-left: 1vw;
   color: black;
-
-  
 }
 
-.songName{
+.songName {
   width: 80vw;
   overflow: hidden;
   height: 5vw;
   font-size: 4vw;
   margin-top: 1vw;
-  
 }
 
-.songWrapper{
+.songWrapper {
   width: 83vw;
 }
 
-.songAuthor{
-    display: inline-block;
-    padding-right: 1vw;
-    margin-right: 2vw;
-    max-height: 4vw;
-     max-width: 30vw; 
-    text-overflow: ellipsis;
-    overflow: hidden;
-    text-align: center;
-}
-
-.album{
+.songAuthor {
   display: inline-block;
- 
-    padding-right: 1vw;
-    margin-top: 0.4vw;
-    max-width: 40vw;
-    height: 4vw;
-    
-    overflow: hidden;
-    text-overflow: ellipsis;
-    color: grey;
-    
-
+  padding-right: 1vw;
+  margin-right: 2vw;
+  max-height: 4vw;
+  max-width: 30vw;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  text-align: center;
 }
 
-.twoItems{
+.album {
+  display: inline-block;
+
+  padding-right: 1vw;
+  margin-top: 0.4vw;
+  max-width: 40vw;
+  height: 4vw;
+
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: grey;
+}
+
+.twoItems {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
   align-items: center;
-  
+
   margin-top: 1.4vw;
   font-size: 3vw;
   /*  max-width: 70vw;  */
@@ -525,16 +435,5 @@ margin-bottom: 20vw;
   overflow: hidden;
   text-align: center;
   text-overflow: ellipsis;
- 
-
 }
-
-
-
-
-
-
-
-
-
 </style>

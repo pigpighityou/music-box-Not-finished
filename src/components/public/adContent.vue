@@ -1,47 +1,7 @@
-
-
-
 <template>
-    
-<router-view >
-
-
-
-    ad Content {{ this.$route.params.id }}
-
-
-
-
-
-
-</router-view>
-
-
-
-
-
-
-
-
-
+  <router-view> ad Content {{ this.$route.params.id }} </router-view>
 </template>
 
-<script setup>
+<script setup></script>
 
-
-
-
-</script>
-
-
-
-<style scoped>
-
-
-
-
-
-
-
-
-</style>
+<style scoped></style>

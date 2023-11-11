@@ -1,33 +1,5 @@
-<script setup>
+<script setup></script>
 
+<template>123</template>
 
-
-</script>
-
-
-
-<template>
-   
-
-123
-
-
-
-
-
-
-
-</template>
-
-
-
-<style scoped>
-
-
-
-
-
-
-
-
-</style>
+<style scoped></style>

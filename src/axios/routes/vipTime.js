@@ -1,8 +1,8 @@
-import root from '../index'
+import root from "../index";
 
-export function getVIPTime(){
-    return root({
-        method:'GET',
-        url:`/vip/timemachine`
-    })
+export function getVIPTime() {
+  return root({
+    method: "GET",
+    url: `/vip/timemachine`,
+  });
 }
