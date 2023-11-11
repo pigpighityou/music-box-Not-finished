@@ -2,7 +2,14 @@
 
 ## 用vscode等ide打开
 
-## 终端安装node =>npm install   (yarn也行)
+## 终端安装node    (yarn也行)
+```markdown
+
+
+npm install
+
+```
+
 
 ## 终端安装数据服务器
 
