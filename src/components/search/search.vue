@@ -31,7 +31,7 @@
             class="item"
             v-for="(item, index) in suggestion.data"
             :key="index"
-            @click="username = item.keyword"
+            @click="suggestSearch(item.keyword)"
           >
             <svg
               class="searchIcon"
@@ -46,7 +46,6 @@
             </svg>
             {{ item.keyword }}
           </div>
-          <hr />
         </div>
       </el-dropdown-menu>
     </template>
@@ -63,10 +62,19 @@ const router = useRouter();
 const route = useRoute();
 
 const dropdown1 = ref();
+
+// 搜索栏打开
 function showClick() {
   if (!dropdown1.value) return;
   dropdown1.value.handleOpen();
 }
+
+// 搜索栏关闭
+function showHide() {
+  if (!dropdown1.value) return;
+  dropdown1.value.handleClose();
+}
+
 const username = ref("");
 
 const show = ref(false);
@@ -87,8 +95,17 @@ watchEffect(() => {
       console.log("suggestion", res.data.result.allMatch);
     });
     showClick();
+  } else {
+    showHide();
   }
 });
+
+// 点击搜索建议栏内容后直接搜索
+function suggestSearch(param) {
+  username.value = param;
+  showHide();
+  search();
+}
 
 // 搜索内容
 const search = async () => {
