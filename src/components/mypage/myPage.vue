@@ -4,7 +4,7 @@ import { ref, reactive } from "vue";
 import { getLoginUser } from "@/axios/routes/loginAPI.js";
 
 import msg from "./header/msg.vue";
-import search from "../public/search.vue";
+import search from "@/components/search/search.vue";
 import toggleNightMode from "./header/toggleNightMode.vue";
 import moreIcon from "../mypage/header/moreIcon.vue";
 import userBrief from "../mypage/user/userBrief.vue";
