@@ -37,9 +37,9 @@
 </template>
 
 <script setup>
-import { getNewEnglishSong } from "../../../axios/routes/newEnglishSong";
+import { getNewEnglishSong } from "@/axios/routes/newEnglishSong";
 import { ref, reactive, onMounted, computed } from "vue";
-import store from "../../../store/store";
+import store from "@/store/store";
 let newEnglishSongAPI;
 let newEnglishSong = reactive({
   lists: [],
@@ -53,7 +53,7 @@ let newEnglishSong = reactive({
     newEnglishSongAPI = await getNewEnglishSong();
     store.state.playList = newEnglishSongAPI.data.data;
     newEnglishSong.lists = newEnglishSongAPI.data;
-    /*  console.log('ok',newEnglishSong.lists)   */
+      console.log('ok',newEnglishSong.lists)   
   } catch (err) {
     console.log(err);
   }

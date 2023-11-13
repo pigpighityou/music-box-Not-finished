@@ -18,7 +18,7 @@
         }}
       </div>
     </div>
-    <div class="artistWrapper">
+    <div class="artistWrapper" v-if="multiSearchData.data.artist">
       <div class="artistIntro">
         相关歌手
         <i class="iconfont icon-xiajiantou1"></i>
@@ -174,7 +174,7 @@ watchEffect(() => {
     getCloudSearch(route.params.id)
       .then((res) => {
         cloudSearchData.data = res.data.result;
-        console.log("cloudSearch", cloudSearchData.data);
+       /*  console.log("cloudSearch", cloudSearchData.data); */
       })
       .catch((err) => {
         console.log(err);
@@ -183,7 +183,7 @@ watchEffect(() => {
     multiSearch(route.params.id)
       .then((res) => {
         multiSearchData.data = res.data.result;
-        console.log("multiSearch", multiSearchData.data);
+        /*  console.log("multiSearch", multiSearchData.data);  */
       })
       .catch((err) => {
         console.log(err);

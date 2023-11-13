@@ -285,14 +285,14 @@
           class="progress"
         />
 
-        {{ store.state.playIndex }}
+       <!--  {{ store.state.playIndex }}
 
-        {{ store.state.isPlayingSong }}
+        {{ store.state.isPlayingSong }} -->
 
         <div class="lyricWrapper" ref="lyricElement">
           <div
             class="lyric"
-            v-for="(lyricItem, lyricIndex) in store.getters.lyrics"
+            v-for="(lyricItem, lyricIndex) in store.getters?.lyrics"
             :key="lyricIndex"
             :class="{
               active:
@@ -304,6 +304,7 @@
 
             <div class="lyricCSS">
               {{ lyricItem.lyric }}
+             
             </div>
           </div>
         </div>
@@ -348,10 +349,12 @@ const marked = () => {
   }
 };
 
-// 歌曲发布时间
+// 歌曲发布时间 (因为歌单数据有不同版本，所以只能用暴力方法判断)
 const publish = computed(() => {
   const date = new Date(
-    store.state.playSong.data?.publishTime || store.state.playSong?.publishTime,
+    store.state.playSong.data?.publishTime ||
+      store.state.playSong?.publishTime ||
+      store.state.playSong?.album?.publishTime
   );
   if (
     store.state.playSong.data?.publishTime ||
@@ -472,12 +475,12 @@ window.addEventListener("beforeunload", () => {
   if (store.state.playIndex && store.state.playSong) {
     localStorage.setItem(
       "currentTime",
-      JSON.stringify(audio.value?.currentTime),
+      JSON.stringify(audio.value?.currentTime)
     );
     localStorage.setItem("paused", JSON.stringify(audio.value?.paused));
     localStorage.setItem(
       "isPlayingSong",
-      JSON.stringify(store.state?.isPlayingSong),
+      JSON.stringify(store.state?.isPlayingSong)
     );
     localStorage.setItem("playSong", JSON.stringify(store.state?.playSong));
     localStorage.setItem("playIndex", JSON.stringify(store.state?.playIndex));
@@ -537,15 +540,15 @@ router.beforeEach((to, from, next) => {
     localStorage.setItem("pausedAlias", JSON.stringify(audio.value.paused));
     localStorage.setItem(
       "isPlayingSongAlias",
-      JSON.stringify(store.state?.isPlayingSong),
+      JSON.stringify(store.state?.isPlayingSong)
     );
     localStorage.setItem(
       "playSongAlias",
-      JSON.stringify(store.state?.playSong),
+      JSON.stringify(store.state?.playSong)
     );
     localStorage.setItem(
       "playIndexAlias",
-      JSON.stringify(store.state?.playIndex),
+      JSON.stringify(store.state?.playIndex)
     );
 
     /*  } */
@@ -596,7 +599,7 @@ const backUpGetUrl = async () => {
   try {
     if (store.state.playSong.id || store.state.playSong.resourceId) {
       const res = await getSongs(
-        store.state.playSong.id || store.state.playSong.resourceId,
+        store.state.playSong.id || store.state.playSong.resourceId
       );
       /*  console.log(store.state.playSong.id||store.state.playSong.resourceId)    */
       /*  console.log(res) */
@@ -642,7 +645,14 @@ const nextSong = () => {
   store.state.playIndex++;
   store.commit("getIndexPlay", store.state.playIndex);
 };
+
+watchEffect(() => {
+  /* console.log(store.getters.lyrics);
+  console.log(store.state.newLyric); */
+})
 </script>
+
+
 
 <style scoped>
 .lyricWrapper {
