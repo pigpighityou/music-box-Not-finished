@@ -645,11 +645,11 @@ const nextSong = () => {
   store.state.playIndex++;
   store.commit("getIndexPlay", store.state.playIndex);
 };
-
+/* 
 watchEffect(() => {
-  /* console.log(store.getters.lyrics);
-  console.log(store.state.newLyric); */
-})
+  console.log(store.getters.lyrics);
+  console.log(store.state.newLyric);
+}) */
 </script>
 
 
@@ -780,7 +780,7 @@ watchEffect(() => {
 .singerDetail {
   display: flex;
   flex-direction: row;
-  flex-wrap: nowrap;
+  flex-wrap: wrap;
   overflow: hidden;
   max-height: 4vw;
   white-space: ellipsis;

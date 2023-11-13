@@ -95,6 +95,7 @@ const store = createStore({
         context.state.lyric = res.data.lrc.lyric;
        
         /*   console.log(context.state.lyric);  */
+       
       })
     },
   },
