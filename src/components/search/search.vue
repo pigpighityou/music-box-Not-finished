@@ -17,22 +17,19 @@
       </div>
 
       <div class="listenRead">
-        <i class="iconfont icon-yinle"></i>
+        <i class="iconfont icon-yinle" @click="showToast('该功能暂未开通')"></i>
       </div>
     </div>
   </div>
 
-  <el-dropdown ref="dropdown1" trigger="contextmenu" class="menuWrapper">
+  <el-dropdown ref="dropdown1" trigger="contextmenu" class="menuWrapper" :hide-on-click="true">
     <span class="el-dropdown-link">1234</span>
     <template #dropdown>
       <el-dropdown-menu class="menu">
-        <div class="itemWrapper">
-          <div
-            class="item"
+        <el-dropdown-item class="item"
             v-for="(item, index) in suggestion.data"
             :key="index"
-            @click="suggestSearch(item.keyword)"
-          >
+            @click="suggestSearch(item.keyword)">
             <svg
               class="searchIcon"
               viewBox="0 0 1024 1024"
@@ -45,8 +42,8 @@
               ></path>
             </svg>
             {{ item.keyword }}
-          </div>
-        </div>
+         
+        </el-dropdown-item>
       </el-dropdown-menu>
     </template>
   </el-dropdown>
@@ -58,6 +55,7 @@ import { useRouter, useRoute } from "vue-router";
 import { getSearch } from "@/axios/routes/search.js";
 import { getSearchSuggest } from "@/axios/routes/search";
 import store from "@/store/store.js";
+import { showToast } from "vant";
 const router = useRouter();
 const route = useRoute();
 
@@ -89,10 +87,12 @@ let suggestion = reactive({
 // 搜索建议
 watchEffect(() => {
   if (username.value) {
-    console.log(username.value);
+    /* console.log(username.value); */
     getSearchSuggest(username.value).then((res) => {
       suggestion.data = res.data.result.allMatch;
-      console.log("suggestion", res.data.result.allMatch);
+      /* console.log("suggestion", res.data.result.allMatch); */
+    }).catch((err)=>{
+        console.log(err)
     });
     showClick();
   } else {
@@ -102,8 +102,9 @@ watchEffect(() => {
 
 // 点击搜索建议栏内容后直接搜索
 function suggestSearch(param) {
+    
+   showHide();
   username.value = param;
-  showHide();
   search();
 }
 
@@ -152,15 +153,22 @@ const search = async () => {
 }
 
 .itemWrapper {
+    width: 90vw;
+    height: 15vw;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: start;
+    margin: 0% auto;
+    overflow: hidden;
 }
 
-.item {
-  height: 15vw;
-}
+
 
 .searchIcon {
   width: 5vw;
   height: 5vw;
+  margin-right: 2vw;
 }
 
 .searchWrapper {
