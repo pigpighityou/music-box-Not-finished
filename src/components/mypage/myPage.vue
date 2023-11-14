@@ -37,7 +37,12 @@ const token = ref(localStorage.getItem("token"));
 
     <div class="end">
       <toggleNightMode></toggleNightMode>
-      <msg></msg>
+
+      <router-link to="/msg">
+        <div class="more" style="color: black;">
+          <van-icon name="chat-o" badge="1" size="6vw" />
+        </div>
+      </router-link>
     </div>
   </div>
 

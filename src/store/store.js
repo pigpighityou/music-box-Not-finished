@@ -11,23 +11,19 @@ const store = createStore({
       userData: {},
 
       // 是否有footbar
-
       hasFootBar: false,
 
       // 播放状态
       isPlayingSong: false,
-
       playSong: {},
-
       lyric: "",
-      newLyric: [],
-
       url: "",
-
       playList: [],
       playIndex: "",
-
       audioState: {},
+
+    
+
     };
   },
 

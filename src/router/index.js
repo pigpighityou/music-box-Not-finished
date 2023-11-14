@@ -295,6 +295,14 @@ const routes = [
     },
   },
   {
+    path:'/msg',
+    name:'msg',
+    components:{
+      default:()=>import('../components/mypage/header/msg.vue'),
+      musicPlayer:()=>import('../components/musicPlayer/musicPlayer.vue')
+    }
+  },
+  {
     path: "/login",
     /*  beforeEnter: (to, from, next) => {
             if(store.state.isLogin){
