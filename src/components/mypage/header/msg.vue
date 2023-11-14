@@ -33,6 +33,7 @@
               </div>
             </el-card>
             <div class="chatWrapper" v-if="show===index">
+              <!-- 这边继续 -->
               <div class="img" >
                 <img
                   :src="childItem.fromUser.avatarUrl"
