@@ -93,7 +93,9 @@ const foreignImgList = computed(() => {
         </div>
       </div>
     </router-link>
+   
   </div>
+  
 
   <!--    {{ hotSongsList.songs?.playlists }} -->
 
@@ -186,4 +188,5 @@ const foreignImgList = computed(() => {
   height: 100%;
   overflow: auto;
 }
+
 </style>

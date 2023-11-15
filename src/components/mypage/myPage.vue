@@ -1,31 +1,4 @@
-<script setup>
-import { ref, reactive } from "vue";
 
-import { getLoginUser } from "@/axios/routes/loginAPI.js";
-
-import msg from "./header/msg.vue";
-import search from "@/components/search/search.vue";
-import toggleNightMode from "./header/toggleNightMode.vue";
-import moreIcon from "../mypage/header/moreIcon.vue";
-import userBrief from "../mypage/user/userBrief.vue";
-import userList from "./user/userList.vue";
-import userLikeList from "./user/userLikeList.vue";
-/* import userListen from './user/userListen.vue' */
-import goodSong from "../../components/homePage/body/goodsong.vue";
-
-import hotChineseSongList from "../homePage/body/hotChineseSongList.vue";
-import hotEnglishSongList from "../homePage/body/hotEnglishSongList.vue";
-import dailyRecommandSong from "../homePage/body/dailyRecommandSong.vue";
-
-import store from "../../store/store.js";
-
-const randomNum = ref(Math.floor(Math.random() * 2));
-/* console.log(randomNum.value); */
-
-const userData = ref(JSON.parse(localStorage.getItem("userData")));
-const token = ref(localStorage.getItem("token"));
-/* console.log(userData.value); */
-</script>
 
 <template>
   <div class="headerWrapper">
@@ -40,7 +13,7 @@ const token = ref(localStorage.getItem("token"));
 
       <router-link to="/msg">
         <div class="more" style="color: black;">
-          <van-icon name="chat-o" badge="1" size="6vw" />
+          <van-icon name="chat-o" :badge=store.state.msgCount size="6vw" />
         </div>
       </router-link>
     </div>
@@ -82,6 +55,38 @@ const token = ref(localStorage.getItem("token"));
 
   <div class="blank"></div>
 </template>
+
+<script setup>
+import { ref, reactive } from "vue";
+
+import { getLoginUser } from "@/axios/routes/loginAPI.js";
+
+import msg from "./header/msg.vue";
+import search from "@/components/search/search.vue";
+import toggleNightMode from "./header/toggleNightMode.vue";
+import moreIcon from "../mypage/header/moreIcon.vue";
+import userBrief from "../mypage/user/userBrief.vue";
+import userList from "./user/userList.vue";
+import userLikeList from "./user/userLikeList.vue";
+/* import userListen from './user/userListen.vue' */
+import goodSong from "../../components/homePage/body/goodsong.vue";
+
+import hotChineseSongList from "../homePage/body/hotChineseSongList.vue";
+import hotEnglishSongList from "../homePage/body/hotEnglishSongList.vue";
+import dailyRecommandSong from "../homePage/body/dailyRecommandSong.vue";
+
+import { useStore } from "vuex";
+
+const randomNum = ref(Math.floor(Math.random() * 2));
+/* console.log(randomNum.value); */
+
+const userData = ref(JSON.parse(localStorage.getItem("userData")));
+const token = ref(localStorage.getItem("token"));
+/* console.log(userData.value); */
+const store=useStore()
+
+
+</script>
 
 <style scoped>
 .blank {

@@ -1,3 +1,42 @@
+
+
+<template>
+  <van-nav-bar
+    title="热门歌手列表"
+    left-text="返回"
+    left-arrow
+    @click-left="onClickLeft"
+    class="navBar"
+  />
+
+  <div class="songListWrapper">
+    <div
+      class="list"
+      v-for="(item, index) in hotSingerList.artists"
+      :key="index"
+    >
+      <div class="rank">
+        {{ index + 1 }}
+      </div>
+
+      <router-link :to="{ name: 'listSinger', params: { id: item.id } }">
+        <div class="img">
+          <img :src="item.picUrl" alt="pic" class="pic" />
+        </div>
+      </router-link>
+
+      <div class="desc">
+        {{ item.name }}
+        <!-- {{ item.id }} -->
+        <div class="alias" v-for="(item1, index1) in item.alias" :key="index">
+          {{ item1 }}
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="blank"></div>
+</template>
+
 <script setup>
 import { getHotSinger } from "../../../axios/routes/hotSingerAPI";
 import { ref, reactive, onMounted, computed } from "vue";
@@ -37,42 +76,6 @@ const onClickLeft = () => {
   router.push("/world");
 };
 </script>
-
-<template>
-  <van-nav-bar
-    title="热门歌手列表"
-    left-text="返回"
-    left-arrow
-    @click-left="onClickLeft"
-    class="navBar"
-  />
-
-  <div class="songListWrapper">
-    <div
-      class="list"
-      v-for="(item, index) in hotSingerList.artists"
-      :key="index"
-    >
-      <div class="rank">
-        {{ index + 1 }}
-      </div>
-
-      <router-link :to="{ name: 'listSinger', params: { id: item.id } }">
-        <div class="img">
-          <img :src="item.picUrl" alt="pic" class="pic" />
-        </div>
-      </router-link>
-
-      <div class="desc">
-        {{ item.name }}
-        <!-- {{ item.id }} -->
-        <div class="alias" v-for="(item1, index1) in item.alias" :key="index">
-          {{ item1 }}
-        </div>
-      </div>
-    </div>
-  </div>
-</template>
 
 <style scoped>
 .navBar {
@@ -123,5 +126,9 @@ const onClickLeft = () => {
   height: 30vw;
   border-radius: 5px;
   box-shadow: 0 0 10px #ccc;
+}
+
+.blank{
+  height: 20vw;
 }
 </style>

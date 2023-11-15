@@ -22,6 +22,8 @@ const store = createStore({
       playIndex: "",
       audioState: {},
 
+      // 私信数量
+      msgCount:'',
     
 
     };

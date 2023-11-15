@@ -1,28 +1,3 @@
-<script setup>
-import { getHotSongList } from "@/axios/routes/HotSongAPI";
-
-import { ref, reactive, onMounted, computed } from "vue";
-
-let HotSongsAPI;
-let HotSongsList = reactive({
-  songs: [],
-  failImages: [
-    "https://redchairHotruitment.ie/wp-content/uploads/2019/05/No-Data.png",
-  ],
-});
-
-(async () => {
-  try {
-    HotSongsAPI = await getHotSongList();
-    HotSongsList.songs = HotSongsAPI.data.playlists;
-    /*      console.log('ok',HotSongsList.songs)  */
-  } catch (err) {
-    console.log(err);
-  }
-})();
-
-const onClickLeft = () => history.back();
-</script>
 
 <template>
   <van-nav-bar
@@ -57,7 +32,35 @@ const onClickLeft = () => history.back();
       </div>
     </div>
   </div>
+  <div class="blank"></div>
 </template>
+
+<script setup>
+import { getHotSongList } from "@/axios/routes/HotSongAPI";
+
+import { ref, reactive, onMounted, computed } from "vue";
+
+let HotSongsAPI;
+let HotSongsList = reactive({
+  songs: [],
+  failImages: [
+    "https://redchairHotruitment.ie/wp-content/uploads/2019/05/No-Data.png",
+  ],
+});
+
+(async () => {
+  try {
+    HotSongsAPI = await getHotSongList();
+    HotSongsList.songs = HotSongsAPI.data.playlists;
+    /*      console.log('ok',HotSongsList.songs)  */
+  } catch (err) {
+    console.log(err);
+  }
+})();
+
+const onClickLeft = () => history.back();
+</script>
+
 
 <style scoped>
 .list {
@@ -98,5 +101,8 @@ const onClickLeft = () => history.back();
   height: 30vw;
   border-radius: 5px;
   box-shadow: 0 0 10px #ccc;
+}
+.blank{
+  height: 20vw;
 }
 </style>

@@ -6,7 +6,7 @@ const onClickLeft = () => history.back();
 
 // element-plus
 const drawer1 = ref(false);
-const direction = ref("btt");
+const direction = ref("ttb");
 </script>
 
 <template>
@@ -35,6 +35,7 @@ const direction = ref("btt");
     title="制作详情"
     :direction="direction"
     :before-close="handleClose"
+    
   >
     <div class="intro">
       <strong>制作人:</strong>pigpighityourhead <br />
@@ -43,6 +44,7 @@ const direction = ref("btt");
       <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
       vue3.0+vant+element-plus+vue-router+vuex+axios+vueuse+iconfont+网易云音乐api
       <br />
+      <div class="blank"></div>
     </div>
   </el-drawer>
 
@@ -61,4 +63,8 @@ const direction = ref("btt");
   border: 0.2px solid black;
   border-radius: 1.5vw;
 }
+
+
+
+
 </style>
