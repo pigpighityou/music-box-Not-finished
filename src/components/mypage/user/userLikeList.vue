@@ -2,7 +2,7 @@
 import { getUserSongList } from "@/axios/routes/loginAPI.js";
 /* import {getVIPTime} from '@/axios/routes/vipTime.js' */
 
-import { ref, reactive } from "vue";
+import { ref, reactive, watchEffect } from "vue";
 
 const userData = ref(JSON.parse(localStorage.getItem("userData")));
 
@@ -27,15 +27,20 @@ const userSongList = reactive({
 
 // 收藏和创建的order属性不同   喜欢的歌单和别的区别在于specailtype属性
 
-(async () => {
-  userSongListAPI = await getUserSongList(userData.value.userId);
-  if (userSongListAPI.data.code === 200) {
-    userSongList.data = userSongListAPI.data.playlist;
-    /*  console.log(userSongList.data);  */
-  } else {
-    return;
+watchEffect(() => {
+  
+  if (userData!=null) {
+    (async () => {
+      userSongListAPI = await getUserSongList(userData.value?.userId);
+      if (userSongListAPI.data.code === 200) {
+        userSongList.data = userSongListAPI.data.playlist;
+        /*  console.log(userSongList.data);  */
+      } else {
+        return;
+      }
+    })();
   }
-})();
+});
 
 /* (async ()=>{
     vipTimeAPI=await getVIPTime()

@@ -7,6 +7,43 @@ export function getLoginPhone(data) {
   });
 }
 
+export function getPhoneCaptcha(data) {
+  return root({
+    method: "GET",
+    url: `/captcha/sent?phone=${data}`,
+  });
+}
+
+export function getLoginCaptcha(data){
+  return root({
+    method: "GET",
+    url: `/login/cellphone?phone=${data.phoneNum}&captcha=${data.captcha}`,
+
+  });
+}
+
+export function verifyCaptcha(data){
+  return root({
+    method: "GET",
+    url: `/captcha/verify?phone=${data.phoneNum}&captcha=${data.captcha}`,
+  });
+}
+
+export function loginOut() {
+  return root({
+    method: "GET",
+    url: `/logout`,
+  });
+}
+
+export function loginStatus() {
+  return root({
+    method: "GET",
+    url: `/login/status`,
+   
+  });
+}
+
 export function getLoginUser(data) {
   return root({
     method: "GET",

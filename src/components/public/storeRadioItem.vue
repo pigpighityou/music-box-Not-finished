@@ -1,61 +1,4 @@
-<script setup>
-import { ref, reactive, watchEffect } from "vue";
-import { getDjDetail } from "@/axios/routes/djHot.js";
-import { getSongs } from "@/axios/routes/getSongs.js";
-import { useRoute, useRouter } from "vue-router";
-import { showFailToast } from "vant";
 
-const route = useRoute();
-const router = useRouter();
-const id = ref(route.params.id);
-console.log(id.value);
-
-let djDetailAPI;
-let songsAPI;
-let djDetailList = reactive({
-  data: [],
-});
-
-let songsList = reactive({
-  data: [],
-});
-
-(async () => {
-  try {
-    djDetailAPI = await getDjDetail(id.value);
-
-    djDetailList.data = djDetailAPI.data.programs;
-    console.log("okprogramdetail", djDetailList.data);
-  } catch (err) {
-    console.log(err);
-  }
-})();
-
-/* const getSongsAPI = async (id) => {
-    try{
-        songsAPI = await getSongs(id)
-        console.log('ok',songsAPI);
-        songsList.data = songsAPI.data.songs
-          console.log('ok',songsList.data);  
-      
-    }
-    catch(err){
-        console.log(err)
-    }
-} */
-
-const onClickLeft = () => history.back();
-
-const drawer = ref(false);
-const direction = ref("btt");
-const anchors = [
-  100,
-  Math.round(0.4 * window.innerHeight),
-  Math.round(0.7 * window.innerHeight),
-];
-
-const height = ref(anchors[1]);
-</script>
 
 <template>
   <van-nav-bar
@@ -116,12 +59,12 @@ const height = ref(anchors[1]);
             v-for="(item, index) in djDetailList?.data"
             :key="index"
           >
-            <div class="contentImg" @click="getSongsAPI(item.id)">
+            <div class="contentImg" @click="clickHandler(index)">
               <img :src="item.coverUrl" alt="pic1" class="contentPic" />
             </div>
 
             <div class="contentDesc">
-              <div class="contentName">
+              <div class="contentName" >
                 {{ item.mainSong.name }}
               </div>
 
@@ -130,7 +73,7 @@ const height = ref(anchors[1]);
                 v-for="(item1, index1) in item.mainSong.artists"
                 :key="index1"
               >
-                {{ item1.name }}
+                {{ item1.name  }}
               </div>
             </div>
 
@@ -148,6 +91,73 @@ const height = ref(anchors[1]);
     </van-floating-panel>
   </div>
 </template>
+
+<script setup>
+import { ref, reactive, watchEffect } from "vue";
+import { getDjDetail } from "@/axios/routes/djHot.js";
+import { getSongs } from "@/axios/routes/getSongs.js";
+import { useRoute, useRouter } from "vue-router";
+import { showFailToast } from "vant";
+import { useStore } from "vuex";
+
+const route = useRoute();
+const router = useRouter();
+const store = useStore();
+const id = ref(route.params.id);
+console.log(id.value);
+
+let djDetailAPI;
+let songsAPI;
+let djDetailList = reactive({
+  data: [],
+});
+
+let songsList = reactive({
+  data: [],
+});
+
+(async () => {
+  try {
+    djDetailAPI = await getDjDetail(id.value);
+    djDetailList.data = djDetailAPI.data.programs;
+    store.state.playList=djDetailList.data
+    /* console.log("okprogramdetail", djDetailList.data); */
+  } catch (err) {
+    console.log(err);
+  }
+})();
+
+const clickHandler = (index) => {
+/*   console.log(store.state.playList); */
+  store.commit("getIndexPlay", index);
+
+};
+
+/* const getSongsAPI = async (id) => {
+    try{
+        songsAPI = await getSongs(id)
+        console.log('ok',songsAPI);
+        songsList.data = songsAPI.data.songs
+          console.log('ok',songsList.data);  
+      
+    }
+    catch(err){
+        console.log(err)
+    }
+} */
+
+const onClickLeft = () => history.back();
+
+const drawer = ref(false);
+const direction = ref("btt");
+const anchors = [
+  100,
+  Math.round(0.4 * window.innerHeight),
+  Math.round(0.7 * window.innerHeight),
+];
+
+const height = ref(anchors[1]);
+</script>
 
 <style scoped>
 .content {

@@ -7,7 +7,7 @@ const drawer = ref(false);
 const direction = ref("btt");
 
 const userData = ref(JSON.parse(localStorage.getItem("userData")));
-const id = ref(userData.value.userId);
+const id = ref(userData.value?.userId);
 
 let infoAPI;
 const infoData = reactive({

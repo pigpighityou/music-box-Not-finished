@@ -90,7 +90,13 @@ const store = createStore({
     // 异步获取歌词 context参数说明需要在内部调用
     getLyricHandler(context, id) {
       getLyric(id).then((res) => {
-        context.state.lyric = res.data.lrc.lyric;
+        try{
+          context.state.lyric = res.data.lrc.lyric;
+        }
+        catch(e){
+          context.state.lyric = "暂无歌词";
+        }
+      
        
         /*   console.log(context.state.lyric);  */
        

@@ -317,18 +317,31 @@ const routes = [
     },
   },
   {
+    path:'/loginAlias',
+    name:'loginAlias',
+    components:{
+      default:()=>import('../components/login/loginAlias.vue')
+    }
+  },
+  {
     path: "/loginSuccess",
     redirect: (to) => {
       return {
         path: "/user",
 
-        /*    query:{
-                    id:to.query.id
-
-            } */
+       
       };
     },
   },
+  {
+    path:"/loginOut",
+    name:'loginOut',
+    redirect:(to)=>{
+      return {
+        path:'/user'
+      }
+    }
+  }
 ];
 
 const router = createRouter({

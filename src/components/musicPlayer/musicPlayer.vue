@@ -7,7 +7,9 @@
         :src="
           store.state.playSong?.al?.picUrl ||
           store.state.playSong?.album?.picUrl ||
-          store.state.playSong?.data?.al.picUrl
+          store.state.playSong?.data?.al.picUrl ||
+          store.state.playSong?.mainSong?.album?.blurPicUrl ||
+          'https://redchairrecruitment.ie/wp-content/uploads/2019/05/No-Data.png'
         "
         alt="pic"
         class="albumPic"
@@ -24,7 +26,10 @@
       <div
         v-for="(item, index) in store.state.playSong?.ar ||
         store.state.playSong?.artists ||
-        store.state.playSong?.data?.ar"
+        store.state.playSong?.data?.ar||
+        store.state.playSong?.mainSong?.artists||
+        store.state.playSong?.dj?.nickname
+        "
         :key="index"
       >
         {{ item.name }}
@@ -90,7 +95,10 @@
             :src="
               store.state.playSong?.al?.picUrl ||
               store.state.playSong?.album?.picUrl ||
-              store.state.playSong?.data?.al.picUrl
+              store.state.playSong?.data?.al.picUrl||
+              store.state.playSong?.mainSong?.album?.blurPicUrl||
+              store.state.playSong?.blurCoverUrl
+
             "
             alt="pic"
             class="pic picSpin"
@@ -135,18 +143,21 @@
         </div>
 
         <div class="desc">
-          <div class="singerDetail" @click="drawer2 = true">
-            <div class="singerIcon">
+          <div class="singerDetail" >
+            <div class="singerIcon" >
               <i class="iconfont icon-jiantouyou"></i>
             </div>
             <div
+              @click="drawer2 = true"
               class="singerContent"
               v-for="(item, index) in store.state.playSong?.ar ||
               store.state.playSong?.artists ||
-              store.state.playSong?.data?.ar"
+              store.state.playSong?.data?.ar||
+              store.state.playSong?.mainSong?.artists"
+            v-if="store.state?.playSong?.hasOwnProperty('radio')===false"
               :key="index"
             >
-              {{ item.name }}
+              {{ item.name}}
             </div>
 
             <el-drawer
@@ -160,13 +171,16 @@
                 class="singerContent singerContent2"
                 v-for="(item, index) in store.state.playSong?.ar ||
                 store.state.playSong?.artists ||
-                store.state.playSong?.data?.ar"
+                store.state.playSong?.data?.ar||
+                store.state.playSong?.mainSong?.artists
+              "
                 :key="index"
               >
                 <router-link
                   :to="{ name: 'listSinger', params: { id: item.id } }"
                   style="color: black"
                   @click="drawer = false"
+                  
                 >
                   <div><i class="iconfont icon-xiajiantou1"></i></div>
                   {{ item.name }}
@@ -354,7 +368,8 @@ const publish = computed(() => {
   const date = new Date(
     store.state.playSong.data?.publishTime ||
       store.state.playSong?.publishTime ||
-      store.state.playSong?.album?.publishTime
+      store.state.playSong?.album?.publishTime||
+      store.state.playSong?.scheduledPublishTime
   );
   if (
     store.state.playSong.data?.publishTime ||
@@ -597,9 +612,11 @@ router.afterEach((to, from) => {
 // 防止资源加载不出来，点按钮可实现再次获取资源
 const backUpGetUrl = async () => {
   try {
-    if (store.state.playSong.id || store.state.playSong.resourceId) {
+    // 电台id应为maintrackid，但是其也有id，所以
+        // 应该先判断maintrackid是否存在（是否是电台），不存在再判断id是否存在
+    if (store.state.playSong.mainTrackId||store.state.playSong.id || store.state.playSong.resourceId) {
       const res = await getSongs(
-        store.state.playSong.id || store.state.playSong.resourceId
+        store.state.playSong.mainTrackId|| store.state.playSong.id || store.state.playSong.resourceId
       );
       /*  console.log(store.state.playSong.id||store.state.playSong.resourceId)    */
       /*  console.log(res) */
@@ -898,6 +915,12 @@ watchEffect(() => {
   margin: 0 2vw;
   overflow: hidden;
   width: 25vw;
+}
+
+.nameContent{
+      overflow: hidden;
+    text-overflow: ellipsis;
+      white-space: nowrap;
 }
 
 .name div {
