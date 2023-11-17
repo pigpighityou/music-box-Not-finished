@@ -21,14 +21,7 @@
 
   <div class="searchWrapper">
     <search></search>
-    <!-- 
-    {{ store.state.isLogin  }}
-    {{ store.state.userData   }}
-    {{ store.state.token    }}
-
-    {{  userData.userId }}
-    {{ userData }}
-    {{ token  }} -->
+  
   </div>
 
   <userBrief></userBrief>
@@ -37,7 +30,7 @@
 
   <userLikeList></userLikeList>
 
-  <!-- <userListen></userListen> -->
+
 
   <dailyRecommandSong></dailyRecommandSong>
 
@@ -57,11 +50,9 @@
 </template>
 
 <script setup>
-import { ref, reactive } from "vue";
+import { ref, reactive ,watchEffect} from "vue";
 
-import { getLoginUser } from "@/axios/routes/loginAPI.js";
 
-import msg from "./header/msg.vue";
 import search from "@/components/search/search.vue";
 import toggleNightMode from "./header/toggleNightMode.vue";
 import moreIcon from "../mypage/header/moreIcon.vue";
@@ -70,7 +61,7 @@ import userList from "./user/userList.vue";
 import userLikeList from "./user/userLikeList.vue";
 /* import userListen from './user/userListen.vue' */
 import goodSong from "../../components/homePage/body/goodsong.vue";
-
+import { getMsg } from "@/axios/routes/message.js";
 import hotChineseSongList from "../homePage/body/hotChineseSongList.vue";
 import hotEnglishSongList from "../homePage/body/hotEnglishSongList.vue";
 import dailyRecommandSong from "../homePage/body/dailyRecommandSong.vue";
@@ -78,12 +69,18 @@ import dailyRecommandSong from "../homePage/body/dailyRecommandSong.vue";
 import { useStore } from "vuex";
 
 const randomNum = ref(Math.floor(Math.random() * 2));
-/* console.log(randomNum.value); */
+
 
 const userData = ref(JSON.parse(localStorage.getItem("userData")));
 const token = ref(localStorage.getItem("token"));
-/* console.log(userData.value); */
+
 const store=useStore()
+
+watchEffect(async () => {
+  await getMsg().then((r) => {
+    store.state.msgCount=r.data.newMsgCount
+  });
+});
 
 
 </script>

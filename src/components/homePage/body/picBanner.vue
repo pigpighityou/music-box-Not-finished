@@ -5,13 +5,23 @@
       alt="pic"
     />
 
-    <!-- {{ banners.images[picKey]?.pic||banners.failImages[0] }}  -->
+    {{ picKey }}
+
+    <div class="iconWrapper">
+      <div
+        class="icon"
+        v-for="(item, index) in banners.images"
+        :key="index"
+        :class="{ active: index === picKey }"
+        @click="picKey = index;isClick=true"
+      ></div>
+    </div>
   </div>
 </template>
 
 <script setup>
 import { getBannerAPI } from "../../../axios/routes/bannerAPI.js";
-import { ref, reactive, computed, onMounted } from "vue";
+import { ref, reactive, computed, onMounted,onUnmounted,watchEffect } from "vue";
 let banners = reactive({
   images: [],
   failImages: [
@@ -20,39 +30,50 @@ let banners = reactive({
 });
 let bannerAPI;
 
-let src = ref();
 
-//  为了防止setInterval累计间隔问题，使用setTimeout实现setInterval,实现轮播图
-//待实现功能：轮播图下方有小圆点，点击小圆点可以跳转到相应的图片，并且小圆点会变色，还会自动轮播
+let isClick = ref(false);
+
+/* watchEffect(()=>{
+  console.log(isClick.value);
+}) */
 let picKey = ref(0);
+
 let timer = setTimeout(function interval() {
+      // 当用户手动点击时，必须取消计时器，防止定时器继续执行
+        // 造成页面更新间隔出现过快现象
+      if(isClick.value){
+        clearTimeout(timer);
+        isClick.value = false;
+        setTimeout(interval, 2500);
+        return;
+      }
+
+      // 照片滚动
   if (picKey.value < banners.images.length - 1 && picKey.value >= 0) {
     picKey.value += 1;
   } else {
     picKey.value = 0;
   }
 
-  // 待实现功能，如果用户向某个方向滑动，轮播图会滑动到某个方向的离得最近的图片，其他功能照旧，
-  //这需要用到watch监听用户的滑动方向，或者用touch事件，touchstart，touchmove，touchend
+  setTimeout(interval, 2500);
+}, 2500);
 
-  setTimeout(interval, 2000);
-}, 2000);
 
-onMounted(
-  // 需要修改，封装打包
-  async () => {
-    try {
-      // 从下面添加页面渲染后所需要实现的功能
-      //如果需要应用api里面的数据实现功能，必须把相应代码放在下面
 
-      bannerAPI = await getBannerAPI();
-      /* console.log("ok",bannerAPI) */
-      banners.images = bannerAPI.data.banners; //一个数组
-    } catch (e) {
-      console.log("error", error);
-    }
-  },
-);
+
+onMounted(async () => {
+  try {
+    bannerAPI = await getBannerAPI();
+   /*  console.log("ok", bannerAPI); */
+    banners.images = bannerAPI.data.banners; //一个数组
+  } catch (e) {
+    console.log("error", error);
+  }
+});
+
+onUnmounted(() => {
+  clearTimeout(timer);
+});
 </script>
 
 <style scoped>
@@ -63,5 +84,30 @@ img {
 
 .switchBannerWrapper {
   margin: 1% auto;
+  position: relative;
+}
+.iconWrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+  position: absolute;
+  bottom: 6vw;
+  left: 0;
+  right: 0;
+  
+}
+.icon {
+  width: 2vw;
+  height: 2vw;
+  background-color: black;
+  border-radius: 50%;
+  margin: 0 1vw;
+ 
+
+}
+
+.active{
+  background-color: rgb(172, 165, 165);
 }
 </style>

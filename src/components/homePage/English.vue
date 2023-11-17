@@ -1,4 +1,5 @@
 <template>
+  <publicComponent></publicComponent>
   <newEnglishSong></newEnglishSong>
   <newEnglishAlbum></newEnglishAlbum>
   <hotEnglishSinger></hotEnglishSinger>
@@ -11,6 +12,7 @@ import newEnglishSong from "./body/newEnglishSong.vue";
 import newEnglishAlbum from "./body/newEnglishAlbum.vue";
 import hotEnglishSinger from "./body/hotEnglishSinger.vue";
 import hotEnglishSongList from "./body/hotEnglishSongList.vue";
+import publicComponent from "./public/publicComponent.vue";
 </script>
 
 <style scoped>

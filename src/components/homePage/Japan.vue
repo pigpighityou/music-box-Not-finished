@@ -1,4 +1,5 @@
 <template>
+  <publicComponent></publicComponent>
   <newJapanSong></newJapanSong>
   <newJapanAlbum></newJapanAlbum>
   <hotJapanSinger></hotJapanSinger>
@@ -8,6 +9,7 @@
 import newJapanSong from "./body/newJapanSong.vue";
 import newJapanAlbum from "./body/newJapanAlbum.vue";
 import hotJapanSinger from "./body/hotJapanSinger.vue";
+import publicComponent from "./public/publicComponent.vue";
 </script>
 
 <style scoped>

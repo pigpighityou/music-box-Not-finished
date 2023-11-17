@@ -1,4 +1,5 @@
 <template>
+  <publicComponent></publicComponent>
   <newKoreaSong></newKoreaSong>
 
   <hotKoreaSinger></hotKoreaSinger>
@@ -11,6 +12,7 @@ import hotKoreaSinger from "./body/hotKoreaSinger.vue";
 
 import newKoreaSong from "./body/newKoreaSong.vue";
 import newKoreaAlbum from "./body/newKoreaAlbum.vue";
+import publicComponent from "./public/publicComponent.vue";
 </script>
 
 <style scoped>

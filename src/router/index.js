@@ -121,9 +121,7 @@ const routes = [
   {
     path: "/world",
     components: {
-      default: () =>
-        import("../components/homePage/public/publicComponent.vue"),
-      world: () => import("../components/homePage/world.vue"),
+      default: () => import("../components/homePage/world.vue"),
       footBar: () => import("../components/public/footBar.vue"),
     },
     name: "world",
@@ -132,9 +130,7 @@ const routes = [
   {
     path: "/Chinese",
     components: {
-      default: () =>
-        import("../components/homePage/public/publicComponent.vue"),
-      Chinese: () => import("../components/homePage/Chinese.vue"),
+      default: () => import("../components/homePage/Chinese.vue"),
       footBar: () => import("../components/public/footBar.vue"),
     },
     name: "Chinese",
@@ -142,9 +138,7 @@ const routes = [
   {
     path: "/Japan",
     components: {
-      default: () =>
-        import("../components/homePage/public/publicComponent.vue"),
-      Japan: () => import("../components/homePage/Japan.vue"),
+      default: () => import("../components/homePage/Japan.vue"),
       footBar: () => import("../components/public/footBar.vue"),
     },
     name: "Japan",
@@ -152,9 +146,7 @@ const routes = [
   {
     path: "/Korea",
     components: {
-      default: () =>
-        import("../components/homePage/public/publicComponent.vue"),
-      Korea: () => import("../components/homePage/Korea.vue"),
+      default: () => import("../components/homePage/Korea.vue"),
       footBar: () => import("../components/public/footBar.vue"),
     },
     name: "Korea",
@@ -162,9 +154,7 @@ const routes = [
   {
     path: "/English",
     components: {
-      default: () =>
-        import("../components/homePage/public/publicComponent.vue"),
-      English: () => import("../components/homePage/English.vue"),
+      default: () => import("../components/homePage/English.vue"),
       footBar: () => import("../components/public/footBar.vue"),
     },
     name: "English",
@@ -295,12 +285,12 @@ const routes = [
     },
   },
   {
-    path:'/msg',
-    name:'msg',
-    components:{
-      default:()=>import('../components/mypage/header/msg.vue'),
-      musicPlayer:()=>import('../components/musicPlayer/musicPlayer.vue')
-    }
+    path: "/msg",
+    name: "msg",
+    components: {
+      default: () => import("../components/mypage/header/msg.vue"),
+      musicPlayer: () => import("../components/musicPlayer/musicPlayer.vue"),
+    },
   },
   {
     path: "/login",
@@ -317,31 +307,29 @@ const routes = [
     },
   },
   {
-    path:'/loginAlias',
-    name:'loginAlias',
-    components:{
-      default:()=>import('../components/login/loginAlias.vue')
-    }
+    path: "/loginAlias",
+    name: "loginAlias",
+    components: {
+      default: () => import("../components/login/loginAlias.vue"),
+    },
   },
   {
     path: "/loginSuccess",
     redirect: (to) => {
       return {
         path: "/user",
-
-       
       };
     },
   },
   {
-    path:"/loginOut",
-    name:'loginOut',
-    redirect:(to)=>{
+    path: "/loginOut",
+    name: "loginOut",
+    redirect: (to) => {
       return {
-        path:'/user'
-      }
-    }
-  }
+        path: "/user",
+      };
+    },
+  },
 ];
 
 const router = createRouter({
