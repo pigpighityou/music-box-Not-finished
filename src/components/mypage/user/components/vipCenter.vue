@@ -1,5 +1,3 @@
-
-
 <template>
   <div class="infoWrapper" @click="drawer = true">
     <div class="info">

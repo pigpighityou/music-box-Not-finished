@@ -1,5 +1,3 @@
-
-
 <template>
   <van-nav-bar
     title="推荐歌单列表"

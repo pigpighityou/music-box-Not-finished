@@ -1,4 +1,3 @@
-
 <template>
   <van-nav-bar
     title="热门歌单列表"
@@ -61,7 +60,6 @@ let HotSongsList = reactive({
 const onClickLeft = () => history.back();
 </script>
 
-
 <style scoped>
 .list {
   display: flex;
@@ -102,7 +100,7 @@ const onClickLeft = () => history.back();
   border-radius: 5px;
   box-shadow: 0 0 10px #ccc;
 }
-.blank{
+.blank {
   height: 20vw;
 }
 </style>

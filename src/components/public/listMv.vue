@@ -1,5 +1,3 @@
-
-
 <template>
   <div class="mvWrapper">
     <div class="mv" v-for="(item, index) in singerMV.data" :key="index">

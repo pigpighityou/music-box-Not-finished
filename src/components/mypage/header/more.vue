@@ -1,5 +1,3 @@
-
-
 <template>
   <!-- title -->
   <van-nav-bar title="更多" left-text="" left-arrow @click-left="onClickLeft">
@@ -26,7 +24,6 @@
     title="制作详情"
     :direction="direction"
     :before-close="handleClose"
-    
   >
     <div class="intro">
       <strong>制作人:</strong>pigpighityourhead <br />
@@ -39,16 +36,17 @@
     </div>
   </el-drawer>
 
-    <button class="test" @click="out">退出登录</button>
+  <button class="test" @click="out">退出登录</button>
 
-
-  <button class="test" @click="getStatus">登录状态: {{ userData?'已登录':'未登录' }}</button>
+  <button class="test" @click="getStatus">
+    登录状态: {{ userData ? "已登录" : "未登录" }}
+  </button>
 </template>
 
 <script setup>
 import { ref, reactive } from "vue";
 
-import {loginOut} from "@/axios/routes/loginAPI.js";
+import { loginOut } from "@/axios/routes/loginAPI.js";
 import { useRouter } from "vue-router";
 // vant
 const onClickLeft = () => history.back();
@@ -57,35 +55,26 @@ const onClickLeft = () => history.back();
 const drawer1 = ref(false);
 const direction = ref("ttb");
 
-const router=useRouter()
+const router = useRouter();
 
-const userData=ref(localStorage.getItem('userData'))
+const userData = ref(localStorage.getItem("userData"));
 const getStatus = () => {
-    
-    if(localStorage.getItem('userData')){
-      alert("已登录")
-    
-    }
-    else{
-      alert("未登录")
-     
-    }
-
+  if (localStorage.getItem("userData")) {
+    alert("已登录");
+  } else {
+    alert("未登录");
+  }
 };
 
-const out=async ()=>{
-  alert("退出登录")
-  let r=await loginOut()
-  localStorage.removeItem("token")
-  localStorage.removeItem("userData")
-  localStorage.removeItem("cookie")
-  router.go(0)
- /*  console.log(r); */
-
-
-}
-
-
+const out = async () => {
+  alert("退出登录");
+  let r = await loginOut();
+  localStorage.removeItem("token");
+  localStorage.removeItem("userData");
+  localStorage.removeItem("cookie");
+  router.go(0);
+  /*  console.log(r); */
+};
 </script>
 
 <style scoped>
@@ -98,8 +87,4 @@ const out=async ()=>{
   border: 0.2px solid black;
   border-radius: 1.5vw;
 }
-
-
-
-
 </style>

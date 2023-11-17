@@ -1,5 +1,3 @@
-
-
 <template>
   <div class="toggleWrapper">
     <i class="iconfont icon-ai250" v-if="!isDark" @click="switchNightMode"></i>

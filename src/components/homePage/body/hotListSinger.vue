@@ -1,5 +1,3 @@
-
-
 <template>
   <van-nav-bar
     title="热门歌手列表"
@@ -128,7 +126,7 @@ const onClickLeft = () => {
   box-shadow: 0 0 10px #ccc;
 }
 
-.blank{
+.blank {
   height: 20vw;
 }
 </style>

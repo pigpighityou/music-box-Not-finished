@@ -1,6 +1,6 @@
 <template>
   <publicComponent></publicComponent>
-  
+
   <div class="component">
     <div class="button">
       <router-link to="/singer">
@@ -22,8 +22,6 @@
 
     <div class="recommend">
       <recSongList class="rec"></recSongList>
-
-    
     </div>
   </div>
 </template>
@@ -66,5 +64,3 @@ import publicComponent from "./public/publicComponent.vue";
   flex-wrap: nowrap;
 }
 </style>
-
-

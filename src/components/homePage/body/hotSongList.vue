@@ -1,5 +1,3 @@
-
-
 <template>
   <div class="hotSongsWrapper">
     <router-link to="/hotSongList">
@@ -38,9 +36,7 @@
         </div>
       </div>
     </router-link>
-   
   </div>
-  
 
   <!--    {{ hotSongsList.songs?.playlists }} -->
 
@@ -190,5 +186,4 @@ const foreignImgList = computed(() => {
   height: 100%;
   overflow: auto;
 }
-
 </style>

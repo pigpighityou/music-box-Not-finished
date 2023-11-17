@@ -1,5 +1,3 @@
-
-
 <template>
   <div class="mvWrapper" v-for="(item, index) in mvRankList.mv" :key="index">
     <div class="firstWrapper" v-if="index == 0">

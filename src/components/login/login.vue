@@ -1,5 +1,3 @@
-
-
 <template>
   <van-nav-bar
     title="登录页面"
@@ -65,7 +63,7 @@ const username = ref("");
 const password = ref("");
 
 const onSubmit = async (values) => {
-/*   console.log("submit", values); */
+  /*   console.log("submit", values); */
 
   let res = await getLoginPhone(values);
 
@@ -87,8 +85,6 @@ const onSubmit = async (values) => {
   }
 };
 </script>
-
-
 
 <style scoped>
 .captcha {

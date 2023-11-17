@@ -1,5 +1,3 @@
-
-
 <template>
   <div class="headerWrapper">
     <div class="start">
@@ -12,8 +10,8 @@
       <toggleNightMode></toggleNightMode>
 
       <router-link to="/msg">
-        <div class="more" style="color: black;">
-          <van-icon name="chat-o" :badge=store.state.msgCount size="6vw" />
+        <div class="more" style="color: black">
+          <van-icon name="chat-o" :badge="store.state.msgCount" size="6vw" />
         </div>
       </router-link>
     </div>
@@ -21,7 +19,6 @@
 
   <div class="searchWrapper">
     <search></search>
-  
   </div>
 
   <userBrief></userBrief>
@@ -29,8 +26,6 @@
   <userList></userList>
 
   <userLikeList></userLikeList>
-
-
 
   <dailyRecommandSong></dailyRecommandSong>
 
@@ -50,8 +45,7 @@
 </template>
 
 <script setup>
-import { ref, reactive ,watchEffect} from "vue";
-
+import { ref, reactive, watchEffect } from "vue";
 
 import search from "@/components/search/search.vue";
 import toggleNightMode from "./header/toggleNightMode.vue";
@@ -70,19 +64,16 @@ import { useStore } from "vuex";
 
 const randomNum = ref(Math.floor(Math.random() * 2));
 
-
 const userData = ref(JSON.parse(localStorage.getItem("userData")));
 const token = ref(localStorage.getItem("token"));
 
-const store=useStore()
+const store = useStore();
 
 watchEffect(async () => {
   await getMsg().then((r) => {
-    store.state.msgCount=r.data.newMsgCount
+    store.state.msgCount = r.data.newMsgCount;
   });
 });
-
-
 </script>
 
 <style scoped>

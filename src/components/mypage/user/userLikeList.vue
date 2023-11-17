@@ -1,5 +1,3 @@
-
-
 <template>
   <div class="userLikeListWrapper">
     <div
@@ -149,8 +147,7 @@ const userSongList = reactive({
 // 收藏和创建的order属性不同   喜欢的歌单和别的区别在于specailtype属性
 
 watchEffect(() => {
-  
-  if (userData!=null) {
+  if (userData != null) {
     (async () => {
       userSongListAPI = await getUserSongList(userData.value?.userId);
       if (userSongListAPI.data.code === 200) {

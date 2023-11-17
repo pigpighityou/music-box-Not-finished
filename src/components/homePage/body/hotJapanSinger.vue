@@ -1,5 +1,3 @@
-
-
 <template>
   <!--   {{ hotJapanSingerList.artists  }} -->
 

@@ -1,5 +1,3 @@
-
-
 <template>
   <router-link to="/hotListSinger">
     <div class="hotSingerWrapper">

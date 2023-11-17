@@ -15,7 +15,7 @@ export function getCloudSearch(keyword) {
   });
 }
 
-export function multiSearch(keyword){
+export function multiSearch(keyword) {
   return root({
     method: "GET",
     url: `/search/multimatch?keywords=${keyword}`,

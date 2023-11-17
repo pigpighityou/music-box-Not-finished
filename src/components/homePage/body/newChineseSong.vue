@@ -1,5 +1,3 @@
-
-
 <template>
   <!--    {{ newChineseSong.lists.data[0].artists[0].name }} 
    

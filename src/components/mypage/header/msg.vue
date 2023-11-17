@@ -81,7 +81,7 @@ const sendId = ref([]);
 const msg = ref();
 const notice = ref();
 const content = ref([]);
-const store=useStore()
+const store = useStore();
 
 watchEffect(async () => {
   if (active.value === 0) {
@@ -94,8 +94,8 @@ watchEffect(async () => {
     await getMsg().then((r) => {
       msg.value = r.data;
       /* console.log("msg", msg.value);   */
-      store.state.msgCount=msg.value.newMsgCount
-    
+      store.state.msgCount = msg.value.newMsgCount;
+
       r.data.msgs.forEach((item) => {
         sendId.value.push(item.fromUser.userId);
       });
@@ -128,8 +128,6 @@ watchEffect(async () => {
     active.value=0
   } */
 });
-
-
 
 // 控制对话框打开与否
 const show = ref();

@@ -1,5 +1,3 @@
-
-
 <template>
   <div class="bannerWrapper">
     <div class="banner">

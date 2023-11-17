@@ -427,7 +427,7 @@ const onClickLeft = () => history.back();
   flex-direction: row;
   flex-wrap: wrap;
   align-items: center;
-  
+
   margin-top: 1.4vw;
   font-size: 3vw;
   /*  max-width: 70vw;  */

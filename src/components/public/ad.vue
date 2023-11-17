@@ -1,5 +1,3 @@
-
-
 <template>
   <router-link :to="{ name: 'adContent', params: { id: index } }">
     <img :src="adBanner.ad[index]" alt="ad" class="ad" v-if="adBanner.ad" />

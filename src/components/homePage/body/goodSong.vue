@@ -1,5 +1,3 @@
-
-
 <template>
   <div class="goodSongsWrapper">
     <div class="title">

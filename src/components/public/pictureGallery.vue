@@ -1,5 +1,3 @@
-
-
 <template>
   <div class="bannerWrapper">
     <img v-for="item in banners.images" :src="item.pic" alt="pic" />

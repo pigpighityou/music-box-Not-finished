@@ -1,5 +1,3 @@
-
-
 <template>
   <div class="radioWrapper">
     <div class="djWrapper" v-for="(item, index1) in idList.id" :key="index">

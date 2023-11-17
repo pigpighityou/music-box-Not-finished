@@ -1,5 +1,3 @@
-
-
 <template>
   <van-nav-bar
     title="电台详情"
@@ -64,7 +62,7 @@
             </div>
 
             <div class="contentDesc">
-              <div class="contentName" >
+              <div class="contentName">
                 {{ item.mainSong.name }}
               </div>
 
@@ -73,7 +71,7 @@
                 v-for="(item1, index1) in item.mainSong.artists"
                 :key="index1"
               >
-                {{ item1.name  }}
+                {{ item1.name }}
               </div>
             </div>
 
@@ -120,7 +118,7 @@ let songsList = reactive({
   try {
     djDetailAPI = await getDjDetail(id.value);
     djDetailList.data = djDetailAPI.data.programs;
-    store.state.playList=djDetailList.data
+    store.state.playList = djDetailList.data;
     /* console.log("okprogramdetail", djDetailList.data); */
   } catch (err) {
     console.log(err);
@@ -128,9 +126,8 @@ let songsList = reactive({
 })();
 
 const clickHandler = (index) => {
-/*   console.log(store.state.playList); */
+  /*   console.log(store.state.playList); */
   store.commit("getIndexPlay", index);
-
 };
 
 /* const getSongsAPI = async (id) => {

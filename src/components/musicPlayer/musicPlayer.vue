@@ -26,10 +26,9 @@
       <div
         v-for="(item, index) in store.state.playSong?.ar ||
         store.state.playSong?.artists ||
-        store.state.playSong?.data?.ar||
-        store.state.playSong?.mainSong?.artists||
-        store.state.playSong?.dj?.nickname
-        "
+        store.state.playSong?.data?.ar ||
+        store.state.playSong?.mainSong?.artists ||
+        store.state.playSong?.dj?.nickname"
         :key="index"
       >
         {{ item.name }}
@@ -95,10 +94,9 @@
             :src="
               store.state.playSong?.al?.picUrl ||
               store.state.playSong?.album?.picUrl ||
-              store.state.playSong?.data?.al.picUrl||
-              store.state.playSong?.mainSong?.album?.blurPicUrl||
+              store.state.playSong?.data?.al.picUrl ||
+              store.state.playSong?.mainSong?.album?.blurPicUrl ||
               store.state.playSong?.blurCoverUrl
-
             "
             alt="pic"
             class="pic picSpin"
@@ -143,8 +141,8 @@
         </div>
 
         <div class="desc">
-          <div class="singerDetail" >
-            <div class="singerIcon" >
+          <div class="singerDetail">
+            <div class="singerIcon">
               <i class="iconfont icon-jiantouyou"></i>
             </div>
             <div
@@ -152,12 +150,12 @@
               class="singerContent"
               v-for="(item, index) in store.state.playSong?.ar ||
               store.state.playSong?.artists ||
-              store.state.playSong?.data?.ar||
+              store.state.playSong?.data?.ar ||
               store.state.playSong?.mainSong?.artists"
-            v-if="store.state?.playSong?.hasOwnProperty('radio')===false"
+              v-if="store.state?.playSong?.hasOwnProperty('radio') === false"
               :key="index"
             >
-              {{ item.name}}
+              {{ item.name }}
             </div>
 
             <el-drawer
@@ -171,16 +169,14 @@
                 class="singerContent singerContent2"
                 v-for="(item, index) in store.state.playSong?.ar ||
                 store.state.playSong?.artists ||
-                store.state.playSong?.data?.ar||
-                store.state.playSong?.mainSong?.artists
-              "
+                store.state.playSong?.data?.ar ||
+                store.state.playSong?.mainSong?.artists"
                 :key="index"
               >
                 <router-link
                   :to="{ name: 'listSinger', params: { id: item.id } }"
                   style="color: black"
                   @click="drawer = false"
-                  
                 >
                   <div><i class="iconfont icon-xiajiantou1"></i></div>
                   {{ item.name }}
@@ -299,7 +295,7 @@
           class="progress"
         />
 
-       <!--  {{ store.state.playIndex }}
+        <!--  {{ store.state.playIndex }}
 
         {{ store.state.isPlayingSong }} -->
 
@@ -318,7 +314,6 @@
 
             <div class="lyricCSS">
               {{ lyricItem.lyric }}
-             
             </div>
           </div>
         </div>
@@ -368,8 +363,8 @@ const publish = computed(() => {
   const date = new Date(
     store.state.playSong.data?.publishTime ||
       store.state.playSong?.publishTime ||
-      store.state.playSong?.album?.publishTime||
-      store.state.playSong?.scheduledPublishTime
+      store.state.playSong?.album?.publishTime ||
+      store.state.playSong?.scheduledPublishTime,
   );
   if (
     store.state.playSong.data?.publishTime ||
@@ -490,12 +485,12 @@ window.addEventListener("beforeunload", () => {
   if (store.state.playIndex && store.state.playSong) {
     localStorage.setItem(
       "currentTime",
-      JSON.stringify(audio.value?.currentTime)
+      JSON.stringify(audio.value?.currentTime),
     );
     localStorage.setItem("paused", JSON.stringify(audio.value?.paused));
     localStorage.setItem(
       "isPlayingSong",
-      JSON.stringify(store.state?.isPlayingSong)
+      JSON.stringify(store.state?.isPlayingSong),
     );
     localStorage.setItem("playSong", JSON.stringify(store.state?.playSong));
     localStorage.setItem("playIndex", JSON.stringify(store.state?.playIndex));
@@ -555,15 +550,15 @@ router.beforeEach((to, from, next) => {
     localStorage.setItem("pausedAlias", JSON.stringify(audio.value.paused));
     localStorage.setItem(
       "isPlayingSongAlias",
-      JSON.stringify(store.state?.isPlayingSong)
+      JSON.stringify(store.state?.isPlayingSong),
     );
     localStorage.setItem(
       "playSongAlias",
-      JSON.stringify(store.state?.playSong)
+      JSON.stringify(store.state?.playSong),
     );
     localStorage.setItem(
       "playIndexAlias",
-      JSON.stringify(store.state?.playIndex)
+      JSON.stringify(store.state?.playIndex),
     );
 
     /*  } */
@@ -613,10 +608,16 @@ router.afterEach((to, from) => {
 const backUpGetUrl = async () => {
   try {
     // 电台id应为maintrackid，但是其也有id，所以
-        // 应该先判断maintrackid是否存在（是否是电台），不存在再判断id是否存在
-    if (store.state.playSong.mainTrackId||store.state.playSong.id || store.state.playSong.resourceId) {
+    // 应该先判断maintrackid是否存在（是否是电台），不存在再判断id是否存在
+    if (
+      store.state.playSong.mainTrackId ||
+      store.state.playSong.id ||
+      store.state.playSong.resourceId
+    ) {
       const res = await getSongs(
-        store.state.playSong.mainTrackId|| store.state.playSong.id || store.state.playSong.resourceId
+        store.state.playSong.mainTrackId ||
+          store.state.playSong.id ||
+          store.state.playSong.resourceId,
       );
       /*  console.log(store.state.playSong.id||store.state.playSong.resourceId)    */
       /*  console.log(res) */
@@ -668,8 +669,6 @@ watchEffect(() => {
   console.log(store.state.newLyric);
 }) */
 </script>
-
-
 
 <style scoped>
 .lyricWrapper {
@@ -917,10 +916,10 @@ watchEffect(() => {
   width: 25vw;
 }
 
-.nameContent{
-      overflow: hidden;
-    text-overflow: ellipsis;
-      white-space: nowrap;
+.nameContent {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .name div {

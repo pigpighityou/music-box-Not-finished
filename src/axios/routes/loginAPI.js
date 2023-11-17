@@ -14,15 +14,14 @@ export function getPhoneCaptcha(data) {
   });
 }
 
-export function getLoginCaptcha(data){
+export function getLoginCaptcha(data) {
   return root({
     method: "GET",
     url: `/login/cellphone?phone=${data.phoneNum}&captcha=${data.captcha}`,
-
   });
 }
 
-export function verifyCaptcha(data){
+export function verifyCaptcha(data) {
   return root({
     method: "GET",
     url: `/captcha/verify?phone=${data.phoneNum}&captcha=${data.captcha}`,
@@ -40,7 +39,6 @@ export function loginStatus() {
   return root({
     method: "GET",
     url: `/login/status`,
-   
   });
 }
 

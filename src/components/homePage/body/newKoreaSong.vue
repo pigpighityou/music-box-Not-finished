@@ -49,7 +49,7 @@ let newKoreaSong = reactive({
     newKoreaSongAPI = await getNewKoreaSong();
     store.state.playList = newKoreaSongAPI.data.data;
     newKoreaSong.lists = newKoreaSongAPI.data;
-/*     console.log("ok", newKoreaSong.lists); */
+    /*     console.log("ok", newKoreaSong.lists); */
   } catch (err) {
     console.log(err);
   }

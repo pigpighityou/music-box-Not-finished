@@ -137,7 +137,7 @@ let dailyRecommandSong = reactive({
     dailyRecommandSongAPI = await getDailyRecommandSong();
     dailyRecommandSong.data = dailyRecommandSongAPI.data.data;
     store.state.playList = dailyRecommandSong.data.dailySongs;
-    /*  console.log('oksong',dailyRecommandSong.data)  */     
+    /*  console.log('oksong',dailyRecommandSong.data)  */
   } catch (err) {
     console.log(err);
   }

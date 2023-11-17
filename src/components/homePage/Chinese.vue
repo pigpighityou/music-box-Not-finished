@@ -1,5 +1,3 @@
-
-
 <template>
   <publicComponent></publicComponent>
   <newChineseAlbums></newChineseAlbums>

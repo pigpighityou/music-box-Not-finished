@@ -22,27 +22,33 @@
     </div>
   </div>
 
-  <el-dropdown ref="dropdown1" trigger="contextmenu" class="menuWrapper" :hide-on-click="true">
+  <el-dropdown
+    ref="dropdown1"
+    trigger="contextmenu"
+    class="menuWrapper"
+    :hide-on-click="true"
+  >
     <span class="el-dropdown-link">1234</span>
     <template #dropdown>
       <el-dropdown-menu class="menu">
-        <el-dropdown-item class="item"
-            v-for="(item, index) in suggestion.data"
-            :key="index"
-            @click="suggestSearch(item.keyword)">
-            <svg
-              class="searchIcon"
-              viewBox="0 0 1024 1024"
-              xmlns="http://www.w3.org/2000/svg"
-              data-v-ea893728=""
-            >
-              <path
-                fill="currentColor"
-                d="m795.904 750.72 124.992 124.928a32 32 0 0 1-45.248 45.248L750.656 795.904a416 416 0 1 1 45.248-45.248zM480 832a352 352 0 1 0 0-704 352 352 0 0 0 0 704z"
-              ></path>
-            </svg>
-            {{ item.keyword }}
-         
+        <el-dropdown-item
+          class="item"
+          v-for="(item, index) in suggestion.data"
+          :key="index"
+          @click="suggestSearch(item.keyword)"
+        >
+          <svg
+            class="searchIcon"
+            viewBox="0 0 1024 1024"
+            xmlns="http://www.w3.org/2000/svg"
+            data-v-ea893728=""
+          >
+            <path
+              fill="currentColor"
+              d="m795.904 750.72 124.992 124.928a32 32 0 0 1-45.248 45.248L750.656 795.904a416 416 0 1 1 45.248-45.248zM480 832a352 352 0 1 0 0-704 352 352 0 0 0 0 704z"
+            ></path>
+          </svg>
+          {{ item.keyword }}
         </el-dropdown-item>
       </el-dropdown-menu>
     </template>
@@ -88,12 +94,14 @@ let suggestion = reactive({
 watchEffect(() => {
   if (username.value) {
     /* console.log(username.value); */
-    getSearchSuggest(username.value).then((res) => {
-      suggestion.data = res.data.result.allMatch;
-      /* console.log("suggestion", res.data.result.allMatch); */
-    }).catch((err)=>{
-        console.log(err)
-    });
+    getSearchSuggest(username.value)
+      .then((res) => {
+        suggestion.data = res.data.result.allMatch;
+        /* console.log("suggestion", res.data.result.allMatch); */
+      })
+      .catch((err) => {
+        console.log(err);
+      });
     showClick();
   } else {
     showHide();
@@ -102,8 +110,7 @@ watchEffect(() => {
 
 // 点击搜索建议栏内容后直接搜索
 function suggestSearch(param) {
-    
-   showHide();
+  showHide();
   username.value = param;
   search();
 }
@@ -153,17 +160,15 @@ const search = async () => {
 }
 
 .itemWrapper {
-    width: 90vw;
-    height: 15vw;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: start;
-    margin: 0% auto;
-    overflow: hidden;
+  width: 90vw;
+  height: 15vw;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: start;
+  margin: 0% auto;
+  overflow: hidden;
 }
-
-
 
 .searchIcon {
   width: 5vw;

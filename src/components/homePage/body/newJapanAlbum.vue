@@ -1,4 +1,3 @@
-
 <template>
   <!-- {{newAlbum5List.albums.monthData[0].blurPicUrl}} -->
   <div class="header">新专辑</div>
@@ -50,7 +49,6 @@ let newAlbum5List = reactive({
 
 //  获取newAlbum5List异步函数后于template执行，导致newAlbum5List.albums.monthData[0].blurPicUrl报错
 </script>
-
 
 <style scoped>
 .header {

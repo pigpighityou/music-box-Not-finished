@@ -1,5 +1,3 @@
-
-
 <template>
   <div class="musicStyleWrapper">
     <div class="title">

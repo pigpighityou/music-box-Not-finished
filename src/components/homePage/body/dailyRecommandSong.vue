@@ -1,5 +1,3 @@
-
-
 <template>
   <router-link to="/dailyRec">
     <div class="dailyRecommandSongWrapper">

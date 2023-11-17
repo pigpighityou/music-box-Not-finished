@@ -1,5 +1,3 @@
-
-
 <template>
   <van-nav-bar
     title="mv分类合集"

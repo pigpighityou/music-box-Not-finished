@@ -5,7 +5,7 @@
       alt="pic"
     />
 
-    {{ picKey }}
+
 
     <div class="iconWrapper">
       <div
@@ -13,7 +13,10 @@
         v-for="(item, index) in banners.images"
         :key="index"
         :class="{ active: index === picKey }"
-        @click="picKey = index;isClick=true"
+        @click="
+          picKey = index;
+          isClick = true;
+        "
       ></div>
     </div>
   </div>
@@ -21,7 +24,14 @@
 
 <script setup>
 import { getBannerAPI } from "../../../axios/routes/bannerAPI.js";
-import { ref, reactive, computed, onMounted,onUnmounted,watchEffect } from "vue";
+import {
+  ref,
+  reactive,
+  computed,
+  onMounted,
+  onUnmounted,
+  watchEffect,
+} from "vue";
 let banners = reactive({
   images: [],
   failImages: [
@@ -29,7 +39,6 @@ let banners = reactive({
   ],
 });
 let bannerAPI;
-
 
 let isClick = ref(false);
 
@@ -39,16 +48,16 @@ let isClick = ref(false);
 let picKey = ref(0);
 
 let timer = setTimeout(function interval() {
-      // 当用户手动点击时，必须取消计时器，防止定时器继续执行
-        // 造成页面更新间隔出现过快现象
-      if(isClick.value){
-        clearTimeout(timer);
-        isClick.value = false;
-        setTimeout(interval, 2500);
-        return;
-      }
+  // 当用户手动点击时，必须取消计时器，防止定时器继续执行
+  // 造成页面更新间隔出现过快现象
+  if (isClick.value) {
+    clearTimeout(timer);
+    isClick.value = false;
+    setTimeout(interval, 2500);
+    return;
+  }
 
-      // 照片滚动
+  // 照片滚动
   if (picKey.value < banners.images.length - 1 && picKey.value >= 0) {
     picKey.value += 1;
   } else {
@@ -58,13 +67,10 @@ let timer = setTimeout(function interval() {
   setTimeout(interval, 2500);
 }, 2500);
 
-
-
-
 onMounted(async () => {
   try {
     bannerAPI = await getBannerAPI();
-   /*  console.log("ok", bannerAPI); */
+    /*  console.log("ok", bannerAPI); */
     banners.images = bannerAPI.data.banners; //一个数组
   } catch (e) {
     console.log("error", error);
@@ -92,10 +98,9 @@ img {
   align-items: center;
   flex-direction: row;
   position: absolute;
-  bottom: 6vw;
+  bottom: 3vw;
   left: 0;
   right: 0;
-  
 }
 .icon {
   width: 2vw;
@@ -103,11 +108,9 @@ img {
   background-color: black;
   border-radius: 50%;
   margin: 0 1vw;
- 
-
 }
 
-.active{
+.active {
   background-color: rgb(172, 165, 165);
 }
 </style>

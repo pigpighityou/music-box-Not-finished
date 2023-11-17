@@ -1,5 +1,3 @@
-
-
 <template>
   <div class="taskWrapper" @click="drawer = true">
     <div class="task">

@@ -1,5 +1,3 @@
-
-
 <template>
   <!-- {{newAlbum2List.albums.monthData[0].blurPicUrl}} -->
   <div class="header">新专辑</div>

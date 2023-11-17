@@ -1,5 +1,3 @@
-
-
 <template>
   <div class="userWrapper">
     <div class="user">

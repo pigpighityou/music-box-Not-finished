@@ -174,7 +174,7 @@ watchEffect(() => {
     getCloudSearch(route.params.id)
       .then((res) => {
         cloudSearchData.data = res.data.result;
-       /*  console.log("cloudSearch", cloudSearchData.data); */
+        /*  console.log("cloudSearch", cloudSearchData.data); */
       })
       .catch((err) => {
         console.log(err);

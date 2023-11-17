@@ -1,5 +1,3 @@
-
-
 <template>
   <van-nav-bar
     title="收藏"

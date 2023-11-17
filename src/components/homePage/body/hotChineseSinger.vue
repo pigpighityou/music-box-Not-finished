@@ -1,5 +1,3 @@
-
-
 <template>
   <!--   {{ hotChineseSingerList.artists  }} -->
 

@@ -1,5 +1,3 @@
-
-
 <template>
   <button class="adWrapper">
     <ad></ad>

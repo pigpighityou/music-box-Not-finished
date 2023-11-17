@@ -53,7 +53,7 @@ let newEnglishSong = reactive({
     newEnglishSongAPI = await getNewEnglishSong();
     store.state.playList = newEnglishSongAPI.data.data;
     newEnglishSong.lists = newEnglishSongAPI.data;
-      console.log('ok',newEnglishSong.lists)   
+    console.log("ok", newEnglishSong.lists);
   } catch (err) {
     console.log(err);
   }
