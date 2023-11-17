@@ -13,7 +13,7 @@
   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp
 
   <router-link to="/login">
-    <button class="test">登录</button>
+    <button class="test" v-if="!userData">登录</button>
   </router-link>
 
   <!--设置选项 点击弹出  -->
@@ -41,6 +41,7 @@
   <button class="test" @click="getStatus">
     登录状态: {{ userData ? "已登录" : "未登录" }}
   </button>
+
 </template>
 
 <script setup>
@@ -65,6 +66,7 @@ const getStatus = () => {
     alert("未登录");
   }
 };
+
 
 const out = async () => {
   alert("退出登录");
