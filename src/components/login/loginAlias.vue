@@ -59,6 +59,7 @@ import { getPhoneCaptcha } from "@/axios/routes/loginAPI.js";
 import { useRouter, useRoute } from "vue-router";
 
 import store from "@/store/store.js";
+import { toLocalStorage } from "@/lib/toLocalStorage.js";
 const router = useRouter();
 const route = useRoute();
 const onClickLeft = () => history.back();
@@ -76,9 +77,10 @@ const onSubmit = async (values) => {
     store.state.token = res.data.token;
     store.state.isLogin = true;
 
-    localStorage.setItem("userData", JSON.stringify(res.data.profile));
-    localStorage.setItem("token", res.data.token);
-    localStorage.setItem("cookie", res.data.cookie);
+    // 保存到本地
+    toLocalStorage("userData", res.data.profile);
+    toLocalStorage("token", res.data.token);
+    toLocalStorage("cookie", res.data.cookie);
     router.push("/loginSuccess");
   } catch (e) {
     console.log(e);
