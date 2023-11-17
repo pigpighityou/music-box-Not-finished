@@ -767,7 +767,7 @@ const clickHandlerSong = (index) => {
   max-height: 4vw;
 }
 
-.blank{
+.blank {
   height: 20vw;
 }
 </style>

@@ -41,7 +41,6 @@
   <button class="test" @click="getStatus">
     登录状态: {{ userData ? "已登录" : "未登录" }}
   </button>
-
 </template>
 
 <script setup>
@@ -66,7 +65,6 @@ const getStatus = () => {
     alert("未登录");
   }
 };
-
 
 const out = async () => {
   alert("退出登录");

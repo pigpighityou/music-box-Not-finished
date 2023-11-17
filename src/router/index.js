@@ -56,7 +56,6 @@ const routes = [
     },
   },
 
-
   {
     path: "/listSinger/:id",
     name: "listSinger",
@@ -78,7 +77,7 @@ const routes = [
     path: "/listSong/:id",
     name: "listSong",
     components: {
-      default: () => import('../pages/public/listSong.vue'),
+      default: () => import("../pages/public/listSong.vue"),
       musicPlayer: () => import("../components/musicPlayer/musicPlayer.vue"),
     },
   },
@@ -173,8 +172,7 @@ const routes = [
     path: "/recentSongs",
     name: "recentSongs",
     components: {
-      default: () =>
-        import("../pages/public/recentSongs.vue"),
+      default: () => import("../pages/public/recentSongs.vue"),
       musicPlayer: () => import("../components/musicPlayer/musicPlayer.vue"),
     },
   },
@@ -190,8 +188,7 @@ const routes = [
     path: "/localStore",
     name: "localStore",
     components: {
-      default: () =>
-        import("../pages/public/localStore.vue"),
+      default: () => import("../pages/public/localStore.vue"),
       musicPlayer: () => import("../components/musicPlayer/musicPlayer.vue"),
     },
   },
@@ -199,8 +196,7 @@ const routes = [
     path: "/storeRadio",
     name: "storeRadio",
     components: {
-      default: () =>
-        import("../pages/public/storeRadio.vue"),
+      default: () => import("../pages/public/storeRadio.vue"),
       musicPlayer: () => import("../components/musicPlayer/musicPlayer.vue"),
     },
   },

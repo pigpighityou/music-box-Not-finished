@@ -5,8 +5,6 @@
       alt="pic"
     />
 
-
-
     <div class="iconWrapper">
       <div
         class="icon"
