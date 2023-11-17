@@ -480,7 +480,8 @@ window.addEventListener("beforeunload", () => {
   
   store.state.isPlayingSong = false;
   if (store.state.playSong) {
-   
+
+    localStorage.setItem("currentTime", audio.value?.currentTime);
       toLocalStorage("currentTime", audio.value?.currentTime), 
       toLocalStorage("paused", audio.value?.paused),
       toLocalStorage("isPlayingSong", store.state?.isPlayingSong),
@@ -489,7 +490,7 @@ window.addEventListener("beforeunload", () => {
   }
 });
 
-const cachedCurrentTime = fromLocalStorage("currentTime");
+const cachedCurrentTime = fromLocalStorage("currentTime?");
 const cachedPlaySong = fromLocalStorage("playSong");
 const cachedIsPlayingSong = fromLocalStorage("isPlayingSong");
 const cachedPlayIndex = fromLocalStorage("playIndex");
@@ -534,9 +535,9 @@ router.beforeEach((to, from, next) => {
 // isPlayingSong的作用就是每次不小心刷新或者路由跳转引起的故障导致的歌曲暂停，
 // 可以把按钮的状态也变成暂停
 
-const cachedPlaySongAlias = fromLocalStorage("playSongAlias");
-const cachedIsPlayingSongAlias = fromLocalStorage("isPlayingSongAlias");
-const cachedPlayIndexAlias = fromLocalStorage("playIndexAlias");
+const cachedPlaySongAlias = fromLocalStorage("playSongAlias?");
+const cachedIsPlayingSongAlias = fromLocalStorage("isPlayingSongAlias?");
+const cachedPlayIndexAlias = fromLocalStorage("playIndexAlias?");
 
 router.afterEach((to, from) => {
   if (audio.value) {
