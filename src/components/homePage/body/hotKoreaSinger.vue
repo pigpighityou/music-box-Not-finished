@@ -1,25 +1,4 @@
-<script setup>
-import { getHotKoreaSinger } from "../../../axios/routes/hotKoreaSinger";
-import { ref, reactive, onMounted, computed } from "vue";
-let hotKoreaSingerAPI;
-let hotKoreaSingerList = reactive({
-  artists: [],
-  failImages: [
-    "https://redchairrecruitment.ie/wp-content/uploads/2019/05/No-Data.png",
-  ],
-});
 
-(async () => {
-  try {
-    hotKoreaSingerAPI = await getHotKoreaSinger();
-
-    hotKoreaSingerList.artists = hotKoreaSingerAPI.data.list.artists;
-    /*                   console.log('ok',hotKoreaSingerList.list.artists)    */
-  } catch (err) {
-    console.log(err);
-  }
-})();
-</script>
 
 <template>
   <!--   {{ hotKoreaSingerList.artists  }} -->
@@ -45,6 +24,29 @@ let hotKoreaSingerList = reactive({
     </div>
   </div>
 </template>
+
+<script setup>
+import { getHotKoreaSinger } from "../../../axios/routes/hotKoreaSinger";
+import { ref, reactive, onMounted, computed } from "vue";
+let hotKoreaSingerAPI;
+let hotKoreaSingerList = reactive({
+  artists: [],
+  failImages: [
+    "https://redchairrecruitment.ie/wp-content/uploads/2019/05/No-Data.png",
+  ],
+});
+
+(async () => {
+  try {
+    hotKoreaSingerAPI = await getHotKoreaSinger();
+
+    hotKoreaSingerList.artists = hotKoreaSingerAPI.data.list.artists;
+    /*                   console.log('ok',hotKoreaSingerList.list.artists)    */
+  } catch (err) {
+    console.log(err);
+  }
+})();
+</script>
 
 <style scoped>
 .header {

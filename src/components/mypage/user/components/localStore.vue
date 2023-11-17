@@ -1,31 +1,4 @@
-<script setup>
-import { ref, reactive, watchEffect } from "vue";
-import { showSuccessToast, showFailToast } from "vant";
-import { purchasedAlbum } from "@/axios/routes/store.js";
 
-const onClickLeft = () => history.back();
-const active = ref(0);
-
-watchEffect(() => {
-  if (active.value == 1 || active.value == 2) {
-    showFailToast("该功能暂无");
-  } else {
-    showSuccessToast("仅支持该功能");
-  }
-});
-
-let purchasedAlbumAPI;
-
-let purchasedAlbumData = reactive({
-  data: [],
-});
-
-(async () => {
-  purchasedAlbumAPI = await purchasedAlbum();
-  purchasedAlbumData.data = purchasedAlbumAPI.data.paidAlbums;
-  console.log("ok", purchasedAlbumData.data);
-})();
-</script>
 
 <template>
   <van-nav-bar
@@ -68,6 +41,35 @@ let purchasedAlbumData = reactive({
     <van-tab title="本地下载视频">该功能暂无</van-tab>
   </van-tabs>
 </template>
+
+<script setup>
+import { ref, reactive, watchEffect } from "vue";
+import { showSuccessToast, showFailToast } from "vant";
+import { purchasedAlbum } from "@/axios/routes/store.js";
+
+const onClickLeft = () => history.back();
+const active = ref(0);
+
+watchEffect(() => {
+  if (active.value == 1 || active.value == 2) {
+    showFailToast("该功能暂无");
+  } else {
+    showSuccessToast("仅支持该功能");
+  }
+});
+
+let purchasedAlbumAPI;
+
+let purchasedAlbumData = reactive({
+  data: [],
+});
+
+(async () => {
+  purchasedAlbumAPI = await purchasedAlbum();
+  purchasedAlbumData.data = purchasedAlbumAPI.data.paidAlbums;
+  console.log("ok", purchasedAlbumData.data);
+})();
+</script>
 
 <style scoped>
 .purchasedAlbum {

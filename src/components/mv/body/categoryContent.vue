@@ -1,3 +1,55 @@
+
+
+<template>
+  <van-nav-bar
+    title="mv分类合集"
+    left-text="返回"
+    left-arrow
+    @click-left="onClickLeft"
+    fixed="true"
+    placeholder="true"
+    class="navbar"
+  />
+
+  <div class="header">
+    <van-tabs
+      v-model:active="active"
+      animated
+      border="true"
+      @click-tab="changeCountry"
+    >
+      <van-tab v-for="(item, index) in country" :title="item.name">
+        <div
+          class="categoryWrapper"
+          v-for="(item, index) in mv.lists"
+          :key="index"
+        >
+          <div class="categoryInner">
+            <div
+              class="categoryPic"
+              @click="num = index"
+              v-loading.fullscreen.lock="fullscreenLoading"
+              element-loading-text="拼命加载中..."
+            >
+              <img :src="item.cover" alt="" class="img" />
+            </div>
+
+            <div class="categoryWord">
+              <div class="name">
+                {{ item.name }}
+              </div>
+              <div class="singer">
+                {{ item.artistName }}
+              </div>
+            </div>
+            <div class="overlay" v-if="index != num"></div>
+          </div>
+        </div>
+      </van-tab>
+    </van-tabs>
+  </div>
+</template>
+
 <script setup>
 import { ref, reactive, computed, watchEffect } from "vue";
 import { useRoute, useRouter } from "vue-router";
@@ -116,56 +168,6 @@ watchEffect(() => {
   }
 });
 </script>
-
-<template>
-  <van-nav-bar
-    title="mv分类合集"
-    left-text="返回"
-    left-arrow
-    @click-left="onClickLeft"
-    fixed="true"
-    placeholder="true"
-    class="navbar"
-  />
-
-  <div class="header">
-    <van-tabs
-      v-model:active="active"
-      animated
-      border="true"
-      @click-tab="changeCountry"
-    >
-      <van-tab v-for="(item, index) in country" :title="item.name">
-        <div
-          class="categoryWrapper"
-          v-for="(item, index) in mv.lists"
-          :key="index"
-        >
-          <div class="categoryInner">
-            <div
-              class="categoryPic"
-              @click="num = index"
-              v-loading.fullscreen.lock="fullscreenLoading"
-              element-loading-text="拼命加载中..."
-            >
-              <img :src="item.cover" alt="" class="img" />
-            </div>
-
-            <div class="categoryWord">
-              <div class="name">
-                {{ item.name }}
-              </div>
-              <div class="singer">
-                {{ item.artistName }}
-              </div>
-            </div>
-            <div class="overlay" v-if="index != num"></div>
-          </div>
-        </div>
-      </van-tab>
-    </van-tabs>
-  </div>
-</template>
 
 <style scoped>
 .navbar {

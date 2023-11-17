@@ -1,39 +1,4 @@
-<script setup>
-import { ref } from "vue";
-import { getLoginPhone } from "@/axios/routes/loginAPI.js";
-import { useRouter, useRoute } from "vue-router";
 
-import store from "@/store/store.js";
-const router = useRouter();
-const route = useRoute();
-const onClickLeft = () => history.back();
-
-const username = ref("");
-const password = ref("");
-
-const onSubmit = async (values) => {
-/*   console.log("submit", values); */
-
-  let res = await getLoginPhone(values);
-
-  console.log(res);
-  if (res.data.code != 200) {
-    password.value = "";
-    alert("账号或密码错误！");
-  } else {
-    alert("登录成功！");
-    store.state.userData = res.data;
-    store.state.token = res.data.token;
-    store.state.isLogin = true;
-
-    localStorage.setItem("userData", JSON.stringify(res.data.profile));
-    localStorage.setItem("token", res.data.token);
-    localStorage.setItem("cookie", res.data.cookie);
-
-    router.push("/loginSuccess");
-  }
-};
-</script>
 
 <template>
   <van-nav-bar
@@ -85,6 +50,43 @@ const onSubmit = async (values) => {
     </div>
   </van-form>
 </template>
+
+<script setup>
+import { ref } from "vue";
+import { getLoginPhone } from "@/axios/routes/loginAPI.js";
+import { useRouter, useRoute } from "vue-router";
+
+import store from "@/store/store.js";
+const router = useRouter();
+const route = useRoute();
+const onClickLeft = () => history.back();
+
+const username = ref("");
+const password = ref("");
+
+const onSubmit = async (values) => {
+/*   console.log("submit", values); */
+
+  let res = await getLoginPhone(values);
+
+  console.log(res);
+  if (res.data.code != 200) {
+    password.value = "";
+    alert("账号或密码错误！");
+  } else {
+    alert("登录成功！");
+    store.state.userData = res.data;
+    store.state.token = res.data.token;
+    store.state.isLogin = true;
+
+    localStorage.setItem("userData", JSON.stringify(res.data.profile));
+    localStorage.setItem("token", res.data.token);
+    localStorage.setItem("cookie", res.data.cookie);
+
+    router.push("/loginSuccess");
+  }
+};
+</script>
 
 
 

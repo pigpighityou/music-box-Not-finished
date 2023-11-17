@@ -1,3 +1,9 @@
+
+
+<template>
+  <homepage></homepage>
+</template>
+
 <script setup>
 import homepage from "./components/homePage/homepage.vue";
 import { useRouter } from "vue-router";
@@ -26,9 +32,5 @@ if(cachedPlaySong&&cachedIsPlayingSong){
        
 } */
 </script>
-
-<template>
-  <homepage></homepage>
-</template>
 
 <style scoped></style>

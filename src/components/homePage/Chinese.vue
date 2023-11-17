@@ -1,9 +1,4 @@
-<script setup>
-import newChineseAlbums from "./body/newChineseAlbums.vue";
-import hotChineseSinger from "./body/hotChineseSinger.vue";
-import hotChineseSongList from "./body/hotChineseSongList.vue";
-import newChineseSong from "./body/newChineseSong.vue";
-</script>
+
 
 <template>
   <newChineseAlbums></newChineseAlbums>
@@ -12,6 +7,13 @@ import newChineseSong from "./body/newChineseSong.vue";
   <newChineseSong></newChineseSong>
   <div class="blank"></div>
 </template>
+
+<script setup>
+import newChineseAlbums from "./body/newChineseAlbums.vue";
+import hotChineseSinger from "./body/hotChineseSinger.vue";
+import hotChineseSongList from "./body/hotChineseSongList.vue";
+import newChineseSong from "./body/newChineseSong.vue";
+</script>
 
 <style scoped>
 .blank {

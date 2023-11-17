@@ -1,26 +1,4 @@
-<script setup>
-import { ref, reactive } from "vue";
-import { getRecMv } from "../../../axios/routes/recMv";
-let recMvAPI;
-let recMvList = reactive({
-  mv: [],
-  failImages: [
-    "https://redchairrecruitment.ie/wp-content/uploads/2019/05/No-Data.png",
-  ],
-});
 
-const onClickLeft = () => history.back();
-
-(async () => {
-  try {
-    recMvAPI = await getRecMv();
-    recMvList.mv = recMvAPI.data.result;
-    /* console.log('ok',recMvList.mv)   */
-  } catch (err) {
-    console.log(err);
-  }
-})();
-</script>
 
 <template>
   <van-nav-bar
@@ -57,6 +35,30 @@ const onClickLeft = () => history.back();
     </div>
   </div>
 </template>
+
+<script setup>
+import { ref, reactive } from "vue";
+import { getRecMv } from "../../../axios/routes/recMv";
+let recMvAPI;
+let recMvList = reactive({
+  mv: [],
+  failImages: [
+    "https://redchairrecruitment.ie/wp-content/uploads/2019/05/No-Data.png",
+  ],
+});
+
+const onClickLeft = () => history.back();
+
+(async () => {
+  try {
+    recMvAPI = await getRecMv();
+    recMvList.mv = recMvAPI.data.result;
+    /* console.log('ok',recMvList.mv)   */
+  } catch (err) {
+    console.log(err);
+  }
+})();
+</script>
 
 <style scoped>
 .navbar {

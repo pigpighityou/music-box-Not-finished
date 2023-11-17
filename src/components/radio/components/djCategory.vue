@@ -1,3 +1,7 @@
+
+
+<template></template>
+
 <script setup>
 import { getDjCategory } from "../../../axios/routes/djCategory.js";
 import { ref, reactive } from "vue";
@@ -21,7 +25,5 @@ let djCategoryList = reactive({
   }
 })();
 </script>
-
-<template></template>
 
 <style scoped></style>

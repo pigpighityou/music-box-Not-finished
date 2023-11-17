@@ -1,28 +1,4 @@
-<script setup>
-import { getRecSongList } from "@/axios/routes/RecSongAPI";
 
-import { ref, reactive, onMounted, computed } from "vue";
-
-let RecSongsAPI;
-let RecSongsList = reactive({
-  songs: [],
-  failImages: [
-    "https://redchairrecruitment.ie/wp-content/uploads/2019/05/No-Data.png",
-  ],
-});
-
-(async () => {
-  try {
-    RecSongsAPI = await getRecSongList();
-    RecSongsList.songs = RecSongsAPI.data.result;
-    /*  console.log('ok',RecSongsList.songs)  */
-  } catch (err) {
-    console.log(err);
-  }
-})();
-
-const onClickLeft = () => history.back();
-</script>
 
 <template>
   <van-nav-bar
@@ -59,6 +35,32 @@ const onClickLeft = () => history.back();
     </div>
   </div>
 </template>
+
+<script setup>
+import { getRecSongList } from "@/axios/routes/RecSongAPI";
+
+import { ref, reactive, onMounted, computed } from "vue";
+
+let RecSongsAPI;
+let RecSongsList = reactive({
+  songs: [],
+  failImages: [
+    "https://redchairrecruitment.ie/wp-content/uploads/2019/05/No-Data.png",
+  ],
+});
+
+(async () => {
+  try {
+    RecSongsAPI = await getRecSongList();
+    RecSongsList.songs = RecSongsAPI.data.result;
+    /*  console.log('ok',RecSongsList.songs)  */
+  } catch (err) {
+    console.log(err);
+  }
+})();
+
+const onClickLeft = () => history.back();
+</script>
 
 <style scoped>
 .navBar {

@@ -1,25 +1,4 @@
-<script setup>
-import { getHotJapanSinger } from "../../../axios/routes/hotJapanSinger";
-import { ref, reactive, onMounted, computed } from "vue";
-let hotJapanSingerAPI;
-let hotJapanSingerList = reactive({
-  artists: [],
-  failImages: [
-    "https://redchairrecruitment.ie/wp-content/uploads/2019/05/No-Data.png",
-  ],
-});
 
-(async () => {
-  try {
-    hotJapanSingerAPI = await getHotJapanSinger();
-
-    hotJapanSingerList.artists = hotJapanSingerAPI.data.list.artists;
-    /*                   console.log('ok',hotJapanSingerList.list.artists)    */
-  } catch (err) {
-    console.log(err);
-  }
-})();
-</script>
 
 <template>
   <!--   {{ hotJapanSingerList.artists  }} -->
@@ -45,6 +24,29 @@ let hotJapanSingerList = reactive({
     </div>
   </div>
 </template>
+
+<script setup>
+import { getHotJapanSinger } from "../../../axios/routes/hotJapanSinger";
+import { ref, reactive, onMounted, computed } from "vue";
+let hotJapanSingerAPI;
+let hotJapanSingerList = reactive({
+  artists: [],
+  failImages: [
+    "https://redchairrecruitment.ie/wp-content/uploads/2019/05/No-Data.png",
+  ],
+});
+
+(async () => {
+  try {
+    hotJapanSingerAPI = await getHotJapanSinger();
+
+    hotJapanSingerList.artists = hotJapanSingerAPI.data.list.artists;
+    /*                   console.log('ok',hotJapanSingerList.list.artists)    */
+  } catch (err) {
+    console.log(err);
+  }
+})();
+</script>
 
 <style scoped>
 .header {

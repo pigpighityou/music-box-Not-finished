@@ -1,3 +1,22 @@
+
+
+<template>
+  <div class="bannerWrapper">
+    <div class="banner">
+      <div class="img">
+        <img
+          :src="
+            radioBannerList.radioBanner[tick]?.pic ||
+            radioBannerList.failImages[0]
+          "
+          alt="pic"
+          class="pic"
+        />
+      </div>
+    </div>
+  </div>
+</template>
+
 <script setup>
 import { getBanner } from "../../../axios/routes/djBanner.js";
 import { ref, reactive } from "vue";
@@ -30,23 +49,6 @@ setTimeout(function ticking() {
   setTimeout(ticking, 2000);
 }, 2000);
 </script>
-
-<template>
-  <div class="bannerWrapper">
-    <div class="banner">
-      <div class="img">
-        <img
-          :src="
-            radioBannerList.radioBanner[tick]?.pic ||
-            radioBannerList.failImages[0]
-          "
-          alt="pic"
-          class="pic"
-        />
-      </div>
-    </div>
-  </div>
-</template>
 
 <style scoped>
 .pic {

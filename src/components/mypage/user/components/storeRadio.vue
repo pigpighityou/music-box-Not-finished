@@ -1,41 +1,4 @@
-<script setup>
-import { ref, reactive, watchEffect } from "vue";
 
-import { storeRadio } from "@/axios/routes/store.js";
-import { recentRadio } from "@/axios/routes/store.js";
-
-import { showFailToast } from "vant";
-
-let storeRadioAPI;
-let recentRadioAPI;
-
-let storeRadioData = reactive({
-  data: [],
-});
-
-let recentRadioData = reactive({
-  data: [],
-});
-
-const userId = ref(JSON.parse(localStorage.getItem("userData")));
-/* console.log('userId',userId.value.userId); */
-
-(async () => {
-  storeRadioAPI = await storeRadio(userId.value.userId);
-  storeRadioData.data = storeRadioAPI.data.programs;
-  console.log("okstore", storeRadioData.data);
-})();
-
-(async () => {
-  recentRadioAPI = await recentRadio();
-
-  recentRadioData.data = recentRadioAPI.data.data;
-  /*  console.log('okrecent',recentRadioData.data);  */
-})();
-
-const active = ref(0);
-const onClickLeft = () => history.back();
-</script>
 
 <template>
   <van-nav-bar
@@ -79,6 +42,45 @@ const onClickLeft = () => history.back();
     <van-tab title="最近播放"> 该功能暂不可用 </van-tab>
   </van-tabs>
 </template>
+
+<script setup>
+import { ref, reactive, watchEffect } from "vue";
+
+import { storeRadio } from "@/axios/routes/store.js";
+import { recentRadio } from "@/axios/routes/store.js";
+
+import { showFailToast } from "vant";
+
+let storeRadioAPI;
+let recentRadioAPI;
+
+let storeRadioData = reactive({
+  data: [],
+});
+
+let recentRadioData = reactive({
+  data: [],
+});
+
+const userId = ref(JSON.parse(localStorage.getItem("userData")));
+/* console.log('userId',userId.value.userId); */
+
+(async () => {
+  storeRadioAPI = await storeRadio(userId.value.userId);
+  storeRadioData.data = storeRadioAPI.data.programs;
+  console.log("okstore", storeRadioData.data);
+})();
+
+(async () => {
+  recentRadioAPI = await recentRadio();
+
+  recentRadioData.data = recentRadioAPI.data.data;
+  /*  console.log('okrecent',recentRadioData.data);  */
+})();
+
+const active = ref(0);
+const onClickLeft = () => history.back();
+</script>
 
 <style scoped>
 .storeRadioWrapper {

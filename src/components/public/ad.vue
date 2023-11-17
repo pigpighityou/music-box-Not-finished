@@ -1,3 +1,19 @@
+
+
+<template>
+  <router-link :to="{ name: 'adContent', params: { id: index } }">
+    <img :src="adBanner.ad[index]" alt="ad" class="ad" v-if="adBanner.ad" />
+    <img
+      :src="adBanner.ad[index]"
+      alt="ad"
+      class="ad"
+      v-else="adBanner.failImages"
+    />
+  </router-link>
+
+  <!--  {{index}} -->
+</template>
+
 <script setup>
 import { ref, reactive, onMounted, onUnmounted } from "vue";
 const adBanner = reactive({
@@ -26,20 +42,6 @@ onUnmounted(() => {
   clearTimeout(timer);
 });
 </script>
-
-<template>
-  <router-link :to="{ name: 'adContent', params: { id: index } }">
-    <img :src="adBanner.ad[index]" alt="ad" class="ad" v-if="adBanner.ad" />
-    <img
-      :src="adBanner.ad[index]"
-      alt="ad"
-      class="ad"
-      v-else="adBanner.failImages"
-    />
-  </router-link>
-
-  <!--  {{index}} -->
-</template>
 
 <style scoped>
 .ad {

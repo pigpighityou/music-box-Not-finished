@@ -1,3 +1,14 @@
+
+
+<template>
+  <div class="bannerWrapper">
+    <img v-for="item in banners.images" :src="item.pic" alt="pic" />
+  </div>
+  <div>
+    {{ banners.images[0]?.pic || "No data " }}
+  </div>
+</template>
+
 <script setup>
 import { getBannerAPI } from "../axios/routes/bannerAPI.js";
 import { ref, reactive, computed, onMounted } from "vue";
@@ -23,15 +34,6 @@ onMounted(
   },
 );
 </script>
-
-<template>
-  <div class="bannerWrapper">
-    <img v-for="item in banners.images" :src="item.pic" alt="pic" />
-  </div>
-  <div>
-    {{ banners.images[0]?.pic || "No data " }}
-  </div>
-</template>
 
 <style scoped>
 .bannerWrapper {

@@ -1,60 +1,4 @@
-<script setup>
-import { ref, reactive, watchEffect } from "vue";
-import { useRoute, useRouter } from "vue-router";
-import { getMvRank } from "../../../axios/routes/mvRank";
-import mvCategory from "../body/mvCategory.vue";
-import goodMv from "../body/goodMv.vue";
-import recMv from "../body/recMv.vue";
 
-let mvRankListAPI;
-let mvRankList = reactive({
-  mv: [],
-  failImages: [
-    "https://redchairrecruitment.ie/wp-content/uploads/2019/05/No-Data.png",
-  ],
-});
-
-(async () => {
-  try {
-    mvRankListAPI = await getMvRank();
-    mvRankList.mv = mvRankListAPI.data.data;
-    /*   console.log('ok',mvRankList.mv)  */
-  } catch (err) {
-    console.log(err);
-  }
-})();
-
-const overlay = ref(true);
-const num = ref(null);
-
-const route = useRoute();
-const router = useRouter();
-
-const fullscreenLoading = ref(false);
-
-const openFullScreen1 = () => {
-  fullscreenLoading.value = true;
-  setTimeout(() => {
-    fullscreenLoading.value = false;
-  }, 500);
-};
-
-// 当弃掉了遮罩层，加载，路由到新的视频播放界面
-watchEffect(() => {
-  if (num.value || num.value === 0) {
-    setTimeout(() => {
-      openFullScreen1();
-    }, 300);
-
-    setTimeout(() => {
-      router.push({
-        name: "mvPlayer",
-        params: { id: mvRankList.mv[num.value].id },
-      });
-    }, 800);
-  }
-});
-</script>
 
 <template>
   <div class="mvWrapper" v-for="(item, index) in mvRankList.mv" :key="index">
@@ -237,6 +181,64 @@ watchEffect(() => {
     </div>
   </div>
 </template>
+
+<script setup>
+import { ref, reactive, watchEffect } from "vue";
+import { useRoute, useRouter } from "vue-router";
+import { getMvRank } from "../../../axios/routes/mvRank";
+import mvCategory from "../body/mvCategory.vue";
+import goodMv from "../body/goodMv.vue";
+import recMv from "../body/recMv.vue";
+
+let mvRankListAPI;
+let mvRankList = reactive({
+  mv: [],
+  failImages: [
+    "https://redchairrecruitment.ie/wp-content/uploads/2019/05/No-Data.png",
+  ],
+});
+
+(async () => {
+  try {
+    mvRankListAPI = await getMvRank();
+    mvRankList.mv = mvRankListAPI.data.data;
+    /*   console.log('ok',mvRankList.mv)  */
+  } catch (err) {
+    console.log(err);
+  }
+})();
+
+const overlay = ref(true);
+const num = ref(null);
+
+const route = useRoute();
+const router = useRouter();
+
+const fullscreenLoading = ref(false);
+
+const openFullScreen1 = () => {
+  fullscreenLoading.value = true;
+  setTimeout(() => {
+    fullscreenLoading.value = false;
+  }, 500);
+};
+
+// 当弃掉了遮罩层，加载，路由到新的视频播放界面
+watchEffect(() => {
+  if (num.value || num.value === 0) {
+    setTimeout(() => {
+      openFullScreen1();
+    }, 300);
+
+    setTimeout(() => {
+      router.push({
+        name: "mvPlayer",
+        params: { id: mvRankList.mv[num.value].id },
+      });
+    }, 800);
+  }
+});
+</script>
 
 <style scoped>
 .overlay {

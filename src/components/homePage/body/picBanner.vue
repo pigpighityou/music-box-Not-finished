@@ -1,3 +1,14 @@
+<template>
+  <div class="switchBannerWrapper">
+    <img
+      :src="banners.images[picKey]?.pic || banners.failImages[0]"
+      alt="pic"
+    />
+
+    <!-- {{ banners.images[picKey]?.pic||banners.failImages[0] }}  -->
+  </div>
+</template>
+
 <script setup>
 import { getBannerAPI } from "../../../axios/routes/bannerAPI.js";
 import { ref, reactive, computed, onMounted } from "vue";
@@ -43,17 +54,6 @@ onMounted(
   },
 );
 </script>
-
-<template>
-  <div class="switchBannerWrapper">
-    <img
-      :src="banners.images[picKey]?.pic || banners.failImages[0]"
-      alt="pic"
-    />
-
-    <!-- {{ banners.images[picKey]?.pic||banners.failImages[0] }}  -->
-  </div>
-</template>
 
 <style scoped>
 img {

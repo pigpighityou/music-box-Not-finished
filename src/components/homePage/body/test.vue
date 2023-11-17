@@ -1,3 +1,47 @@
+
+
+<template>
+  <div class="musicStyleWrapper">
+    <div class="title">
+      热门歌单
+      <i class="iconfont icon-jiantouyou"></i>
+    </div>
+    <div class="list">
+      <div class="head">
+        <div class="word">
+          排名
+          <i class="iconfont icon-jiantouyou small"></i>
+        </div>
+        <div class="end">精选宝藏歌单</div>
+      </div>
+
+      <div class="rankWrapper">
+        <div class="rank">
+          <img :src="imgList[0].coverImgUrl" alt="rank1" />
+          <div class="rankNum">1</div>
+          <div class="song">{{ imgList[0].name }}</div>
+        </div>
+
+        <div class="rank">
+          <img :src="imgList[1].coverImgUrl" alt="rank2" />
+          <div class="rankNum">2</div>
+          <div class="song">{{ imgList[1].name }}</div>
+        </div>
+
+        <div class="rank">
+          <img :src="imgList[2].coverImgUrl" alt="rank3" />
+          <div class="rankNum">3</div>
+          <div class="song">{{ imgList[2].name }}</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!--    {{ musicStyleList.songs?.playlists }} -->
+
+  <!-- {{ imgList }} -->
+</template>
+
 <script setup>
 import { getMusicStyleList } from "../../../axios/routes/musicStyleAPI";
 import { ref, reactive, onMounted, computed } from "vue";
@@ -43,48 +87,6 @@ const foreignImgList = computed(() => {
   }
 });
 </script>
-
-<template>
-  <div class="musicStyleWrapper">
-    <div class="title">
-      热门歌单
-      <i class="iconfont icon-jiantouyou"></i>
-    </div>
-    <div class="list">
-      <div class="head">
-        <div class="word">
-          排名
-          <i class="iconfont icon-jiantouyou small"></i>
-        </div>
-        <div class="end">精选宝藏歌单</div>
-      </div>
-
-      <div class="rankWrapper">
-        <div class="rank">
-          <img :src="imgList[0].coverImgUrl" alt="rank1" />
-          <div class="rankNum">1</div>
-          <div class="song">{{ imgList[0].name }}</div>
-        </div>
-
-        <div class="rank">
-          <img :src="imgList[1].coverImgUrl" alt="rank2" />
-          <div class="rankNum">2</div>
-          <div class="song">{{ imgList[1].name }}</div>
-        </div>
-
-        <div class="rank">
-          <img :src="imgList[2].coverImgUrl" alt="rank3" />
-          <div class="rankNum">3</div>
-          <div class="song">{{ imgList[2].name }}</div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!--    {{ musicStyleList.songs?.playlists }} -->
-
-  <!-- {{ imgList }} -->
-</template>
 
 <style scoped>
 .musicStyleWrapper {

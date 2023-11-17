@@ -1,3 +1,18 @@
+
+
+<template>
+  <van-nav-bar
+    title="精品歌单"
+    left-text="返回"
+    left-arrow
+    @click-left="onClickLeft"
+  />
+
+  <div class="goodSongsWrapper">
+    <div class="img"></div>
+  </div>
+</template>
+
 <script setup>
 import { getGoodSongList } from "../../../axios/routes/goodSongAPI";
 import { ref, reactive, onMounted, computed } from "vue";
@@ -22,16 +37,3 @@ let goodSongsList = reactive({
 
 const onClickLeft = () => history.back();
 </script>
-
-<template>
-  <van-nav-bar
-    title="精品歌单"
-    left-text="返回"
-    left-arrow
-    @click-left="onClickLeft"
-  />
-
-  <div class="goodSongsWrapper">
-    <div class="img"></div>
-  </div>
-</template>

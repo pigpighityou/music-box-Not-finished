@@ -1,26 +1,4 @@
-<script setup>
-import { ref, reactive, onMounted, computed, watch } from "vue";
-import { getNewAlbum3 } from "../../../axios/routes/newAlbumAPI";
-let newAlbum3API;
-let newAlbum3List = reactive({
-  albums: [],
-  failImages: [
-    "https://redchairrecruitment.ie/wp-content/uploads/2019/05/No-Data.png",
-  ],
-});
 
-(async () => {
-  try {
-    newAlbum3API = await getNewAlbum3();
-    newAlbum3List.albums = newAlbum3API.data;
-    /* console.log('ok',newAlbum3List.albums)   */
-  } catch (err) {
-    console.log(err);
-  }
-})();
-
-//  获取newAlbum3List异步函数后于template执行，导致newAlbum3List.albums.monthData[0].blurPicUrl报错
-</script>
 
 <template>
   <!-- {{newAlbum3List.albums.monthData[0].blurPicUrl}} -->
@@ -49,6 +27,30 @@ let newAlbum3List = reactive({
     </div>
   </div>
 </template>
+
+<script setup>
+import { ref, reactive, onMounted, computed, watch } from "vue";
+import { getNewAlbum3 } from "../../../axios/routes/newAlbumAPI";
+let newAlbum3API;
+let newAlbum3List = reactive({
+  albums: [],
+  failImages: [
+    "https://redchairrecruitment.ie/wp-content/uploads/2019/05/No-Data.png",
+  ],
+});
+
+(async () => {
+  try {
+    newAlbum3API = await getNewAlbum3();
+    newAlbum3List.albums = newAlbum3API.data;
+    /* console.log('ok',newAlbum3List.albums)   */
+  } catch (err) {
+    console.log(err);
+  }
+})();
+
+//  获取newAlbum3List异步函数后于template执行，导致newAlbum3List.albums.monthData[0].blurPicUrl报错
+</script>
 
 <style scoped>
 .header {

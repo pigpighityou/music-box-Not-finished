@@ -1,56 +1,4 @@
-<script setup>
-import { reactive, ref } from "vue";
-import vipTask from "./components/vipTask.vue";
-import vipCenter from "./components/vipCenter.vue";
-import { getLoginUser } from "@/axios/routes/loginAPI.js";
-import { getVIPGrow } from "@/axios/routes/vipAPI.js";
 
-const userData = ref(JSON.parse(localStorage.getItem("userData")));
-const token = ref(localStorage.getItem("token"));
-/* console.log('data',userData.value); */
-/* console.log('token',token.value); */
-
-const userLogin = reactive({
-  data: [],
-  failImages: [
-    "https://redchairrecruitment.ie/wp-content/uploads/2019/05/No-Data.png",
-  ],
-});
-
-const vipGrowth = ref();
-const vipLevel = ref();
-
-(async () => {
-  if (userData.value && token.value) {
-    let res = await getLoginUser(userData.value.userId);
-    userLogin.data = res.data;
-    /* console.log('ok',userLogin.data);  */
-
-    if (res.data.code != 200) {
-      alert("登录过期，请重新登录！");
-      router.push("/login");
-    } else {
-      return;
-    }
-  }
-})();
-
-(async () => {
-  if (userData.value && token.value) {
-    let res = await getVIPGrow();
-    vipGrowth.value = res.data.data.userLevel.growthPoint;
-    vipLevel.value = res.data.data.userLevel.level;
-    /* console.log('ok',res.data.data);
-       console.log(res.data.data.levelCard); */
-    if (res.data.code != 200) {
-      alert("登录过期，请重新登录！");
-      router.push("/login");
-    } else {
-      return;
-    }
-  }
-})();
-</script>
 
 <template>
   <div class="userWrapper">
@@ -133,6 +81,60 @@ const vipLevel = ref();
     </div>
   </div>
 </template>
+
+<script setup>
+import { reactive, ref } from "vue";
+import vipTask from "./components/vipTask.vue";
+import vipCenter from "./components/vipCenter.vue";
+import { getLoginUser } from "@/axios/routes/loginAPI.js";
+import { getVIPGrow } from "@/axios/routes/vipAPI.js";
+
+const userData = ref(JSON.parse(localStorage.getItem("userData")));
+const token = ref(localStorage.getItem("token"));
+/* console.log('data',userData.value); */
+/* console.log('token',token.value); */
+
+const userLogin = reactive({
+  data: [],
+  failImages: [
+    "https://redchairrecruitment.ie/wp-content/uploads/2019/05/No-Data.png",
+  ],
+});
+
+const vipGrowth = ref();
+const vipLevel = ref();
+
+(async () => {
+  if (userData.value && token.value) {
+    let res = await getLoginUser(userData.value.userId);
+    userLogin.data = res.data;
+    /* console.log('ok',userLogin.data);  */
+
+    if (res.data.code != 200) {
+      alert("登录过期，请重新登录！");
+      router.push("/login");
+    } else {
+      return;
+    }
+  }
+})();
+
+(async () => {
+  if (userData.value && token.value) {
+    let res = await getVIPGrow();
+    vipGrowth.value = res.data.data.userLevel.growthPoint;
+    vipLevel.value = res.data.data.userLevel.level;
+    /* console.log('ok',res.data.data);
+       console.log(res.data.data.levelCard); */
+    if (res.data.code != 200) {
+      alert("登录过期，请重新登录！");
+      router.push("/login");
+    } else {
+      return;
+    }
+  }
+})();
+</script>
 
 <style scoped>
 .userWrapper {

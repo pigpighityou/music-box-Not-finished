@@ -1,28 +1,4 @@
-<script setup>
-import { getRecSongList } from "../../../axios/routes/recSongAPI";
-import { ref, reactive, onMounted, computed } from "vue";
 
-let recSongsAPI;
-
-let recSongsList = reactive({
-  songs: [],
-  failImages: [
-    "https://redchairrecruitment.ie/wp-content/uploads/2019/05/No-Data.png",
-  ],
-});
-
-(async () => {
-  try {
-    recSongsAPI = await getRecSongList();
-    recSongsList.songs = recSongsAPI.data.result;
-
-    /* console.log('okrec',recSongsList.songs)
-     */
-  } catch (err) {
-    console.log(err);
-  }
-})();
-</script>
 
 <template>
   <div class="recSongsWrapper">
@@ -58,6 +34,32 @@ let recSongsList = reactive({
     </router-link>
   </div>
 </template>
+
+<script setup>
+import { getRecSongList } from "../../../axios/routes/recSongAPI";
+import { ref, reactive, onMounted, computed } from "vue";
+
+let recSongsAPI;
+
+let recSongsList = reactive({
+  songs: [],
+  failImages: [
+    "https://redchairrecruitment.ie/wp-content/uploads/2019/05/No-Data.png",
+  ],
+});
+
+(async () => {
+  try {
+    recSongsAPI = await getRecSongList();
+    recSongsList.songs = recSongsAPI.data.result;
+
+    /* console.log('okrec',recSongsList.songs)
+     */
+  } catch (err) {
+    console.log(err);
+  }
+})();
+</script>
 
 <style scoped>
 .recSongsWrapper {

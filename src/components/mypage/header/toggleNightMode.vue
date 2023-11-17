@@ -1,12 +1,4 @@
-<script setup>
-// 运用vueuse：（一款基于Vue组合式API的函数工具集）里的函数实现简单的夜间模式切换
-import { useDark, useToggle } from "@vueuse/core";
-const isDark = useDark(); //true or false
-const toggleDark = useToggle(isDark);
-const switchNightMode = () => {
-  toggleDark();
-};
-</script>
+
 
 <template>
   <div class="toggleWrapper">
@@ -18,6 +10,17 @@ const switchNightMode = () => {
     ></i>
   </div>
 </template>
+
+<script setup>
+// 运用vueuse：（一款基于Vue组合式API的函数工具集）里的函数实现简单的夜间模式切换
+import { useDark, useToggle } from "@vueuse/core";
+const isDark = useDark(); //true or false
+const toggleDark = useToggle(isDark);
+const switchNightMode = () => {
+  toggleDark();
+};
+</script>
+
 <style scoped>
 .toggleWrapper {
   transform: scale(1.5);

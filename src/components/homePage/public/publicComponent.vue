@@ -1,10 +1,4 @@
-<script setup>
-import { ref, reactive, onMounted, computed } from "vue";
 
-import search from "@/components/search/search.vue";
-import picBanner from "../../homePage/body/picBanner.vue";
-import moreIcon from "../../mypage/header/moreIcon.vue";
-</script>
 
 <template>
   <!-- 公共组件 -->
@@ -45,6 +39,14 @@ import moreIcon from "../../mypage/header/moreIcon.vue";
     <picBanner></picBanner>
   </div>
 </template>
+
+<script setup>
+import { ref, reactive, onMounted, computed } from "vue";
+
+import search from "@/components/search/search.vue";
+import picBanner from "../../homePage/body/picBanner.vue";
+import moreIcon from "../../mypage/header/moreIcon.vue";
+</script>
 
 <style scoped>
 .start {

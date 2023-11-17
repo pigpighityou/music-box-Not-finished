@@ -1,3 +1,48 @@
+
+
+<template>
+  <van-nav-bar
+    title="精品视频"
+    left-text="返回"
+    left-arrow
+    @click-left="onClickLeft"
+    fixed="true"
+    placeholder="true"
+    class="navbar"
+  />
+
+  <div class="goodWrapper">
+    <div class="content">
+      <div class="goodMv">
+        <div
+          class="goodMvPic"
+          v-for="(item, index) in goodMvList.mv"
+          :key="index"
+        >
+          <div
+            class="inner"
+            @click="num = index"
+            v-loading.fullscreen.lock="fullscreenLoading"
+            element-loading-text="拼命加载中..."
+          >
+            <img :src="item.cover" alt="" class="img-good" />
+            <div class="goodWord">
+              <div class="name">
+                {{ item.name }}
+              </div>
+              <div class="artist">
+                {{ item.artistName }}
+              </div>
+
+              <div class="overlay" v-if="index != num"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</template>
+
 <script setup>
 import { ref, reactive, watchEffect } from "vue";
 import { useRoute, useRouter } from "vue-router";
@@ -52,49 +97,6 @@ watchEffect(() => {
   }
 });
 </script>
-
-<template>
-  <van-nav-bar
-    title="精品视频"
-    left-text="返回"
-    left-arrow
-    @click-left="onClickLeft"
-    fixed="true"
-    placeholder="true"
-    class="navbar"
-  />
-
-  <div class="goodWrapper">
-    <div class="content">
-      <div class="goodMv">
-        <div
-          class="goodMvPic"
-          v-for="(item, index) in goodMvList.mv"
-          :key="index"
-        >
-          <div
-            class="inner"
-            @click="num = index"
-            v-loading.fullscreen.lock="fullscreenLoading"
-            element-loading-text="拼命加载中..."
-          >
-            <img :src="item.cover" alt="" class="img-good" />
-            <div class="goodWord">
-              <div class="name">
-                {{ item.name }}
-              </div>
-              <div class="artist">
-                {{ item.artistName }}
-              </div>
-
-              <div class="overlay" v-if="index != num"></div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</template>
 
 <style scoped>
 .navbar {

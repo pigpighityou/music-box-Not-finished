@@ -1,82 +1,4 @@
-<script setup>
-import { getId } from "../../../axios/routes/djHot.js";
-import { getDjHot } from "../../../axios/routes/djHot.js";
 
-import { ref, reactive, computed } from "vue";
-
-let idAPI;
-let djHotAPI;
-
-let djHotList = reactive({
-  djHot: [],
-  failImages: [
-    "https://redchairrecruitment.ie/wp-content/uploads/2019/05/No-Data.png",
-  ],
-});
-
-let idList = reactive({
-  id: [],
-  failImages: [
-    "https://redchairrecruitment.ie/wp-content/uploads/2019/05/No-Data.png",
-  ],
-});
-
-let songs = reactive({
-  data: [],
-  failImages: [
-    "https://redchairrecruitment.ie/wp-content/uploads/2019/05/No-Data.png",
-  ],
-});
-
-// 获取电台id类别系列
-(async () => {
-  try {
-    idAPI = await getId();
-    idList.id = idAPI.data.data;
-    /*   console.log('ok1',idList.id);   */
-  } catch (err) {
-    console.log(err);
-  }
-})();
-
-// 通过id的参数获取具体电台
-// 初始id为3
-(async () => {
-  try {
-    djHotAPI = await getDjHot(3);
-    djHotList.djHot = djHotAPI.data.djRadios;
-    /*  console.log('ok2',djHotList.djHot)  */
-  } catch (err) {
-    console.log(err);
-  }
-})();
-
-const getSong = async (id) => {
-  try {
-    songAPI = await getSongs(id);
-    songs.data = songAPI.data.data;
-    /*  console.log('ok3',songs.data) */
-  } catch (err) {
-    console.log(err);
-  }
-};
-
-const currentPage = ref(1);
-
-const id = computed(() => {
-  return idList.id[currentPage.value - 1].categoryId;
-});
-
-const getDjHotByPage = async (page) => {
-  try {
-    djHotAPI = await getDjHot(page);
-    djHotList.djHot = djHotAPI.data.djRadios;
-    /* console.log('new ok2',djHotList.djHot) */
-  } catch (err) {
-    console.log(err);
-  }
-};
-</script>
 
 <template>
   <div class="radioWrapper">
@@ -216,6 +138,86 @@ const getDjHotByPage = async (page) => {
     </div>
   </div>
 </template>
+
+<script setup>
+import { getId } from "../../../axios/routes/djHot.js";
+import { getDjHot } from "../../../axios/routes/djHot.js";
+
+import { ref, reactive, computed } from "vue";
+
+let idAPI;
+let djHotAPI;
+
+let djHotList = reactive({
+  djHot: [],
+  failImages: [
+    "https://redchairrecruitment.ie/wp-content/uploads/2019/05/No-Data.png",
+  ],
+});
+
+let idList = reactive({
+  id: [],
+  failImages: [
+    "https://redchairrecruitment.ie/wp-content/uploads/2019/05/No-Data.png",
+  ],
+});
+
+let songs = reactive({
+  data: [],
+  failImages: [
+    "https://redchairrecruitment.ie/wp-content/uploads/2019/05/No-Data.png",
+  ],
+});
+
+// 获取电台id类别系列
+(async () => {
+  try {
+    idAPI = await getId();
+    idList.id = idAPI.data.data;
+    /*   console.log('ok1',idList.id);   */
+  } catch (err) {
+    console.log(err);
+  }
+})();
+
+// 通过id的参数获取具体电台
+// 初始id为3
+(async () => {
+  try {
+    djHotAPI = await getDjHot(3);
+    djHotList.djHot = djHotAPI.data.djRadios;
+    /*  console.log('ok2',djHotList.djHot)  */
+  } catch (err) {
+    console.log(err);
+  }
+})();
+
+const getSong = async (id) => {
+  try {
+    songAPI = await getSongs(id);
+    songs.data = songAPI.data.data;
+    /*  console.log('ok3',songs.data) */
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+const currentPage = ref(1);
+
+const id = computed(() => {
+  return idList.id[currentPage.value - 1].categoryId;
+});
+
+const getDjHotByPage = async (page) => {
+  try {
+    djHotAPI = await getDjHot(page);
+    djHotList.djHot = djHotAPI.data.djRadios;
+    /* console.log('new ok2',djHotList.djHot) */
+  } catch (err) {
+    console.log(err);
+  }
+};
+</script>
 
 <style scoped>
 .radioWrapper {

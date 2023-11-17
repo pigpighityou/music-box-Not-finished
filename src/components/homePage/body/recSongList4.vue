@@ -1,35 +1,4 @@
-<script setup>
-import { getRecSongList4 } from "../../../axios/routes/recSongAPI";
-import { ref, reactive, onMounted, computed } from "vue";
 
-let recSongsAPI;
-
-let recSongsList = reactive({
-  songs: [],
-  failImages: [
-    "https://redchairrecruitment.ie/wp-content/uploads/2019/05/No-Data.png",
-  ],
-});
-
-(async () => {
-  try {
-    recSongsAPI = await getRecSongList4();
-    recSongsList.songs = recSongsAPI.data;
-
-    /* console.log('ok',recSongsList.songs)  */
-  } catch (err) {
-    console.log(err);
-  }
-})();
-
-const recList = computed(() => {
-  if (recSongsList.songs.playlists) {
-    return recSongsList.songs.playlists;
-  } else {
-    return "https://redchairrecruitment.ie/wp-content/uploads/2019/05/No-Data.png";
-  }
-});
-</script>
 
 <template>
   <div class="recSongsWrapper">
@@ -77,6 +46,39 @@ const recList = computed(() => {
         hello {{ item?.playlists[0]?.name||'no data' }}--{{ index }}
     </div> -->
 </template>
+
+<script setup>
+import { getRecSongList4 } from "../../../axios/routes/recSongAPI";
+import { ref, reactive, onMounted, computed } from "vue";
+
+let recSongsAPI;
+
+let recSongsList = reactive({
+  songs: [],
+  failImages: [
+    "https://redchairrecruitment.ie/wp-content/uploads/2019/05/No-Data.png",
+  ],
+});
+
+(async () => {
+  try {
+    recSongsAPI = await getRecSongList4();
+    recSongsList.songs = recSongsAPI.data;
+
+    /* console.log('ok',recSongsList.songs)  */
+  } catch (err) {
+    console.log(err);
+  }
+})();
+
+const recList = computed(() => {
+  if (recSongsList.songs.playlists) {
+    return recSongsList.songs.playlists;
+  } else {
+    return "https://redchairrecruitment.ie/wp-content/uploads/2019/05/No-Data.png";
+  }
+});
+</script>
 
 <style scoped>
 .recSongsWrapper {

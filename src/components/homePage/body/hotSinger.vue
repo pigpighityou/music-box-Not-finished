@@ -1,33 +1,4 @@
-<script setup>
-import { getHotSinger } from "../../../axios/routes/hotSingerAPI";
-import { ref, reactive, onMounted, computed } from "vue";
 
-let hotSingerAPI;
-let hotSingerList = reactive({
-  artists: [],
-  failImages: [
-    "https://redchairrecruitment.ie/wp-content/uploads/2019/05/No-Data.png",
-  ],
-});
-
-(async () => {
-  try {
-    hotSingerAPI = await getHotSinger();
-    hotSingerList.artists = hotSingerAPI.data.artists;
-    /*  console.log('ok',hotSingerList.artists)  */
-  } catch (err) {
-    console.log(err);
-  }
-})();
-
-const singerList = computed(() => {
-  if (hotSingerList.artists) {
-    return hotSingerList.artists;
-  } else {
-    return "https://redchairrecruitment.ie/wp-content/uploads/2019/05/No-Data.png";
-  }
-});
-</script>
 
 <template>
   <router-link to="/hotListSinger">
@@ -68,6 +39,37 @@ const singerList = computed(() => {
     </div>
   </router-link>
 </template>
+
+<script setup>
+import { getHotSinger } from "../../../axios/routes/hotSingerAPI";
+import { ref, reactive, onMounted, computed } from "vue";
+
+let hotSingerAPI;
+let hotSingerList = reactive({
+  artists: [],
+  failImages: [
+    "https://redchairrecruitment.ie/wp-content/uploads/2019/05/No-Data.png",
+  ],
+});
+
+(async () => {
+  try {
+    hotSingerAPI = await getHotSinger();
+    hotSingerList.artists = hotSingerAPI.data.artists;
+    /*  console.log('ok',hotSingerList.artists)  */
+  } catch (err) {
+    console.log(err);
+  }
+})();
+
+const singerList = computed(() => {
+  if (hotSingerList.artists) {
+    return hotSingerList.artists;
+  } else {
+    return "https://redchairrecruitment.ie/wp-content/uploads/2019/05/No-Data.png";
+  }
+});
+</script>
 
 <style scoped>
 .hotSingerWrapper {

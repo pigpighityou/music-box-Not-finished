@@ -1,45 +1,4 @@
-<script setup>
-import { ref, reactive } from "vue";
 
-import {loginOut} from "@/axios/routes/loginAPI.js";
-import { useRouter } from "vue-router";
-// vant
-const onClickLeft = () => history.back();
-
-// element-plus
-const drawer1 = ref(false);
-const direction = ref("ttb");
-
-const router=useRouter()
-
-const userData=ref(localStorage.getItem('userData'))
-const getStatus = () => {
-    
-    if(localStorage.getItem('userData')){
-      alert("已登录")
-    
-    }
-    else{
-      alert("未登录")
-     
-    }
-
-};
-
-const out=async ()=>{
-  alert("退出登录")
-  let r=await loginOut()
-  localStorage.removeItem("token")
-  localStorage.removeItem("userData")
-  localStorage.removeItem("cookie")
-  router.go(0)
- /*  console.log(r); */
-
-
-}
-
-
-</script>
 
 <template>
   <!-- title -->
@@ -85,6 +44,49 @@ const out=async ()=>{
 
   <button class="test" @click="getStatus">登录状态: {{ userData?'已登录':'未登录' }}</button>
 </template>
+
+<script setup>
+import { ref, reactive } from "vue";
+
+import {loginOut} from "@/axios/routes/loginAPI.js";
+import { useRouter } from "vue-router";
+// vant
+const onClickLeft = () => history.back();
+
+// element-plus
+const drawer1 = ref(false);
+const direction = ref("ttb");
+
+const router=useRouter()
+
+const userData=ref(localStorage.getItem('userData'))
+const getStatus = () => {
+    
+    if(localStorage.getItem('userData')){
+      alert("已登录")
+    
+    }
+    else{
+      alert("未登录")
+     
+    }
+
+};
+
+const out=async ()=>{
+  alert("退出登录")
+  let r=await loginOut()
+  localStorage.removeItem("token")
+  localStorage.removeItem("userData")
+  localStorage.removeItem("cookie")
+  router.go(0)
+ /*  console.log(r); */
+
+
+}
+
+
+</script>
 
 <style scoped>
 .test {

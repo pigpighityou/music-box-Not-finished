@@ -1,25 +1,4 @@
-<script setup>
-import { getHotEnglishSinger } from "../../../axios/routes/hotEnglishSinger";
-import { ref, reactive, onMounted, computed } from "vue";
-let hotEnglishSingerAPI;
-let hotEnglishSingerList = reactive({
-  artists: [],
-  failImages: [
-    "https://redchairrecruitment.ie/wp-content/uploads/2019/05/No-Data.png",
-  ],
-});
 
-(async () => {
-  try {
-    hotEnglishSingerAPI = await getHotEnglishSinger();
-
-    hotEnglishSingerList.artists = hotEnglishSingerAPI.data.list.artists;
-    /*                   console.log('ok',hotEnglishSingerList.list.artists)    */
-  } catch (err) {
-    console.log(err);
-  }
-})();
-</script>
 
 <template>
   <!--   {{ hotEnglishSingerList.artists  }} -->
@@ -45,6 +24,29 @@ let hotEnglishSingerList = reactive({
     </div>
   </div>
 </template>
+
+<script setup>
+import { getHotEnglishSinger } from "../../../axios/routes/hotEnglishSinger";
+import { ref, reactive, onMounted, computed } from "vue";
+let hotEnglishSingerAPI;
+let hotEnglishSingerList = reactive({
+  artists: [],
+  failImages: [
+    "https://redchairrecruitment.ie/wp-content/uploads/2019/05/No-Data.png",
+  ],
+});
+
+(async () => {
+  try {
+    hotEnglishSingerAPI = await getHotEnglishSinger();
+
+    hotEnglishSingerList.artists = hotEnglishSingerAPI.data.list.artists;
+    /*                   console.log('ok',hotEnglishSingerList.list.artists)    */
+  } catch (err) {
+    console.log(err);
+  }
+})();
+</script>
 
 <style scoped>
 .header {

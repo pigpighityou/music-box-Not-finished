@@ -1,30 +1,4 @@
-<script setup>
-import { ref, reactive } from "vue";
-import { getVIPTask } from "@/axios/routes/vipTask.js";
-const drawer = ref(false);
-const direction = ref("btt");
 
-let vipTaskAPI;
-const vipTaskData = reactive({
-  data: [],
-  failImages: [
-    "https://redchairrecruitment.ie/wp-content/uploads/2019/05/No-Data.png",
-  ],
-});
-
-(async () => {
-  vipTaskAPI = await getVIPTask();
-  vipTaskData.data = vipTaskAPI.data.data;
-  /* console.log('taskOK',vipTaskData.data);
-    console.log(vipTaskAPI.data.data.taskList[0].taskItems); */
-  if (vipTaskAPI.data.code != 200) {
-    alert("登录过期，请重新登录！");
-    router.push("/login");
-  } else {
-    return;
-  }
-})();
-</script>
 
 <template>
   <div class="taskWrapper" @click="drawer = true">
@@ -54,6 +28,34 @@ const vipTaskData = reactive({
     </div>
   </el-drawer>
 </template>
+
+<script setup>
+import { ref, reactive } from "vue";
+import { getVIPTask } from "@/axios/routes/vipTask.js";
+const drawer = ref(false);
+const direction = ref("btt");
+
+let vipTaskAPI;
+const vipTaskData = reactive({
+  data: [],
+  failImages: [
+    "https://redchairrecruitment.ie/wp-content/uploads/2019/05/No-Data.png",
+  ],
+});
+
+(async () => {
+  vipTaskAPI = await getVIPTask();
+  vipTaskData.data = vipTaskAPI.data.data;
+  /* console.log('taskOK',vipTaskData.data);
+    console.log(vipTaskAPI.data.data.taskList[0].taskItems); */
+  if (vipTaskAPI.data.code != 200) {
+    alert("登录过期，请重新登录！");
+    router.push("/login");
+  } else {
+    return;
+  }
+})();
+</script>
 
 <style scoped>
 .taskWrapper {

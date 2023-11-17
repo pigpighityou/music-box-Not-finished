@@ -1,24 +1,4 @@
-<script setup>
-import { getNewChineseSong } from "../../../axios/routes/newChineseSong";
-import { ref, reactive, onMounted, computed } from "vue";
-let newChineseSongAPI;
-let newChineseSong = reactive({
-  lists: [],
-  failImages: [
-    "https://redchairrecruitment.ie/wp-content/uploads/2019/05/No-Data.png",
-  ],
-});
 
-(async () => {
-  try {
-    newChineseSongAPI = await getNewChineseSong();
-    newChineseSong.lists = newChineseSongAPI.data;
-    /* console.log('ok',newChineseSong.lists)   */
-  } catch (err) {
-    console.log(err);
-  }
-})();
-</script>
 
 <template>
   <!--    {{ newChineseSong.lists.data[0].artists[0].name }} 
@@ -57,6 +37,28 @@ let newChineseSong = reactive({
     </div>
   </div>
 </template>
+
+<script setup>
+import { getNewChineseSong } from "../../../axios/routes/newChineseSong";
+import { ref, reactive, onMounted, computed } from "vue";
+let newChineseSongAPI;
+let newChineseSong = reactive({
+  lists: [],
+  failImages: [
+    "https://redchairrecruitment.ie/wp-content/uploads/2019/05/No-Data.png",
+  ],
+});
+
+(async () => {
+  try {
+    newChineseSongAPI = await getNewChineseSong();
+    newChineseSong.lists = newChineseSongAPI.data;
+    /* console.log('ok',newChineseSong.lists)   */
+  } catch (err) {
+    console.log(err);
+  }
+})();
+</script>
 
 <style scoped>
 .header {

@@ -1,12 +1,14 @@
-<script setup>
-import ad from "./ad.vue";
-</script>
+
 
 <template>
   <button class="adWrapper">
     <ad></ad>
   </button>
 </template>
+
+<script setup>
+import ad from "./ad.vue";
+</script>
 
 <style scoped>
 .adWrapper {

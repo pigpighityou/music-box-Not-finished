@@ -1,3 +1,29 @@
+
+
+<template>
+  <div class="goodSongsWrapper">
+    <div class="title">
+      精品歌单
+      <i class="iconfont icon-jiantouyou"></i>
+    </div>
+
+    <div class="goodSongs">
+      <div
+        class="goodSong"
+        v-for="(item, index) in goodSongsList.songs.playlists"
+        :key="index"
+      >
+        <router-link :to="{ name: 'listSong', params: { id: item.id } }">
+          <img :src="item.coverImgUrl" alt="img" class="img" />
+        </router-link>
+
+        <div class="name">{{ item.name }}</div>
+        <!--  <div class="test">{{ item.id }}</div> -->
+      </div>
+    </div>
+  </div>
+</template>
+
 <script setup>
 import { getGoodSongList } from "../../../axios/routes/goodSongAPI";
 import { getListSong } from "@/axios/routes/getListSong.js";
@@ -40,30 +66,6 @@ const getSong = async (id) => {
   }
 };
 </script>
-
-<template>
-  <div class="goodSongsWrapper">
-    <div class="title">
-      精品歌单
-      <i class="iconfont icon-jiantouyou"></i>
-    </div>
-
-    <div class="goodSongs">
-      <div
-        class="goodSong"
-        v-for="(item, index) in goodSongsList.songs.playlists"
-        :key="index"
-      >
-        <router-link :to="{ name: 'listSong', params: { id: item.id } }">
-          <img :src="item.coverImgUrl" alt="img" class="img" />
-        </router-link>
-
-        <div class="name">{{ item.name }}</div>
-        <!--  <div class="test">{{ item.id }}</div> -->
-      </div>
-    </div>
-  </div>
-</template>
 
 <style scoped>
 .goodSongsWrapper {

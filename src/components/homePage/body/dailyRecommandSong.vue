@@ -1,25 +1,4 @@
-<script setup>
-import { getDailyRecommandSong } from "../../../axios/routes/dailyRecommand";
-import { ref, reactive } from "vue";
 
-let dailyRecommandSongAPI;
-let dailyRecommandSongList = reactive({
-  data: [],
-  failImages: [
-    "https://redchairrecruitment.ie/wp-content/uploads/2019/05/No-Data.png",
-  ],
-});
-
-(async () => {
-  try {
-    dailyRecommandSongAPI = await getDailyRecommandSong();
-    dailyRecommandSongList.data = dailyRecommandSongAPI.data;
-    /* console.log('ok',dailyRecommandSongList.data.data) */
-  } catch (err) {
-    console.log(err);
-  }
-})();
-</script>
 
 <template>
   <router-link to="/dailyRec">
@@ -57,6 +36,29 @@ let dailyRecommandSongList = reactive({
     </div>
   </router-link>
 </template>
+
+<script setup>
+import { getDailyRecommandSong } from "../../../axios/routes/dailyRecommand";
+import { ref, reactive } from "vue";
+
+let dailyRecommandSongAPI;
+let dailyRecommandSongList = reactive({
+  data: [],
+  failImages: [
+    "https://redchairrecruitment.ie/wp-content/uploads/2019/05/No-Data.png",
+  ],
+});
+
+(async () => {
+  try {
+    dailyRecommandSongAPI = await getDailyRecommandSong();
+    dailyRecommandSongList.data = dailyRecommandSongAPI.data;
+    /* console.log('ok',dailyRecommandSongList.data.data) */
+  } catch (err) {
+    console.log(err);
+  }
+})();
+</script>
 
 <style scoped>
 .dailyRecommandSongWrapper {

@@ -1,3 +1,43 @@
+
+
+<template>
+  <div class="listAlbumWrapper">
+    <div
+      class="listAlbum"
+      v-for="(item, index) in singerAlbum.data.hotAlbums"
+      :key="index"
+    >
+      <div class="pic">
+        <router-link :to="{ name: 'album', params: { id: item.id } }">
+          <img :src="item.picUrl" alt="picAlbum" class="picAlbums" />
+        </router-link>
+      </div>
+
+      <div class="desc">
+        <!--  <div class="artistName" >
+
+                        {{ item.artist.name }}
+
+                </div> -->
+
+        <div class="albumName">
+          {{ item.name }}
+        </div>
+
+        <div class="date">
+          <div class="publishTime">
+            {{
+              item.publishTime ? singerAlbum.data.realTime.date[index] : "暂无"
+            }}
+          </div>
+
+          <div class="songNum">{{ item.size }}首</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</template>
+
 <script setup>
 import { useRoute, useRouter } from "vue-router";
 import { ref, reactive, computed, watchEffect } from "vue";
@@ -42,44 +82,6 @@ const publishTime = ref({
   /*  console.log('singerAlbum',singerAlbum.data); */
 })();
 </script>
-
-<template>
-  <div class="listAlbumWrapper">
-    <div
-      class="listAlbum"
-      v-for="(item, index) in singerAlbum.data.hotAlbums"
-      :key="index"
-    >
-      <div class="pic">
-        <router-link :to="{ name: 'album', params: { id: item.id } }">
-          <img :src="item.picUrl" alt="picAlbum" class="picAlbums" />
-        </router-link>
-      </div>
-
-      <div class="desc">
-        <!--  <div class="artistName" >
-
-                        {{ item.artist.name }}
-
-                </div> -->
-
-        <div class="albumName">
-          {{ item.name }}
-        </div>
-
-        <div class="date">
-          <div class="publishTime">
-            {{
-              item.publishTime ? singerAlbum.data.realTime.date[index] : "暂无"
-            }}
-          </div>
-
-          <div class="songNum">{{ item.size }}首</div>
-        </div>
-      </div>
-    </div>
-  </div>
-</template>
 
 <style scoped>
 .listAlbum {
