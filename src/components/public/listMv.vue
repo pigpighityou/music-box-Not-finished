@@ -28,7 +28,7 @@
 import { ref, reactive, computed, watchEffect } from "vue";
 import { useRouter, useRoute } from "vue-router";
 
-import { getSingerMV } from "../../axios/routes/singerInfo";
+import { getSingerMV } from "@/axios/routes/singerInfo";
 
 const route = useRoute();
 

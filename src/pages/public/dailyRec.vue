@@ -101,8 +101,8 @@
 <script setup>
 import { reactive, ref } from "vue";
 import { getDailyRecommandSongList } from "@/axios/routes/dailyRecommand";
-import { getDailyRecommandSong } from "../../axios/routes/dailyRecommand";
-import { getSongs } from "../../axios/routes/getSongs.js";
+import { getDailyRecommandSong } from "@/axios/routes/dailyRecommand";
+import { getSongs } from "@/axios/routes/getSongs.js";
 import store from "@/store/store.js";
 
 let dailyRecommandSongListAPI;

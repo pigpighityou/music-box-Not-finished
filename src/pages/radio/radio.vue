@@ -7,9 +7,9 @@
 </template>
 
 <script setup>
-import radioBanner from "./components/radioBanner.vue";
+import radioBanner from "@/components/radio/components/radioBanner.vue";
 import search from "@/components/search/search.vue";
-import djHot from "./components/djHot.vue";
+import djHot from "@/components/radio/components/djHot.vue";
 </script>
 
 <style scoped>

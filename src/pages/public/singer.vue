@@ -13,8 +13,8 @@
 </template>
 
 <script setup>
-import hotSingerAlias from "./hotSingerAlias.vue";
-import chooseSinger from "./chooseSinger.vue";
+import hotSingerAlias from "@/components/public/hotSingerAlias.vue";
+import chooseSinger from "@/components/public/chooseSinger.vue";
 import { ref, reactive, provide } from "vue";
 
 const button1Num = ref(-1);

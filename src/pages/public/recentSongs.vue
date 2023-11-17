@@ -51,9 +51,9 @@
 
 <script setup>
 import { ref, onMounted, onUnmounted, reactive } from "vue";
-import store from "../../../../store/store";
+import store from "@/store/store";
 
-import { getRecentSongs } from "../../../../axios/routes/userList.js";
+import { getRecentSongs } from "@/axios/routes/userList.js";
 
 let recentSongsAPI;
 

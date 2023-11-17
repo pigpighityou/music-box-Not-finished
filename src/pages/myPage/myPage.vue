@@ -48,17 +48,16 @@
 import { ref, reactive, watchEffect } from "vue";
 
 import search from "@/components/search/search.vue";
-import toggleNightMode from "./header/toggleNightMode.vue";
-import moreIcon from "../mypage/header/moreIcon.vue";
-import userBrief from "../mypage/user/userBrief.vue";
-import userList from "./user/userList.vue";
-import userLikeList from "./user/userLikeList.vue";
-/* import userListen from './user/userListen.vue' */
-import goodSong from "../../components/homePage/body/goodsong.vue";
+import toggleNightMode from "@/components/mypage/header/toggleNightMode.vue";
+import moreIcon from "@/components/mypage/header/moreIcon.vue";
+import userBrief from "@/components/mypage/user/userBrief.vue";
+import userList from "@/components/mypage/user/userList.vue";
+import userLikeList from "@/components/mypage/user/userLikeList.vue";
+import goodSong from "@/components/homePage/body/goodsong.vue";
 import { getMsg } from "@/axios/routes/message.js";
-import hotChineseSongList from "../homePage/body/hotChineseSongList.vue";
-import hotEnglishSongList from "../homePage/body/hotEnglishSongList.vue";
-import dailyRecommandSong from "../homePage/body/dailyRecommandSong.vue";
+import hotChineseSongList from "@/components/homePage/body/hotChineseSongList.vue";
+import hotEnglishSongList from "@/components/homePage/body/hotEnglishSongList.vue";
+import dailyRecommandSong from "@/components/homePage/body/dailyRecommandSong.vue";
 
 import { useStore } from "vuex";
 

@@ -29,17 +29,17 @@
 <script setup>
 import { ref, reactive, onMounted, computed, watchEffect, nextTick } from "vue";
 
-import hotSinger from "./body/hotSinger.vue";
-import hotSongList from "./body/hotSongList.vue";
-import recSongList from "./body/recSongList.vue";
+import hotSinger from "@/components/homePage/body/hotSinger.vue";
+import hotSongList from "@/components/homePage/body/hotSongList.vue";
+import recSongList from "@/components/homePage/body/recSongList.vue";
 
-import goodSong from "./body/goodSong.vue";
+import goodSong from "@/components/homePage/body/goodSong.vue";
 
-import singerButton from "../public/singerButton.vue";
-import dailyRecButton from "../public/dailyRecButton.vue";
-import adButton from "../public/adButton.vue";
-import dailyRecommandSong from "./body/dailyRecommandSong.vue";
-import publicComponent from "./public/publicComponent.vue";
+import singerButton from "@/components/public/singerButton.vue";
+import dailyRecButton from "@/components/public/dailyRecButton.vue";
+import adButton from "@/components/public/adButton.vue";
+import dailyRecommandSong from "@/components/homePage/body/dailyRecommandSong.vue";
+import publicComponent from "@/components/homePage/public/publicComponent.vue";
 </script>
 
 <style scoped>

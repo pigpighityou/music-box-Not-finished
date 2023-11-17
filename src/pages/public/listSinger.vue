@@ -194,7 +194,7 @@
 
 <script setup>
 import { ref, reactive, watchEffect } from "vue";
-import store from "../../store/store";
+import store from "@/store/store";
 
 import { getSingerWiki } from "@/axios/routes/singerInfo";
 import { getSingerDetail } from "@/axios/routes/singerInfo";
@@ -203,11 +203,11 @@ import { getSingerHotSong } from "@/axios/routes/singerInfo";
 import { getSingerFans } from "@/axios/routes/singerInfo";
 import { getSingerSimi } from "@/axios/routes/singerInfo";
 
-import listAlbum from "../public/listAlbum.vue";
-import listMv from "./listMv.vue";
+import listAlbum from "@/components/public/listAlbum.vue";
+import listMv from "@/components//public/listMv.vue";
 
 import { useRoute, useRouter } from "vue-router";
-import router from "../../router";
+import router from "@/router";
 
 const route = useRoute();
 

@@ -124,7 +124,7 @@
 <script setup>
 import { useRoute, useRouter } from "vue-router";
 import { ref, reactive, onMounted, computed, watchEffect } from "vue";
-import store from "../../store/store";
+import store from "@/store/store";
 import { getNewAlbumInfo } from "@/axios/routes/newAlbumAPI.js";
 
 const route = useRoute();
