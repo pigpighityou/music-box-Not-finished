@@ -49,6 +49,7 @@ import { ref, reactive } from "vue";
 import { loginOut } from "@/axios/routes/loginAPI.js";
 import { useRouter } from "vue-router";
 import { removeLocalStorage } from "@/lib/localStorageUse";
+import { getLocalStorage } from "@/lib/localStorageUse";
 // vant
 const onClickLeft = () => history.back();
 
@@ -58,9 +59,9 @@ const direction = ref("ttb");
 
 const router = useRouter();
 
-const userData = ref(localStorage.getItem("userData"));
+const userData = ref(getLocalStorage("userData"));
 const getStatus = () => {
-  if (localStorage.getItem("userData")) {
+  if (userData) {
     alert("已登录");
   } else {
     alert("未登录");
