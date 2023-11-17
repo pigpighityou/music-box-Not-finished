@@ -36,7 +36,7 @@
 </template>
 
 <script setup>
-import { getHotSinger } from "../../../axios/routes/hotSingerAPI";
+import { getHotSinger } from "@/axios/routes/hotSingerAPI.js";
 import { ref, reactive, onMounted, computed } from "vue";
 
 import { useRouter, useRoute } from "vue-router";

@@ -189,18 +189,19 @@
       <listMv></listMv>
     </van-tab>
   </van-tabs>
+  <div class="blank"></div>
 </template>
 
 <script setup>
 import { ref, reactive, watchEffect } from "vue";
 import store from "../../store/store";
 
-import { getSingerWiki } from "../../axios/routes/singerInfo";
-import { getSingerDetail } from "../../axios/routes/singerInfo";
-import { getSingerHotSong } from "../../axios/routes/singerInfo";
+import { getSingerWiki } from "@/axios/routes/singerInfo";
+import { getSingerDetail } from "@/axios/routes/singerInfo";
+import { getSingerHotSong } from "@/axios/routes/singerInfo";
 
-import { getSingerFans } from "../../axios/routes/singerInfo";
-import { getSingerSimi } from "../../axios/routes/singerInfo";
+import { getSingerFans } from "@/axios/routes/singerInfo";
+import { getSingerSimi } from "@/axios/routes/singerInfo";
 
 import listAlbum from "../public/listAlbum.vue";
 import listMv from "./listMv.vue";
@@ -764,5 +765,9 @@ const clickHandlerSong = (index) => {
   text-align: center;
   flex-wrap: wrap;
   max-height: 4vw;
+}
+
+.blank{
+  height: 20vw;
 }
 </style>

@@ -23,7 +23,7 @@
 </template>
 
 <script setup>
-import { getBannerAPI } from "../../../axios/routes/bannerAPI.js";
+import { getBannerAPI } from "@/axios/routes/bannerAPI.js";
 import {
   ref,
   reactive,

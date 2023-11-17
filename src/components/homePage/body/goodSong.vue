@@ -23,7 +23,7 @@
 </template>
 
 <script setup>
-import { getGoodSongList } from "../../../axios/routes/goodSongAPI";
+import { getGoodSongList } from "@/axios/routes/goodSongAPI";
 import { getListSong } from "@/axios/routes/getListSong.js";
 import { ref, reactive, onMounted, computed } from "vue";
 

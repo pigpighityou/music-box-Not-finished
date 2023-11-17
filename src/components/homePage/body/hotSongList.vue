@@ -44,8 +44,8 @@
 </template>
 
 <script setup>
-import { getHotSongList } from "../../../axios/routes/hotSongAPI";
-import { getListSong } from "../../../axios/routes/getListSong";
+import { getHotSongList } from "@/axios/routes/hotSongAPI";
+import { getListSong } from "@/axios/routes/getListSong";
 import { ref, reactive, onMounted, computed } from "vue";
 
 let hotSongsAPI;

@@ -25,7 +25,7 @@
 </template>
 
 <script setup>
-import { getHotSinger } from "../../axios/routes/hotSingerAPI";
+import { getHotSinger } from "@/axios/routes/hotSingerAPI";
 import { ref, reactive, onMounted, computed } from "vue";
 
 let hotSingerAPI;

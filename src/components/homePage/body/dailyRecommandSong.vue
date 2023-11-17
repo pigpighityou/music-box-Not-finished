@@ -36,7 +36,7 @@
 </template>
 
 <script setup>
-import { getDailyRecommandSong } from "../../../axios/routes/dailyRecommand";
+import { getDailyRecommandSong } from "@/axios/routes/dailyRecommand";
 import { ref, reactive } from "vue";
 
 let dailyRecommandSongAPI;

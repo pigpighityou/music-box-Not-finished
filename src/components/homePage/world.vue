@@ -34,7 +34,7 @@ import hotSongList from "./body/hotSongList.vue";
 import recSongList from "./body/recSongList.vue";
 
 import goodSong from "./body/goodSong.vue";
-import singer from "../public/singer.vue";
+
 import singerButton from "../public/singerButton.vue";
 import dailyRecButton from "../public/dailyRecButton.vue";
 import adButton from "../public/adButton.vue";
