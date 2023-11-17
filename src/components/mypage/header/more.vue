@@ -48,6 +48,7 @@ import { ref, reactive } from "vue";
 
 import { loginOut } from "@/axios/routes/loginAPI.js";
 import { useRouter } from "vue-router";
+import { removeLocalStorage } from "@/lib/localStorageUse";
 // vant
 const onClickLeft = () => history.back();
 
@@ -69,9 +70,10 @@ const getStatus = () => {
 const out = async () => {
   alert("退出登录");
   let r = await loginOut();
-  localStorage.removeItem("token");
-  localStorage.removeItem("userData");
-  localStorage.removeItem("cookie");
+  removeLocalStorage('token')
+  removeLocalStorage('userData')
+  removeLocalStorage('cookie')
+
   router.go(0);
   /*  console.log(r); */
 };

@@ -53,7 +53,7 @@
 import { ref } from "vue";
 import { getLoginPhone } from "@/axios/routes/loginAPI.js";
 import { useRouter, useRoute } from "vue-router";
-
+import { setLocalStorage } from "@/lib/localStorageUse";
 import store from "@/store/store.js";
 const router = useRouter();
 const route = useRoute();
@@ -76,10 +76,9 @@ const onSubmit = async (values) => {
     store.state.userData = res.data;
     store.state.token = res.data.token;
     store.state.isLogin = true;
-
-    localStorage.setItem("userData", JSON.stringify(res.data.profile));
-    localStorage.setItem("token", res.data.token);
-    localStorage.setItem("cookie", res.data.cookie);
+    setLocalStorage("userData", res.data.profile);
+    setLocalStorage("token", res.data.token);
+    setLocalStorage("cookie", res.data.cookie);
 
     router.push("/loginSuccess");
   }

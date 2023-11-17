@@ -54,11 +54,12 @@
 <script setup>
 import { ref, watchEffect } from "vue";
 import { getLoginCaptcha } from "@/axios/routes/loginAPI.js";
-import { verifyCaptcha } from "@/axios/routes/loginAPI.js";
+import { setLocalStorage } from "@/lib/localStorageUse";
 import { getPhoneCaptcha } from "@/axios/routes/loginAPI.js";
 import { useRouter, useRoute } from "vue-router";
 
 import store from "@/store/store.js";
+import { set } from "lodash";
 const router = useRouter();
 const route = useRoute();
 const onClickLeft = () => history.back();
@@ -75,10 +76,10 @@ const onSubmit = async (values) => {
     store.state.userData = res.data;
     store.state.token = res.data.token;
     store.state.isLogin = true;
+    setLocalStorage("userData", res.data.profile);
+    setLocalStorage("token", res.data.token);
+    setLocalStorage("cookie", res.data.cookie);
 
-    localStorage.setItem("userData", JSON.stringify(res.data.profile));
-    localStorage.setItem("token", res.data.token);
-    localStorage.setItem("cookie", res.data.cookie);
     router.push("/loginSuccess");
   } catch (e) {
     console.log(e);
@@ -88,8 +89,7 @@ const onSubmit = async (values) => {
 };
 
 const getCaptcha = async () => {
-  /*  console.log("getCaptcha", username.value);
-   */
+  
   let res = await getPhoneCaptcha(username.value);
 
   console.log(res);
