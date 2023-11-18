@@ -25,7 +25,7 @@
         <div class="date">
           <div class="publishTime">
             {{
-              item.publishTime ? singerAlbum.data.realTime.date[index] : "暂无"
+              item.publishTime ? singerAlbum.data.realTime?.date[index] : "暂无"
             }}
           </div>
 
@@ -40,8 +40,8 @@
 import { useRoute, useRouter } from "vue-router";
 import { ref, reactive, computed, watchEffect } from "vue";
 
-import { getSingerAlbum } from "../../axios/routes/singerInfo";
-
+import { getSingerAlbum } from "@/axios/routes/singerInfo";
+import {transformDate} from '@/lib/transformTime';
 const route = useRoute();
 const id = ref(route.params.id);
 /* console.log('albumSinger',id.value); */
@@ -59,6 +59,7 @@ const publishTime = ref({
 (async () => {
   singerAlbumAPI = await getSingerAlbum(id.value);
   singerAlbum.data = singerAlbumAPI.data;
+  /* console.log("singerAlbum", singerAlbum.data); */
 
   //
   const timestamp = ref(
@@ -69,13 +70,10 @@ const publishTime = ref({
 
   timestamp.value.forEach((item) => {
     const date = new Date(item);
-    const year = date.getFullYear();
-    const month = date.getMonth() + 1;
-    const day = date.getDate();
-    publishTime.value.date.push(year + "-" + month + "-" + day);
+    publishTime.value.date.push(transformDate(date));
   });
 
-  // 将publishTime整体加到singerAlbum的data中
+  // 将publishTime整体加到singerAlbum的data中,创建一个新的属性
   singerAlbum.data["realTime"] = publishTime.value;
   /*  console.log('singerAlbum',singerAlbum.data); */
 })();

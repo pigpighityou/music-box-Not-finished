@@ -24,6 +24,9 @@
       >
         歌手：{{ item4.name }}
       </div>
+      <div class="publishTime">
+        发行时间：{{ publishTime }}
+      </div>
 
       <!-- <div class="tags" v-for="(item, index) in albumDetail.data.album?.tags" :key="index">
            {{ item}}
@@ -126,6 +129,7 @@ import { useRoute, useRouter } from "vue-router";
 import { ref, reactive, onMounted, computed, watchEffect } from "vue";
 import store from "@/store/store";
 import { getNewAlbumInfo } from "@/axios/routes/newAlbumAPI.js";
+import { transformDate } from "@/lib/transformTime";
 
 const route = useRoute();
 const id = ref(route.params.id);
@@ -145,11 +149,16 @@ let albumDetail = reactive({
     const res = await getNewAlbumInfo(id.value);
     store.state.playList = res.data.songs;
     albumDetail.data = res.data;
-    /*  console.log('okdetail',albumDetail.data)   */
+     /*  console.log('okdetail',albumDetail.data)    */
   } catch (err) {
     console.log(err);
   }
 })();
+
+const publishTime = computed(() => {
+  const date=new Date(albumDetail.data.album?.publishTime)
+  return transformDate(date);
+});
 
 const onClickLeft = () => history.back();
 
