@@ -338,6 +338,8 @@ import { getSongs } from "@/axios/routes/getSongs.js";
 import store from "../../store/store";
 import { setLocalStorage } from "@/lib/localStorageUse";
 import { getLocalStorage } from "@/lib/localStorageUse";
+
+import {transformDate} from '@/lib/transformTime'
 import { set } from "lodash";
 
 const router = useRouter();
@@ -374,10 +376,12 @@ const publish = computed(() => {
   ) {
     return "未提供";
   } else {
-    const year = date.getFullYear();
+    
+   /*  const year = date.getFullYear();
     const month = date.getMonth() + 1;
     const day = date.getDate();
-    return year + "-" + month + "-" + day;
+    return year + "-" + month + "-" + day; */
+    return transformDate(date)
   }
 });
 
@@ -463,9 +467,10 @@ const second = ref();
 watchEffect(() => {
   if (audio.value) {
     setTimeout(function time() {
-      minute.value = ref(Math.floor(audio.value?.currentTime / 60));
-      second.value = ref(Math.floor(audio.value?.currentTime % 60));
-      setTimeout(time, 1000);
+     
+      minute.value = Math.floor(audio.value?.currentTime / 60);
+      second.value = Math.floor(audio.value?.currentTime % 60);
+      setTimeout(time, 1000); 
     }, 1000);
   }
 });
