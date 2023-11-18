@@ -336,7 +336,9 @@ import {
 import { useRouter, useRoute } from "vue-router";
 import { getSongs } from "@/axios/routes/getSongs.js";
 import store from "../../store/store";
-import { ElLoading } from "element-plus";
+import { setLocalStorage } from "@/lib/localStorageUse";
+import { getLocalStorage } from "@/lib/localStorageUse";
+import { set } from "lodash";
 
 const router = useRouter();
 const route = useRoute();
@@ -483,7 +485,13 @@ window.addEventListener("beforeunload", () => {
   /*   console.log('重载了')  */
   store.state.isPlayingSong = false;
   if (store.state.playIndex && store.state.playSong) {
-    localStorage.setItem(
+    setLocalStorage("currentTime", audio.value?.currentTime);
+    setLocalStorage('isPlayingSong',store.state?.isPlayingSong)
+    setLocalStorage("playSong", store.state?.playSong);
+    setLocalStorage("playIndex", store.state?.playIndex);
+
+    
+/*     localStorage.setItem(
       "currentTime",
       JSON.stringify(audio.value?.currentTime),
     );
@@ -493,15 +501,20 @@ window.addEventListener("beforeunload", () => {
       JSON.stringify(store.state?.isPlayingSong),
     );
     localStorage.setItem("playSong", JSON.stringify(store.state?.playSong));
-    localStorage.setItem("playIndex", JSON.stringify(store.state?.playIndex));
+    localStorage.setItem("playIndex", JSON.stringify(store.state?.playIndex)); */
   }
 });
 
-const cachedCurrentTime = localStorage.getItem("currentTime");
+/* const cachedCurrentTime = localStorage.getItem("currentTime");
 const cachedPaused = localStorage.getItem("paused");
 const cachedPlaySong = localStorage.getItem("playSong");
 const cachedIsPlayingSong = localStorage.getItem("isPlayingSong");
-const cachedPlayIndex = localStorage.getItem("playIndex");
+const cachedPlayIndex = localStorage.getItem("playIndex"); */
+const cachedCurrentTime=getLocalStorage('currentTime')
+const cachedPaused=getLocalStorage('paused?')
+const cachedPlaySong=getLocalStorage('playSong')
+const cachedIsPlayingSong=getLocalStorage('isPlayingSong')
+const cachedPlayIndex=getLocalStorage('playIndex')
 
 //  重载后发生的事情
 // 网页重载后的值放进去了，有，则进行下面的内容
@@ -512,10 +525,10 @@ watchEffect(() => {
       /*  if(audio.value.currentTime!==NaN){ */
       /* console.log('重载成功')  */
 
-      audio.value.currentTime = JSON.parse(cachedCurrentTime);
-      store.state.isPlayingSong = JSON.parse(cachedIsPlayingSong);
-      store.state.playSong = JSON.parse(cachedPlaySong);
-      store.state.playIndex = JSON.parse(cachedPlayIndex);
+      audio.value.currentTime = cachedCurrentTime
+      store.state.isPlayingSong = cachedIsPlayingSong
+      store.state.playSong = cachedPlaySong
+      store.state.playIndex = cachedPlayIndex
     }
     /*     } */
   }
