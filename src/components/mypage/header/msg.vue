@@ -33,35 +33,44 @@
                 </div>
               </div>
             </el-card>
+          </div>
+        </div>
+      </div>
+      <div class="chatWrapper" v-for="(item, index) in content" :key="index">
+        <!-- 这边继续 -->
 
-            <div class="chatWrapper" v-if="show === index">
-              <!-- 这边继续 -->
-              <div class="chatDesc">
-                <div class="img">
-                  <img
-                    :src="childItem.fromUser.avatarUrl"
-                    alt="pic"
-                    class="fromUserPic"
-                  />
-                </div>
-                <div class="fromUserName">
-                  {{ childItem.fromUser.nickname }}
-                </div>
-                <div class="publishTime">
-                  {{ changeTime(childItem.time) }}
-                </div>
-              </div>
-
-              <div class="chat">
-                {{ JSON.parse(childItem.msg).msg }}
-              </div>
+        <div
+          class="chatDesc"
+          v-for="(childItem, childIndex) in item.content"
+          v-if="show == index"
+          :key="childIndex"
+        >
+          <div class="brief">
+            <div class="img">
+              <img
+                :src="childItem.fromUser.avatarUrl"
+                alt="pic"
+                class="fromUserPic"
+              />
             </div>
+
+            <div class="fromUserName">
+              {{ childItem.fromUser.nickname }}
+            </div>
+            <div class="publishTime">
+              {{ changeTime(childItem.time) }}
+            </div>
+          </div>
+
+          <div class="chat">
+            {{ JSON.parse(childItem.msg).msg }}
           </div>
         </div>
       </div>
     </van-tab>
     <van-tab title="通知">
-      {{ sendId }}
+      <!--  {{ sendId }} -->
+      {{ "功能未开放" }}
     </van-tab>
   </van-tabs>
   <div class="blank"></div>
@@ -110,7 +119,7 @@ watchEffect(async () => {
         });
       });
     });
-    /*  console.log("content", content.value);  */
+/*     console.log("content", content.value); */
   } /* else if (active.value === 1) {
      sendId.value = [];
     content.value = [];
@@ -137,7 +146,7 @@ const showHandler = (index) => {
   } else {
     show.value = index;
   }
-  /*  console.log(show.value); */
+/*   console.log(show.value); */
 };
 
 const changeTime = computed(() => {
@@ -167,13 +176,24 @@ const changeTime = computed(() => {
   height: 20vw;
 }
 
+.msgWrapper {
+  display: flex;
+  flex-direction: row;
+  overflow: auto;
+  padding-right:10vw;
+  padding-bottom: 5vw;
+}
+
 .card {
   width: 45vw;
-  margin-top: 5vw;
-  margin-left: 28vw;
+  margin-top: 6vw;
+  margin-left: 10vw; 
   border-radius: 3vw;
   overflow: hidden;
 }
+
+
+
 
 .fromUserPic {
   width: 20vw;
@@ -198,13 +218,23 @@ const changeTime = computed(() => {
   display: flex;
   flex-direction: column;
   align-items: center;
+  margin-left: 2.5vw;
 }
+
+
 
 .chatDesc {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   align-items: center;
   padding: 3vw;
+}
+
+.brief{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-bottom: 3vw;
 }
 
 .chatLog {
