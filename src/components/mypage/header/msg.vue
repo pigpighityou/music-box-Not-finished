@@ -83,6 +83,7 @@ import { showToast } from "vant";
 import { getMsg } from "@/axios/routes/message.js";
 import { getNotice } from "@/axios/routes/message.js";
 import { getMsgContent } from "@/axios/routes/message.js";
+import { transformDateDetail } from "@/lib/transformTime.js";
 
 const onClickLeft = () => history.back();
 const active = ref(0);
@@ -119,7 +120,7 @@ watchEffect(async () => {
         });
       });
     });
-/*     console.log("content", content.value); */
+    /*     console.log("content", content.value); */
   } /* else if (active.value === 1) {
      sendId.value = [];
     content.value = [];
@@ -146,7 +147,7 @@ const showHandler = (index) => {
   } else {
     show.value = index;
   }
-/*   console.log(show.value); */
+  /*   console.log(show.value); */
 };
 
 const changeTime = computed(() => {
@@ -154,14 +155,11 @@ const changeTime = computed(() => {
   // 给计算属性函数传参数实际上是给里面的函数传参数
   const formatTime = (param) => {
     let time = new Date(param);
-    let year = time.getFullYear();
-    let month = time.getMonth() + 1;
-    let day = time.getDate();
-    let hour = time.getHours();
-    let minute = time.getMinutes();
-    /*  console.log(year, month, day, hour, minute); */
-    return `${year}-${month}-${day} ${hour}:${minute}`;
+    // 这里需要return结果
+    return transformDateDetail(time);
+  
   };
+  // 一定要return结果
   return formatTime;
 });
 </script>
@@ -180,20 +178,17 @@ const changeTime = computed(() => {
   display: flex;
   flex-direction: row;
   overflow: auto;
-  padding-right:10vw;
+  padding-right: 10vw;
   padding-bottom: 5vw;
 }
 
 .card {
   width: 45vw;
   margin-top: 6vw;
-  margin-left: 10vw; 
+  margin-left: 10vw;
   border-radius: 3vw;
   overflow: hidden;
 }
-
-
-
 
 .fromUserPic {
   width: 20vw;
@@ -221,8 +216,6 @@ const changeTime = computed(() => {
   margin-left: 2.5vw;
 }
 
-
-
 .chatDesc {
   display: flex;
   flex-direction: column;
@@ -230,7 +223,7 @@ const changeTime = computed(() => {
   padding: 3vw;
 }
 
-.brief{
+.brief {
   display: flex;
   flex-direction: row;
   align-items: center;
