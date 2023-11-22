@@ -1,6 +1,6 @@
 <template>
   <van-nav-bar
-    title="最近播放"
+    title="最近播放(仅限网易云app)"
     left-text="返回"
     left-arrow
     @click-left="onClickLeft"
